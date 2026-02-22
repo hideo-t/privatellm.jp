@@ -6,7 +6,8 @@
 <title>PrivateLLM構築士 | プライベートAI推進協会（PAPA）</title>
 <meta name="description" content="日本初・プライベートLLM（社内AI）の専門資格。PrivateLLM構築士3級〜1級・認定講師。情報漏洩ゼロの社内AI構築スキルを証明する唯一の資格。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Syne:wght@400;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Barlow:ital,wght@0,400;0,700;0,800;1,400&family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --navy: #0A1628;
@@ -25,7 +26,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--navy);
   color: var(--white);
-  font-family: 'Noto Serif JP', serif;
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
   overflow-x: hidden;
 }
 
@@ -39,14 +40,14 @@ nav {
   border-bottom: 1px solid rgba(0,200,224,0.15);
 }
 .nav-logo {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-weight: 800; font-size: 1.15rem;
   color: var(--cyan); letter-spacing: 0.05em;
 }
 .nav-logo span { color: var(--white); }
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
 .nav-links a {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: 0.88rem; color: var(--gray);
   text-decoration: none; letter-spacing: 0.08em;
   transition: color 0.2s;
@@ -54,7 +55,7 @@ nav {
 .nav-links a:hover { color: var(--cyan); }
 .nav-btn {
   background: var(--cyan); color: var(--navy);
-  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif; font-weight: 700;
   font-size: 0.85rem; padding: 0.55rem 1.4rem;
   border: none; border-radius: 4px; cursor: pointer;
   letter-spacing: 0.06em; transition: transform 0.2s, opacity 0.2s;
@@ -94,7 +95,7 @@ nav {
   border: 1px solid rgba(0,200,224,0.3);
   border-radius: 100px;
   padding: 0.4rem 1rem;
-  font-family: 'Space Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.78rem; color: var(--cyan);
   letter-spacing: 0.1em; margin-bottom: 2rem;
   animation: fadeUp 0.8s ease both;
@@ -109,7 +110,7 @@ nav {
   50% { opacity: 0.4; transform: scale(0.7); }
 }
 .hero h1 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 800; line-height: 1.05;
   letter-spacing: -0.02em;
@@ -131,7 +132,7 @@ nav {
 }
 .btn-primary {
   background: var(--cyan); color: var(--navy);
-  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif; font-weight: 700;
   font-size: 1rem; padding: 1rem 2.2rem;
   border: none; border-radius: 6px; cursor: pointer;
   letter-spacing: 0.04em; text-decoration: none;
@@ -144,7 +145,7 @@ nav {
 }
 .btn-outline {
   background: transparent; color: var(--white);
-  font-family: 'Syne', sans-serif; font-weight: 600;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif; font-weight: 600;
   font-size: 1rem; padding: 1rem 2.2rem;
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 6px; cursor: pointer;
@@ -160,7 +161,7 @@ nav {
 }
 .stat-item {}
 .stat-num {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: 2.2rem; font-weight: 800;
   color: var(--cyan); display: block;
 }
@@ -180,13 +181,13 @@ nav {
   max-width: 1200px; margin: 0 auto;
 }
 .section-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.75rem; color: var(--cyan);
   letter-spacing: 0.2em; text-transform: uppercase;
   margin-bottom: 1rem;
 }
 .section-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
   font-weight: 800; line-height: 1.2;
   margin-bottom: 1.2rem;
@@ -219,7 +220,7 @@ nav {
   font-size: 2rem; margin-bottom: 1rem;
 }
 .problem-card h3 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: 1.1rem; font-weight: 700;
   margin-bottom: 0.7rem; color: var(--white);
 }
@@ -253,7 +254,7 @@ nav {
 }
 .grade-tag {
   display: inline-block;
-  font-family: 'Space Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.72rem; letter-spacing: 0.12em;
   background: rgba(0,200,224,0.15);
   color: var(--cyan); border-radius: 100px;
@@ -263,7 +264,7 @@ nav {
   background: var(--cyan); color: var(--navy);
 }
 .grade-num {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: 3rem; font-weight: 800;
   line-height: 1; margin-bottom: 0.3rem;
 }
@@ -276,7 +277,7 @@ nav {
   color: #7A8899; margin-bottom: 1.5rem;
 }
 .grade-price {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: 1.4rem; font-weight: 700;
   color: var(--white);
 }
@@ -298,13 +299,13 @@ nav {
 }
 .syllabus-item:hover { border-color: rgba(0,200,224,0.25); }
 .syllabus-num {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: 2rem; font-weight: 800;
   color: rgba(0,200,224,0.2);
   line-height: 1; flex-shrink: 0; width: 2.5rem;
 }
 .syllabus-text h4 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: 1rem; font-weight: 700;
   margin-bottom: 0.4rem;
 }
@@ -312,7 +313,7 @@ nav {
   font-size: 0.85rem; color: var(--gray); line-height: 1.65;
 }
 .syllabus-pct {
-  font-family: 'Space Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.75rem; color: var(--cyan);
   margin-top: 0.5rem;
 }
@@ -332,7 +333,7 @@ nav {
   flex-shrink: 0; margin-top: 0.4rem;
 }
 .why-item h4 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: 1.05rem; font-weight: 700;
   margin-bottom: 0.3rem;
 }
@@ -361,7 +362,7 @@ nav {
   transition: width 1s ease;
 }
 .market-val {
-  font-family: 'Space Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.82rem; color: var(--cyan); white-space: nowrap;
 }
 
@@ -373,7 +374,7 @@ nav {
 }
 .cta-inner { max-width: 700px; margin: 0 auto; }
 .cta-inner h2 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
   font-weight: 800; margin-bottom: 1.2rem;
 }
@@ -392,7 +393,7 @@ footer {
   flex-wrap: wrap; gap: 1rem;
 }
 .footer-logo {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
   font-weight: 800; font-size: 1rem;
   color: var(--cyan);
 }
