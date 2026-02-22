@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI基本検定 模擬試験 | privatellm.jp</title>
+<meta name="description" content="AI基本検定の本番形式模擬試験。20問・30分・自動採点。合格基準70%（14問）。無料。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Barlow:wght@400;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1628;--blue:#1246AA;--cyan:#00C8E0;--gold:#E8B84B;--green:#06C755;--red:#E03030;--white:#F5F7FA;--gray:#8892A4;--card:#111D35;--accent:#3B82F6;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-serif;min-height:100vh;}
+.header{background:rgba(10,22,40,0.95);border-bottom:1px solid rgba(59,130,246,0.2);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+.logo{font-family:'Barlow',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);text-decoration:none;}
+.logo span{color:var(--white);}
+.timer-wrap{display:flex;align-items:center;gap:0.8rem;}
+.timer-label{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--gray);}
+.timer{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;color:var(--accent);min-width:60px;text-align:right;}
+.timer.warning{color:var(--gold);}
+.timer.danger{color:var(--red);animation:blink 1s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.progress-bar-wrap{flex:1;max-width:160px;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:3px;transition:width 0.3s;}
+.screen{display:none;padding:2rem;}
+.screen.active{display:block;}
+.start-inner{max-width:640px;margin:0 auto;text-align:center;padding:3rem 1rem;}
+.start-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:100px;padding:0.4rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:1.5rem;}
+.start-inner h1{font-family:'Barlow',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1;margin-bottom:0.8rem;}
+.start-inner h1 em{font-style:normal;color:var(--accent);}
+.start-inner p{color:var(--gray);font-size:0.95rem;line-height:1.9;margin-bottom:2rem;}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:2rem 0;text-align:left;}
+.info-card{background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:1.2rem;}
+.info-label{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.4rem;}
+.info-val{font-family:'Barlow',sans-serif;font-weight:700;font-size:1.3rem;color:var(--white);}
+.info-sub{font-size:0.8rem;color:var(--gray);margin-top:0.2rem;}
+.btn-start{background:var(--accent);color:var(--white);font-family:'Barlow',sans-serif;font-weight:800;font-size:1.1rem;padding:1rem 3rem;border:none;border-radius:8px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;width:100%;max-width:400px;}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(59,130,246,0.35);}
+.exam-inner{max-width:760px;margin:0 auto;}
+.q-nav{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:2rem;background:var(--card);border-radius:10px;padding:1rem;}
+.q-nav-label{width:100%;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--gray);letter-spacing:0.1em;margin-bottom:0.5rem;}
+.q-dot{width:34px;height:34px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:var(--gray);font-family:'IBM Plex Mono',monospace;font-size:0.75rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.q-dot:hover{border-color:var(--accent);color:var(--accent);}
+.q-dot.answered{background:rgba(59,130,246,0.3);border-color:var(--accent);color:var(--white);}
+.q-dot.current{background:var(--accent);border-color:var(--accent);color:var(--white);font-weight:700;}
+.question-card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2rem;margin-bottom:1.5rem;}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;}
+.q-num{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--accent);}
+.q-category{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;background:rgba(59,130,246,0.15);color:#7AABFF;border:1px solid rgba(59,130,246,0.3);border-radius:100px;padding:0.2rem 0.7rem;}
+.q-text{font-size:1.05rem;line-height:1.8;color:var(--white);margin-bottom:1.8rem;font-weight:500;}
+.options{display:flex;flex-direction:column;gap:0.8rem;}
+.option{display:flex;align-items:flex-start;gap:1rem;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:1rem 1.2rem;cursor:pointer;transition:all 0.2s;}
+.option:hover{border-color:rgba(59,130,246,0.4);background:rgba(59,130,246,0.05);}
+.option.selected{border-color:var(--accent);background:rgba(59,130,246,0.12);}
+.option-key{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:0.9rem;color:var(--accent);flex-shrink:0;width:20px;}
+.option-text{font-size:0.95rem;line-height:1.7;color:var(--gray);}
+.option.selected .option-text{color:var(--white);}
+.exam-nav{display:flex;gap:1rem;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+.btn-nav{font-family:'Barlow',sans-serif;font-weight:700;font-size:0.95rem;padding:0.8rem 1.8rem;border-radius:8px;cursor:pointer;transition:all 0.2s;border:none;}
+.btn-prev{background:transparent;color:var(--gray);border:1px solid rgba(255,255,255,0.15);}
+.btn-prev:hover{color:var(--white);border-color:var(--white);}
+.btn-next{background:var(--accent);color:var(--white);}
+.btn-next:hover{background:var(--cyan);color:var(--navy);}
+.btn-submit{background:var(--gold);color:var(--navy);}
+.q-count{font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--gray);}
+.result-inner{max-width:680px;margin:0 auto;text-align:center;padding:2rem 1rem;}
+.result-circle{width:170px;height:170px;border-radius:50%;margin:0 auto 2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.result-circle.pass{background:radial-gradient(circle,rgba(59,130,246,0.2),rgba(10,22,40,0.8));border:4px solid var(--accent);box-shadow:0 0 48px rgba(59,130,246,0.3);}
+.result-circle.fail{background:radial-gradient(circle,rgba(224,48,48,0.15),rgba(10,22,40,0.8));border:4px solid var(--red);}
+.result-score{font-family:'Barlow',sans-serif;font-weight:800;font-size:3.5rem;line-height:1;}
+.result-score.pass{color:var(--accent);}
+.result-score.fail{color:var(--red);}
+.result-total{font-size:0.9rem;color:var(--gray);margin-top:0.3rem;}
+.result-verdict{font-family:'Barlow',sans-serif;font-weight:800;font-size:1.8rem;margin-bottom:0.5rem;}
+.result-verdict.pass{color:var(--accent);}
+.result-verdict.fail{color:var(--red);}
+.result-msg{color:var(--gray);font-size:0.95rem;line-height:1.8;margin-bottom:2rem;}
+.result-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0;text-align:left;}
+.breakdown-card{background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:1.2rem;}
+.breakdown-label{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--accent);letter-spacing:0.08em;margin-bottom:0.4rem;}
+.breakdown-val{font-family:'Barlow',sans-serif;font-weight:700;font-size:1.3rem;}
+.breakdown-sub{font-size:0.78rem;color:var(--gray);margin-top:0.2rem;}
+.review-section{text-align:left;margin-top:2.5rem;}
+.review-title{font-family:'Barlow',sans-serif;font-weight:800;font-size:1.2rem;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(59,130,246,0.2);}
+.review-item{background:var(--card);border-radius:10px;padding:1.2rem;margin-bottom:1rem;border-left:3px solid transparent;}
+.review-item.correct{border-left-color:var(--green);}
+.review-item.incorrect{border-left-color:var(--red);}
+.review-q{font-size:0.9rem;line-height:1.7;margin-bottom:0.8rem;}
+.review-answers{font-size:0.82rem;display:flex;flex-direction:column;gap:0.4rem;}
+.review-your{color:var(--red);}
+.review-your.ok{color:var(--green);}
+.review-correct{color:var(--green);}
+.review-explain{font-size:0.82rem;color:var(--gray);margin-top:0.6rem;line-height:1.6;padding:0.6rem;background:rgba(255,255,255,0.03);border-radius:6px;}
+.result-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;}
+.btn-retry{background:var(--accent);color:var(--white);font-family:'Barlow',sans-serif;font-weight:800;font-size:1rem;padding:0.9rem 2rem;border:none;border-radius:8px;cursor:pointer;}
+.btn-line-result{background:#06C755;color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:1rem;padding:0.9rem 2rem;border:none;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;}
+.next-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(232,184,75,0.1);border:1px solid rgba(232,184,75,0.3);border-radius:8px;padding:0.8rem 1.2rem;font-size:0.85rem;color:var(--gold);margin-top:1rem;}
+@media(max-width:600px){
+  .screen{padding:0.8rem;}
+  .info-grid{grid-template-columns:1fr 1fr;}
+  .result-breakdown{grid-template-columns:1fr 1fr;}
+  .q-dot{width:28px;height:28px;font-size:0.68rem;}
+  .question-card{padding:1rem;}
+  .q-text{font-size:0.95rem;}
+  .option{padding:0.75rem 0.9rem;}
+  .exam-nav{flex-direction:column;}
+  .btn-nav{width:100%;text-align:center;}
+  .result-actions{flex-direction:column;}
+  .btn-retry,.btn-line-result{width:100%;justify-content:center;}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <a href="https://privatellm.jp" class="logo">AI<span>基本検定</span></a>
+  <div class="timer-wrap">
+    <div class="progress-bar-wrap" id="progressBar" style="display:none;"><div class="progress-bar" id="progressFill" style="width:0%"></div></div>
+    <span class="timer-label" id="timerLabel" style="display:none;">残り</span>
+    <span class="timer" id="timer" style="display:none;">30:00</span>
+  </div>
+</header>
+
+<div class="screen active" id="screenStart">
+  <div class="start-inner">
+    <div class="start-badge">🎯 模擬試験 — 本番形式・無料</div>
+    <h1>AI基本検定<br><em>模擬試験</em></h1>
+    <p>ローカルAIとクラウドAIの違いを中心に、AIの基礎知識を問います。<br>合格基準は<strong style="color:var(--white)">70%以上（20問中14問正解）</strong>です。</p>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-label">出題数</div><div class="info-val">20問</div><div class="info-sub">4択・全問必答</div></div>
+      <div class="info-card"><div class="info-label">制限時間</div><div class="info-val">30分</div><div class="info-sub">気軽に挑戦できる</div></div>
+      <div class="info-card"><div class="info-label">合格基準</div><div class="info-val">14問以上</div><div class="info-sub">正解率70%以上</div></div>
+      <div class="info-card"><div class="info-label">受験料</div><div class="info-val">¥3,000</div><div class="info-sub">本試験（税込）</div></div>
+    </div>
+    <button class="btn-start" onclick="startExam()">模擬試験を開始する →</button>
+    <p style="margin-top:1rem;font-size:0.82rem;color:#4A5568;">※ 回答はブラウザ内で完結。外部に送信されません。</p>
+  </div>
+</div>
+
+<div class="screen" id="screenExam">
+  <div class="exam-inner">
+    <div class="q-nav" id="qNav"></div>
+    <div class="question-card" id="questionCard"></div>
+    <div class="exam-nav">
+      <button class="btn-nav btn-prev" id="btnPrev" onclick="prevQ()">← 前へ</button>
+      <span class="q-count" id="qCount"></span>
+      <button class="btn-nav btn-next" id="btnNext" onclick="nextQ()">次へ →</button>
+      <button class="btn-nav btn-submit" id="btnSubmit" onclick="confirmSubmit()" style="display:none;">採点する ✓</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screenResult">
+  <div class="result-inner">
+    <div class="result-circle" id="resultCircle">
+      <span class="result-score" id="resultScore"></span>
+      <span class="result-total">/ 20問</span>
+    </div>
+    <div class="result-verdict" id="resultVerdict"></div>
+    <div class="result-msg" id="resultMsg"></div>
+    <div class="result-breakdown">
+      <div class="breakdown-card"><div class="breakdown-label">正解数</div><div class="breakdown-val" id="bdCorrect">—</div><div class="breakdown-sub">問</div></div>
+      <div class="breakdown-card"><div class="breakdown-label">正解率</div><div class="breakdown-val" id="bdRate">—</div><div class="breakdown-sub">（合格：70%）</div></div>
+      <div class="breakdown-card"><div class="breakdown-label">所要時間</div><div class="breakdown-val" id="bdTime">—</div><div class="breakdown-sub">（制限：30分）</div></div>
+    </div>
+    <div id="nextStep"></div>
+    <div class="result-actions">
+      <button class="btn-retry" onclick="retryExam()">もう一度挑戦する</button>
+      <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="btn-line-result">🟢 本試験の通知を受け取る</a>
+    </div>
+    <div class="review-section">
+      <div class="review-title">📋 解答・解説</div>
+      <div id="reviewList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {cat:"AI基礎",q:"AIの正式名称として正しいものはどれか。",opts:["Automatic Intelligence","Artificial Intelligence","Advanced Information","Applied Innovation"],ans:1,exp:"AIはArtificial Intelligence（人工知能）の略称です。人間の知的活動をコンピュータで再現する技術の総称です。"},
+  {cat:"AI基礎",q:"生成AIの説明として最も適切なものはどれか。",opts:["データを分類するだけのAI","文章・画像・音声などの新しいコンテンツを生成できるAI","ゲームだけで使われるAI","ロボットを動かすためだけのAI"],ans:1,exp:"生成AIはテキスト・画像・音声・動画などの新しいコンテンツを生成できるAIです。ChatGPT・Midjourney・Soraなどが代表例です。"},
+  {cat:"AI基礎",q:"LLMの正式名称として正しいものはどれか。",opts:["Large Learning Machine","Large Language Model","Local Language Module","Linear Learning Method"],ans:1,exp:"LLMはLarge Language Model（大規模言語モデル）の略称です。膨大なテキストデータで学習した、文章生成を得意とするAIモデルです。"},
+  {cat:"AI基礎",q:"ハルシネーション（幻覚）の説明として正しいものはどれか。",opts:["AIが感情を持つ現象","AIが事実でない情報を自信満々に生成してしまう現象","AIが過熱してフリーズする現象","AIが外部ネットワークに接続する現象"],ans:1,exp:"ハルシネーションはAIが存在しない情報や誤った事実を確信を持って生成してしまう現象です。重要な情報は必ず人間が確認することが大切です。"},
+  {cat:"AI基礎",q:"機械学習・深層学習・生成AIの関係として正しいものはどれか。",opts:["すべて同じ技術","生成AI ⊃ 深層学習 ⊃ 機械学習（生成AIが最も広い）","機械学習 ⊃ 深層学習 ⊃ 生成AI（機械学習が最も広い）","互いに無関係な技術"],ans:2,exp:"機械学習が最も広い概念で、深層学習はその一部、生成AIは深層学習を活用した応用技術です。AI > 機械学習 > 深層学習 > 生成AIという包含関係になっています。"},
+  {cat:"ローカルvsクラウド",q:"クラウドAIの最大のリスクとして最も適切なものはどれか。",opts:["処理速度が遅い","入力データが外部サーバーに送信される情報漏洩リスク","使える機能が少ない","画面が見づらい"],ans:1,exp:"クラウドAIに入力したデータは外部のサーバーに送信されます。機密情報・個人情報・営業秘密などが漏洩するリスクがあります。"},
+  {cat:"ローカルvsクラウド",q:"ローカルAI（プライベートLLM）の最大のメリットはどれか。",opts:["常に最新モデルが使える","データが外部に送信されず社内で完結する","設定が一切不要","無料で使える"],ans:1,exp:"ローカルAIは自社のサーバーやPCで動作するため、入力データが外部に送信されません。これにより情報漏洩リスクをほぼゼロにできます。"},
+  {cat:"ローカルvsクラウド",q:"クラウドAIのコスト特性として正しいものはどれか。",opts:["固定費のみ","完全無料","従量課金制で利用量が増えるほどコストが増大する","初期費用のみ"],ans:2,exp:"クラウドAIは従量課金制（使った分だけ課金）が多く、企業で大量利用すると月数十〜数百万円になるケースがあります。"},
+  {cat:"ローカルvsクラウド",q:"ローカルAIがインターネット接続なしで動作できる理由はどれか。",opts:["衛星通信を使っているから","すべての処理がローカルマシン上で完結するから","クラウドにキャッシュがあるから","Wi-Fiが自動接続されているから"],ans:1,exp:"ローカルAIはモデルファイルと計算処理がすべて手元のコンピュータで完結するため、インターネット接続が不要です。通信障害の影響も受けません。"},
+  {cat:"ローカルvsクラウド",q:"次のうち、ローカルAIが最も向いているユースケースはどれか。",opts:["旅行先の観光情報を調べたい","患者情報を含む医療文書の作成を自動化したい","友人に絵文字を送りたい","天気予報を確認したい"],ans:1,exp:"患者情報は個人情報保護法で厳格に管理が求められます。外部送信リスクのないローカルAIが最適です。クラウドAIへの入力は情報漏洩リスクがあります。"},
+  {cat:"ローカルvsクラウド",q:"ローカルAIの導入コスト特性として正しいものはどれか。",opts:["完全無料","初期のGPU購入費はかかるが継続的なAPI費用は発生しない","毎月の利用料金が膨らむ","国への許可申請費用がかかる"],ans:1,exp:"ローカルAIは初期のGPU等ハードウェア購入費がかかりますが、その後のランニングコストは電気代・保守費程度です。クラウドAPIのような継続課金は発生しません。"},
+  {cat:"クラウドAI比較",q:"ChatGPTを開発している企業はどれか。",opts:["Google","Microsoft","OpenAI","Meta"],ans:2,exp:"ChatGPTはOpenAI社が開発した生成AIチャットサービスです。MicrosoftはOpenAIの主要投資家であり、BingやCopilotにGPT技術を採用しています。"},
+  {cat:"クラウドAI比較",q:"Claudeを開発している企業はどれか。",opts:["OpenAI","Anthropic","Google","Amazon"],ans:1,exp:"ClaudeはAnthropicが開発した生成AIです。安全性を重視した設計が特徴で、Constitutional AIという独自の安全フレームワークを採用しています。"},
+  {cat:"クラウドAI比較",q:"GeminiはどのGoogle製品と連携が強いか。",opts:["Google Chrome","Google Workspace（Gmail・Docs・Sheets等）","Google Maps","Google Chrome OS"],ans:1,exp:"GeminiはGoogle Workspace（Gmail・Google Docs・Google Sheets等）との統合が進んでおり、ビジネス向けに強力な連携機能を提供しています。"},
+  {cat:"クラウドAI比較",q:"Microsoft CopilotはどのソフトウェアのAI機能として提供されているか。",opts:["Adobe製品","Microsoft 365（Word・Excel・Teams等）","Apple製品","Google Workspace"],ans:1,exp:"Microsoft CopilotはWord・Excel・PowerPoint・Teams・Outlookなど、Microsoft 365製品群に統合されたAI機能として提供されています。"},
+  {cat:"ビジネス活用",q:"プロンプトエンジニアリングの説明として正しいものはどれか。",opts:["AIのハードウェアを設計すること","AIから望む回答を引き出すための指示文の書き方・技術","AIのプログラムを修正すること","AIサーバーを管理すること"],ans:1,exp:"プロンプトエンジニアリングとは、AIに望む回答を引き出すための指示文（プロンプト）の書き方・設計技術のことです。「良い質問の仕方」とも言えます。"},
+  {cat:"ビジネス活用",q:"AIを業務で利用する際、入力してはいけない情報として最も適切なものはどれか。",opts:["公開されているニュース記事","顧客の個人情報・機密の社内データ","一般的な料理レシピ","公開されている歴史的事実"],ans:1,exp:"顧客の個人情報や社内機密データをクラウドAIに入力すると、情報漏洩リスクがあります。入力前に「この情報を外部に送っていいか」を必ず確認しましょう。"},
+  {cat:"ビジネス活用",q:"AIが生成したコンテンツの著作権に関する説明として現時点で最も適切なものはどれか。",opts:["AIが生成したものはすべて著作権フリーで自由に使える","著作権の扱いは法整備途上であり、利用には注意が必要","AIが生成したものは自動的に会社の著作物になる","AIが生成したものはOpenAIの著作物になる"],ans:1,exp:"AI生成コンテンツの著作権は世界的に法整備が追いついていない分野です。元の学習データとの類似性や各国の法律を考慮し、商用利用には注意が必要です。"},
+  {cat:"ビジネス活用",q:"AIの回答を業務で活用する際の最も適切な姿勢はどれか。",opts:["AIの回答をそのまま全て信頼して使用する","AIの回答を参考にしながら人間が必ず内容を確認・判断する","AIの回答は使わない","AIの回答に反論し続ける"],ans:1,exp:"AIはハルシネーション（誤情報の生成）を起こすことがあります。特に重要な業務判断・事実確認においては、人間が必ずファクトチェックを行うことが重要です。"},
+  {cat:"ビジネス活用",q:"「ローカルAIとクラウドAIを用途に応じて使い分ける」場合、最も合理的な判断基準はどれか。",opts:["クラウドAIは常に悪いので使わない","機密情報はローカルAI、公開情報の調査はクラウドAIと使い分ける","ローカルAIは常に悪いので使わない","どちらも同じなので考えなくてよい"],ans:1,exp:"ベストプラクティスは「機密情報・個人情報を扱う業務はローカルAI、一般的な情報収集・アイデア出しにはクラウドAI」というように用途別に使い分けることです。"},
+];
+
+let currentQ=0, answers=new Array(20).fill(null), startTime=null, timerInterval=null, timeLeft=30*60;
+
+function startExam(){
+  document.getElementById('screenStart').classList.remove('active');
+  document.getElementById('screenExam').classList.add('active');
+  document.getElementById('progressBar').style.display='flex';
+  document.getElementById('timerLabel').style.display='inline';
+  document.getElementById('timer').style.display='inline';
+  startTime=Date.now(); buildNav(); renderQuestion(); startTimer();
+}
+function startTimer(){
+  timerInterval=setInterval(()=>{
+    timeLeft--;updateTimerDisplay();
+    if(timeLeft<=0){clearInterval(timerInterval);submitExam();}
+  },1000);
+}
+function updateTimerDisplay(){
+  const m=Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s=(timeLeft%60).toString().padStart(2,'0');
+  const el=document.getElementById('timer');
+  el.textContent=`${m}:${s}`;
+  el.className='timer';
+  if(timeLeft<=120)el.classList.add('danger');
+  else if(timeLeft<=300)el.classList.add('warning');
+}
+function buildNav(){
+  let html='<div class="q-nav-label">問題一覧</div>';
+  for(let i=0;i<20;i++) html+=`<button class="q-dot" id="dot${i}" onclick="jumpTo(${i})">${i+1}</button>`;
+  document.getElementById('qNav').innerHTML=html;
+}
+function updateNav(){
+  for(let i=0;i<20;i++){
+    const d=document.getElementById(`dot${i}`);
+    d.className='q-dot';
+    if(i===currentQ)d.classList.add('current');
+    else if(answers[i]!==null)d.classList.add('answered');
+  }
+  document.getElementById('progressFill').style.width=`${(answers.filter(a=>a!==null).length/20)*100}%`;
+}
+function renderQuestion(){
+  const q=QUESTIONS[currentQ]; const s=answers[currentQ];
+  const keys=['A','B','C','D'];
+  let opts='';
+  q.opts.forEach((o,i)=>{opts+=`<div class="option${s===i?' selected':''}" onclick="selectAnswer(${i})"><span class="option-key">${keys[i]}</span><span class="option-text">${o}</span></div>`;});
+  document.getElementById('questionCard').innerHTML=`<div class="q-meta"><span class="q-num">問題 ${currentQ+1} / 20</span><span class="q-category">${q.cat}</span></div><div class="q-text">${q.q}</div><div class="options">${opts}</div>`;
+  document.getElementById('qCount').textContent=`${answers.filter(a=>a!==null).length} / 20 問回答済み`;
+  const last=currentQ===19;
+  document.getElementById('btnNext').style.display=last?'none':'inline-block';
+  document.getElementById('btnSubmit').style.display=last?'inline-block':'none';
+  document.getElementById('btnPrev').disabled=currentQ===0;
+  updateNav();
+}
+function selectAnswer(i){answers[currentQ]=i;renderQuestion();}
+function nextQ(){if(currentQ<19){currentQ++;renderQuestion();}}
+function prevQ(){if(currentQ>0){currentQ--;renderQuestion();}}
+function jumpTo(i){currentQ=i;renderQuestion();}
+function confirmSubmit(){
+  const u=answers.filter(a=>a===null).length;
+  if(u>0&&!confirm(`${u}問が未回答です。このまま提出しますか？`))return;
+  submitExam();
+}
+function submitExam(){
+  clearInterval(timerInterval);
+  const elapsed=Math.floor((Date.now()-startTime)/1000);
+  const em=Math.floor(elapsed/60).toString().padStart(2,'0');
+  const es=(elapsed%60).toString().padStart(2,'0');
+  let correct=0;
+  QUESTIONS.forEach((q,i)=>{if(answers[i]===q.ans)correct++;});
+  const rate=Math.round((correct/20)*100);
+  const pass=correct>=14;
+  document.getElementById('screenExam').classList.remove('active');
+  document.getElementById('screenResult').classList.add('active');
+  document.getElementById('timer').style.display='none';
+  document.getElementById('timerLabel').style.display='none';
+  document.getElementById('progressBar').style.display='none';
+  const circle=document.getElementById('resultCircle');
+  circle.className=`result-circle ${pass?'pass':'fail'}`;
+  const sc=document.getElementById('resultScore');
+  sc.className=`result-score ${pass?'pass':'fail'}`;
+  sc.textContent=correct;
+  const v=document.getElementById('resultVerdict');
+  v.className=`result-verdict ${pass?'pass':'fail'}`;
+  v.textContent=pass?'✅ 合格':'❌ 不合格';
+  document.getElementById('resultMsg').textContent=pass
+    ?`おめでとうございます！次はChatGPT活用初級またはPrivateLLM構築士3級に挑戦しましょう。`
+    :`あと${14-correct}問正解で合格です。解説を読んで復習し、もう一度挑戦しましょう！`;
+  document.getElementById('bdCorrect').textContent=correct;
+  document.getElementById('bdRate').textContent=`${rate}%`;
+  document.getElementById('bdTime').textContent=`${em}:${es}`;
+  if(pass){
+    document.getElementById('nextStep').innerHTML=`<div class="next-badge">🎯 次のステップ：<a href="exam-chatgpt.html" style="color:var(--gold);font-weight:700;">ChatGPT活用初級</a> または <a href="exam-level3.html" style="color:var(--cyan);font-weight:700;">PrivateLLM構築士3級</a> に挑戦！</div>`;
+  }
+  const keys=['A','B','C','D'];
+  let html='';
+  QUESTIONS.forEach((q,i)=>{
+    const u=answers[i]; const ok=u===q.ans;
+    html+=`<div class="review-item ${ok?'correct':'incorrect'}"><div class="review-q"><strong>Q${i+1}.</strong> ${q.q}</div><div class="review-answers"><div class="review-your ${ok?'ok':''}">あなたの回答：${u!==null?keys[u]+'．'+q.opts[u]:'未回答'} ${ok?'✅':'❌'}</div>${!ok?`<div class="review-correct">正解：${keys[q.ans]}．${q.opts[q.ans]}</div>`:''}</div><div class="review-explain">💡 ${q.exp}</div></div>`;
+  });
+  document.getElementById('reviewList').innerHTML=html;
+  window.scrollTo(0,0);
+}
+function retryExam(){
+  answers=new Array(20).fill(null);currentQ=0;timeLeft=30*60;
+  document.getElementById('screenResult').classList.remove('active');
+  document.getElementById('screenExam').classList.add('active');
+  document.getElementById('timer').style.display='inline';
+  document.getElementById('timerLabel').style.display='inline';
+  document.getElementById('progressBar').style.display='flex';
+  buildNav();renderQuestion();startTimer();
+}
+</script>
+</body>
+</html>
