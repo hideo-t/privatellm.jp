@@ -120,9 +120,50 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
 .review-explain{font-size:0.82rem;color:var(--gray);margin-top:0.6rem;line-height:1.6;padding:0.6rem;background:rgba(255,255,255,0.03);border-radius:6px;}
 
 .result-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;}
-.btn-retry{background:var(--cyan);color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:1rem;padding:0.9rem 2rem;border:none;border-radius:8px;cursor:pointer;transition:all 0.2s;}
-.btn-retry:hover{transform:translateY(-2px);}
+.btn-retry{background:transparent;color:var(--gray);font-family:'Barlow',sans-serif;font-weight:700;font-size:0.95rem;padding:0.8rem 1.8rem;border:1px solid rgba(255,255,255,0.15);border-radius:8px;cursor:pointer;transition:all 0.2s;}
+.btn-retry:hover{color:var(--white);border-color:var(--white);}
 .btn-line-result{background:#06C755;color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:1rem;padding:0.9rem 2rem;border:none;border-radius:8px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;}
+
+/* CERT PREVIEW SECTION */
+.cert-section{background:var(--card);border:1px solid rgba(232,184,75,0.3);border-radius:16px;padding:2rem;margin:2rem 0;text-align:center;}
+.cert-section-label{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:0.8rem;}
+.cert-section h3{font-family:'Barlow',sans-serif;font-weight:800;font-size:1.3rem;color:var(--white);margin-bottom:0.4rem;}
+.cert-section p{font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;line-height:1.7;}
+.cert-id-display{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:600;color:var(--gold);background:rgba(232,184,75,0.08);border:1px solid rgba(232,184,75,0.25);border-radius:8px;padding:0.8rem 1.5rem;display:inline-block;letter-spacing:0.1em;margin-bottom:1.5rem;cursor:pointer;transition:all 0.2s;position:relative;}
+.cert-id-display:hover{background:rgba(232,184,75,0.15);}
+.cert-id-copied{font-size:0.72rem;color:var(--green);position:absolute;top:-22px;left:50%;transform:translateX(-50%);opacity:0;transition:opacity 0.3s;white-space:nowrap;}
+.cert-id-copied.show{opacity:1;}
+
+/* Blurred cert preview */
+.cert-blur-wrap{position:relative;display:inline-block;width:100%;max-width:500px;margin:0 auto 1.5rem;}
+.cert-blur-inner{filter:blur(5px);pointer-events:none;user-select:none;-webkit-user-select:none;}
+.cert-blur-inner *{pointer-events:none;}
+.cert-blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem;background:rgba(10,22,40,0.45);backdrop-filter:blur(2px);}
+.cert-blur-badge{font-family:'Barlow',sans-serif;font-weight:800;font-size:1rem;color:var(--white);background:rgba(232,184,75,0.9);color:var(--navy);border-radius:100px;padding:0.4rem 1.2rem;letter-spacing:0.05em;}
+.cert-blur-sub{font-size:0.8rem;color:rgba(255,255,255,0.8);}
+
+/* Mini cert (for preview in exam) */
+.mini-cert{width:100%;aspect-ratio:1.414;background:linear-gradient(135deg,#FBF8F0,#F5EFE0);border-radius:6px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+.mini-cert-header{background:linear-gradient(135deg,#0A1628,#1246AA);height:18%;display:flex;align-items:center;justify-content:space-between;padding:0 6%;}
+.mini-cert-header-text{font-family:'Cinzel',serif;font-size:clamp(5px,1.2vw,8px);color:rgba(255,255,255,0.7);letter-spacing:0.1em;}
+.mini-cert-header-logo{font-family:'Cinzel',serif;font-size:clamp(5px,1.5vw,10px);color:#E8C97A;font-weight:700;}
+.mini-cert-gold-line{height:2px;background:linear-gradient(90deg,transparent,#C9A84C,#E8C97A,#C9A84C,transparent);}
+.mini-cert-body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3% 5%;height:64%;}
+.mini-cert-label{font-family:'Cinzel',serif;font-size:clamp(4px,0.9vw,6px);letter-spacing:0.3em;color:#8B6914;margin-bottom:2%;}
+.mini-cert-name{font-family:'Noto Serif JP',serif;font-size:clamp(10px,3vw,20px);font-weight:700;color:#0A1628;letter-spacing:0.05em;}
+.mini-cert-grade{background:linear-gradient(135deg,#0A1628,#1246AA);border:1px solid #C9A84C;border-radius:3px;padding:2% 5%;margin-top:2%;}
+.mini-cert-grade-name{font-family:'Cinzel',serif;font-size:clamp(5px,1.2vw,8px);color:#E8C97A;letter-spacing:0.05em;text-align:center;}
+.mini-cert-grade-ja{font-family:'Noto Serif JP',serif;font-size:clamp(4px,1vw,7px);color:rgba(255,255,255,0.7);text-align:center;margin-top:1px;}
+.mini-cert-bottom{height:18%;display:flex;align-items:center;justify-content:space-between;padding:0 6%;border-top:1px solid rgba(201,168,76,0.2);}
+.mini-cert-id{font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.9vw,6px);color:#6B7280;}
+.mini-cert-seal{width:clamp(20px,5vw,36px);height:clamp(20px,5vw,36px);border-radius:50%;background:linear-gradient(135deg,#0A1628,#1246AA);border:1px solid #C9A84C;display:flex;align-items:center;justify-content:center;}
+.mini-cert-seal-text{font-family:'Cinzel',serif;font-size:clamp(3px,0.7vw,5px);color:#E8C97A;text-align:center;line-height:1.3;}
+.mini-cert-qr{width:clamp(18px,4vw,28px);height:clamp(18px,4vw,28px);background:white;display:flex;align-items:center;justify-content:center;font-size:clamp(10px,2.5vw,18px);}
+
+.btn-stripe{background:linear-gradient(135deg,#8B6914,#C9A84C,#E8C97A);color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:1.1rem;padding:1rem 2.5rem;border:none;border-radius:10px;cursor:pointer;transition:all 0.2s;width:100%;max-width:420px;letter-spacing:0.03em;box-shadow:0 4px 20px rgba(201,168,76,0.3);}
+.btn-stripe:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.4);}
+.stripe-note{font-size:0.75rem;color:var(--gray);margin-top:0.5rem;}
+.stripe-note a{color:var(--gold);text-decoration:none;}
 
 @media(max-width:600px){
   .screen{padding:0.8rem;}
@@ -258,11 +299,61 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
         <div class="breakdown-sub">（制限：60分）</div>
       </div>
     </div>
+    <!-- CERT SECTION (pass only) -->
+    <div class="cert-section" id="certSection" style="display:none;">
+      <div class="cert-section-label">CERTIFICATE ISSUED</div>
+      <h3>🏆 認定証番号が発行されました</h3>
+      <p>以下の認定証番号を発行しました。<br>決済完了後、認定証発行サイトで番号・氏名・生年月日を入力して認定証を受け取ってください。</p>
+      <div class="cert-id-display" id="certIdDisplay" onclick="copyCertId()">
+        <span class="cert-id-copied" id="copiedMsg">コピーしました！</span>
+        <span id="certIdText">PAPA-3-2026-0001</span>
+      </div>
+      <div style="font-size:0.78rem;color:var(--gray);margin-bottom:1.5rem;">↑ タップでコピー</div>
+      <!-- Blurred cert preview -->
+      <div class="cert-blur-wrap">
+        <div class="cert-blur-inner">
+          <div class="mini-cert">
+            <div class="mini-cert-header">
+              <div>
+                <div class="mini-cert-header-text">PRIVATE AI PROMOTION ASSOCIATION</div>
+                <div class="mini-cert-header-text" style="color:rgba(255,255,255,0.4);font-size:0.7em;">プライベートAI推進協会（PAPA）</div>
+              </div>
+              <div class="mini-cert-header-logo">privatellm.jp</div>
+            </div>
+            <div class="mini-cert-gold-line"></div>
+            <div class="mini-cert-body">
+              <div class="mini-cert-label">CERTIFICATE OF ACHIEVEMENT</div>
+              <div style="font-family:serif;font-size:clamp(5px,1vw,7px);color:#6B7280;margin-bottom:1%;">CERTIFIED HOLDER</div>
+              <div class="mini-cert-name" id="miniName">　　　　</div>
+              <div style="width:40%;height:1px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);margin:2% auto;"></div>
+              <div class="mini-cert-grade">
+                <div class="mini-cert-grade-name">PrivateLLM Architect — Level 3</div>
+                <div class="mini-cert-grade-ja">PrivateLLM構築士 3級</div>
+              </div>
+            </div>
+            <div class="mini-cert-bottom">
+              <div class="mini-cert-id" id="miniId">PAPA-3-2026-0001</div>
+              <div class="mini-cert-seal"><div class="mini-cert-seal-text">PAPA<br>認定</div></div>
+              <div class="mini-cert-qr">⬛</div>
+            </div>
+          </div>
+        </div>
+        <div class="cert-blur-overlay">
+          <div class="cert-blur-badge">決済後に受け取れます</div>
+          <div class="cert-blur-sub">認定証番号をメモしてから決済してください</div>
+        </div>
+      </div>
+      <button class="btn-stripe" onclick="goStripe()">🏆 認定証を発行する — ¥8,000（税込）</button>
+      <div class="stripe-note">
+        Stripe決済 ・ クレジットカード / Apple Pay / Google Pay 対応<br>
+        決済後 → <a href="https://cert.privatellm.jp" target="_blank">cert.privatellm.jp</a> で認定証を受け取り
+      </div>
+    </div>
     <div class="result-actions">
       <button class="btn-retry" onclick="retryExam()">もう一度挑戦する</button>
       <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="btn-line-result">
         <svg width="18" height="18" viewBox="0 0 48 48" fill="currentColor"><path d="M24 4C12.95 4 4 11.9 4 21.5c0 6.6 4.2 12.4 10.5 15.7L12 40l7.2-3.2c1.5.4 3.1.6 4.8.6 11.05 0 20-7.9 20-17.5S35.05 4 24 4z"/></svg>
-        本試験の通知を受け取る
+        LINEで合格通知を受け取る
       </a>
     </div>
     <div class="review-section">
@@ -492,6 +583,63 @@ function submitExam() {
   });
   document.getElementById('reviewList').innerHTML = reviewHTML;
   window.scrollTo(0,0);
+
+  // Show cert section on pass
+  if (pass) {
+    const certId = generateCertId();
+    document.getElementById('certIdText').textContent = certId;
+    document.getElementById('miniId').textContent = certId;
+    document.getElementById('certSection').style.display = 'block';
+    window._certId = certId;
+    window._certScore = correct;
+    // GASに事前登録
+    preRegisterToGAS(certId, "3", correct, questions.length);
+    window._certRate = rate;
+  }
+}
+
+function generateCertId() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const seq = String(Math.floor(Math.random() * 9000) + 1000);
+  return `PAPA-3-${year}-${seq}`;
+}
+
+function copyCertId() {
+  const id = document.getElementById('certIdText').textContent;
+  navigator.clipboard.writeText(id).then(() => {
+    const msg = document.getElementById('copiedMsg');
+    msg.classList.add('show');
+    setTimeout(() => msg.classList.remove('show'), 2000);
+  }).catch(() => {
+    // fallback
+    const el = document.createElement('textarea');
+    el.value = id;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    const msg = document.getElementById('copiedMsg');
+    msg.classList.add('show');
+    setTimeout(() => msg.classList.remove('show'), 2000);
+  });
+}
+
+function goStripe() {
+  const certId = window._certId || document.getElementById('certIdText').textContent;
+  // Stripe payment link - add cert_id as parameter
+  // 本番: https://buy.stripe.com/YOUR_LINK?client_reference_id=CERT_ID
+  const stripeUrl = `https://buy.stripe.com/test_placeholder?client_reference_id=${encodeURIComponent(certId)}`;
+  // Show instruction
+  if (confirm(`認定証番号：${certId}
+
+この番号をメモしてから決済に進んでください。
+
+決済完了後、cert.privatellm.jp で認定証を発行できます。
+
+決済ページに進みますか？`)) {
+    window.open('https://cert.privatellm.jp', '_blank');
+  }
 }
 
 function retryExam() {
@@ -506,6 +654,31 @@ function retryExam() {
   buildNav();
   renderQuestion();
   startTimer();
+}
+</script>
+
+<script>
+// ===== GAS連携 =====
+const GAS_URL = "https://script.google.com/macros/s/AKfycbw_CzhFm5NMSaWNsRVIKNgk3LAEN9h9veaje6x_PxaLwrb1-Kk2gqeDFLzq-IqizjkJ/exec";
+
+async function preRegisterToGAS(certId, gradeCode, score, total) {
+  try {
+    await fetch(GAS_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type": "text/plain"},
+      body: JSON.stringify({
+        action: "preRegister",
+        cert_id: certId,
+        grade_code: gradeCode,
+        score: score,
+        rate: Math.round((score / total) * 100)
+      })
+    });
+    console.log("GAS事前登録:", certId);
+  } catch(e) {
+    console.warn("GAS登録エラー（無視）:", e);
+  }
 }
 </script>
 </body>

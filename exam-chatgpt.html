@@ -275,5 +275,30 @@ function retryExam(){
   buildNav();renderQuestion();startTimer();
 }
 </script>
+
+<script>
+// ===== GAS連携 =====
+const GAS_URL = "https://script.google.com/macros/s/AKfycbw_CzhFm5NMSaWNsRVIKNgk3LAEN9h9veaje6x_PxaLwrb1-Kk2gqeDFLzq-IqizjkJ/exec";
+
+async function preRegisterToGAS(certId, gradeCode, score, total) {
+  try {
+    await fetch(GAS_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type": "text/plain"},
+      body: JSON.stringify({
+        action: "preRegister",
+        cert_id: certId,
+        grade_code: gradeCode,
+        score: score,
+        rate: Math.round((score / total) * 100)
+      })
+    });
+    console.log("GAS事前登録:", certId);
+  } catch(e) {
+    console.warn("GAS登録エラー（無視）:", e);
+  }
+}
+</script>
 </body>
 </html>
