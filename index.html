@@ -447,6 +447,23 @@ footer {
   .syllabus-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
   .hero-stats { gap: 2rem; }
+  /* 事例セクション */
+  .cases-grid { grid-template-columns: 1fr !important; }
+  /* 協会セクション */
+  .about-grid { grid-template-columns: 1fr !important; }
+  /* 団体概要テーブルの幅 */
+  .about-table-label { width: 80px !important; font-size:0.75rem !important; }
+  /* coming banner */
+  .coming-banner { flex-direction: column; }
+  /* ダウンロードボタン */
+  .dl-btns { flex-direction: column; align-items: stretch !important; }
+  .dl-btns a { text-align: center; justify-content: center; }
+}
+@media (max-width: 600px) {
+  .grades-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero-stats { flex-wrap: wrap; }
+  .stat-num { font-size: 1.8rem; }
 }
 </style>
 </head>
@@ -634,7 +651,7 @@ footer {
       </div>
     </div>
   </div>
-  <div style="margin-top:2.5rem; text-align:center;">
+  <div class="dl-btns" style="margin-top:2.5rem; text-align:center; display:flex; flex-direction:column; align-items:center; gap:1rem;">
     <a href="syllabus-level3-v1.pdf" download class="btn-primary" style="display:inline-flex; align-items:center; gap:0.7rem; font-size:1rem;">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       3級シラバス PDFをダウンロード（無料）
@@ -722,13 +739,13 @@ footer {
 
 
 <!-- CASES -->
-<section style="background:var(--card-bg); border-top:1px solid rgba(0,200,224,0.08); border-bottom:1px solid rgba(0,200,224,0.08); padding:6rem 4rem;">
+<section style="background:var(--card-bg); border-top:1px solid rgba(0,200,224,0.08); border-bottom:1px solid rgba(0,200,224,0.08); padding:4rem clamp(1.5rem, 5vw, 4rem);" >
 <div style="max-width:1200px; margin:0 auto;">
   <div class="section-label">REAL WORLD USE CASES</div>
   <h2 class="section-title">導入・検討<em>事例</em></h2>
   <p style="color:var(--gray); font-size:0.95rem; margin-top:0.5rem;">プライベートAI推進協会が関わる実際のプロジェクト（社名は非公開）</p>
 
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3rem;">
+  <div class="cases-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3rem;">
 
     <!-- A社 -->
     <div style="background:linear-gradient(135deg,rgba(18,70,170,0.15),rgba(10,22,40,0.8)); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:2rem; transition:transform 0.3s; position:relative; overflow:hidden;">
@@ -767,12 +784,12 @@ footer {
 </section>
 
 <!-- ABOUT -->
-<section id="about-papa" style="background: var(--navy); padding: 6rem 4rem; border-top: 1px solid rgba(0,200,224,0.08);">
+<section id="about-papa" style="background: var(--navy); padding: 4rem clamp(1.5rem, 5vw, 4rem); border-top: 1px solid rgba(0,200,224,0.08);">
 <div style="max-width:1200px; margin:0 auto;">
   <div class="section-label">ABOUT PAPA</div>
   <h2 class="section-title">主催団体について</h2>
 
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:3rem; align-items:start;">
+  <div class="about-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:3rem; align-items:start;">
 
     <!-- Left: 主意書 -->
     <div>
@@ -794,12 +811,12 @@ footer {
       <div style="background:var(--card-bg); border:1px solid rgba(0,200,224,0.15); border-radius:12px; overflow:hidden;">
 
         <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">正式名称</div>
+          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">正式名称</div>
           <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white); line-height:1.6;">プライベートAI推進協会<br><span style="font-size:0.82rem; color:var(--gray);">Private AI Promotion Association（PAPA）</span></div>
         </div>
 
         <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">法人格</div>
+          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">法人格</div>
           <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white); line-height:1.6;">
             一般社団法人として設立準備中
             <div style="display:inline-flex; align-items:center; gap:0.4rem; background:rgba(232,184,75,0.12); border:1px solid rgba(232,184,75,0.3); border-radius:4px; padding:0.2rem 0.6rem; font-size:0.75rem; color:var(--gold); font-family:Space Mono,monospace; margin-top:0.4rem;">設立準備中</div>
@@ -807,17 +824,17 @@ footer {
         </div>
 
         <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">設立</div>
+          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">設立</div>
           <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white);">2026年2月</div>
         </div>
 
         <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">代表</div>
+          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">代表</div>
           <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white);">Hideo Takahasi</div>
         </div>
 
         <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">主要事業</div>
+          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">主要事業</div>
           <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white); line-height:1.8;">
             PrivateLLM構築士 検定試験の企画・運営<br>
             公式テキスト・学習資材の開発・配布<br>
@@ -827,7 +844,7 @@ footer {
         </div>
 
         <div style="display:flex;">
-          <div style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">公式サイト</div>
+          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">公式サイト</div>
           <div style="padding:1rem 1.2rem; font-size:0.92rem;"><a href="https://privatellm.jp" style="color:var(--cyan); text-decoration:none;">privatellm.jp</a></div>
         </div>
 
