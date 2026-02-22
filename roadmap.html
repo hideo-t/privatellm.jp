@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>資格ロードマップ | PrivateLLM構築士</title>
+<meta name="description" content="PrivateLLM構築士3級〜1級・認定講師の全資格ロードマップ。学習時間・前提スキル・取得後のキャリアまで。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Barlow:wght@400;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A1628;
+  --blue: #1246AA;
+  --cyan: #00C8E0;
+  --gold: #E8B84B;
+  --green: #06C755;
+  --white: #F5F7FA;
+  --gray: #8892A4;
+  --card: #111D35;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Noto Sans JP', sans-serif;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+  background: rgba(10,22,40,0.95);
+  border-bottom: 1px solid rgba(0,200,224,0.15);
+  padding: 1.2rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.logo { font-family:'Barlow',sans-serif; font-weight:800; font-size:1.1rem; color:var(--cyan); text-decoration:none; }
+.logo span { color: var(--white); }
+.back-btn {
+  font-family:'IBM Plex Mono',monospace; font-size:0.82rem;
+  color: var(--gray); text-decoration:none;
+  border: 1px solid rgba(255,255,255,0.15); border-radius:4px;
+  padding: 0.4rem 1rem; transition: all 0.2s;
+}
+.back-btn:hover { color:var(--cyan); border-color:var(--cyan); }
+
+/* HERO */
+.hero {
+  padding: 5rem 4rem 3rem;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,200,224,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,224,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.hero-label {
+  font-family:'IBM Plex Mono',monospace; font-size:0.75rem;
+  color:var(--cyan); letter-spacing:0.2em;
+  margin-bottom:1rem; display:block;
+}
+.hero h1 {
+  font-family:'Barlow',sans-serif; font-weight:800;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height:1.1; margin-bottom:1rem;
+}
+.hero h1 em { font-style:normal; color:var(--cyan); }
+.hero p { font-size:1rem; color:var(--gray); line-height:1.9; max-width:600px; margin:0 auto; }
+
+/* OVERVIEW BAR */
+.overview {
+  display: flex; justify-content:center; gap:2rem;
+  flex-wrap:wrap; margin: 3rem auto;
+  max-width: 900px; padding: 0 2rem;
+}
+.ov-item {
+  background: var(--card);
+  border: 1px solid rgba(0,200,224,0.15);
+  border-radius:10px; padding:1.2rem 2rem;
+  text-align:center;
+}
+.ov-num {
+  font-family:'Barlow',sans-serif; font-weight:800;
+  font-size:2rem; color:var(--cyan); display:block;
+}
+.ov-label { font-size:0.8rem; color:var(--gray); }
+
+/* ROADMAP */
+.roadmap {
+  max-width: 1000px; margin: 0 auto;
+  padding: 2rem 4rem 6rem;
+  position: relative;
+}
+
+/* vertical line */
+.roadmap::before {
+  content:'';
+  position:absolute;
+  left: calc(4rem + 36px);
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), var(--blue), rgba(0,200,224,0.1));
+}
+
+.grade-block {
+  display: flex; gap: 2rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+  animation: fadeUp 0.6s ease both;
+}
+.grade-block:nth-child(1) { animation-delay: 0.1s; }
+.grade-block:nth-child(2) { animation-delay: 0.2s; }
+.grade-block:nth-child(3) { animation-delay: 0.3s; }
+.grade-block:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* circle node */
+.grade-node {
+  flex-shrink: 0;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  display: flex; align-items:center; justify-content:center;
+  flex-direction:column;
+  font-family:'Barlow',sans-serif; font-weight:800;
+  position: relative; z-index: 1;
+}
+.grade-node.lv3 { background: linear-gradient(135deg, #1A3A7A, #2255BB); border: 2px solid rgba(0,200,224,0.4); }
+.grade-node.lv2 { background: linear-gradient(135deg, #0E6B7A, #00A8C0); border: 2px solid var(--cyan); }
+.grade-node.lv1 { background: linear-gradient(135deg, #7A5500, #C89000); border: 2px solid var(--gold); }
+.grade-node.lvinst { background: linear-gradient(135deg, #1A6A30, #06C755); border: 2px solid var(--green); }
+.node-num { font-size:1.5rem; line-height:1; }
+.node-label { font-size:0.6rem; letter-spacing:0.05em; opacity:0.8; }
+
+/* card */
+.grade-card {
+  flex: 1;
+  background: var(--card);
+  border-radius: 14px;
+  padding: 1.8rem 2rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.grade-card:hover {
+  border-color: rgba(0,200,224,0.25);
+  transform: translateX(4px);
+}
+.grade-card.featured { border-color: rgba(0,200,224,0.3); }
+.grade-card.gold { border-color: rgba(232,184,75,0.3); }
+.grade-card.green-card { border-color: rgba(6,199,85,0.3); }
+
+.card-top {
+  display:flex; align-items:flex-start;
+  justify-content:space-between; margin-bottom:1.2rem;
+  flex-wrap:wrap; gap:0.8rem;
+}
+.card-title {
+  font-family:'Barlow',sans-serif; font-weight:800;
+  font-size:1.3rem;
+}
+.card-subtitle { font-size:0.85rem; color:var(--gray); margin-top:0.2rem; }
+.card-price {
+  font-family:'Barlow',sans-serif; font-weight:700;
+  font-size:1.1rem; color:var(--white);
+  text-align:right;
+}
+.card-price span { font-size:0.75rem; color:var(--gray); display:block; }
+
+.card-tags {
+  display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.2rem;
+}
+.tag {
+  font-family:'IBM Plex Mono',monospace; font-size:0.7rem;
+  padding:0.25rem 0.7rem; border-radius:100px;
+  letter-spacing:0.05em;
+}
+.tag-blue { background:rgba(18,70,170,0.25); color:#7AABFF; border:1px solid rgba(18,70,170,0.4); }
+.tag-cyan { background:rgba(0,200,224,0.1); color:var(--cyan); border:1px solid rgba(0,200,224,0.3); }
+.tag-gold { background:rgba(232,184,75,0.1); color:var(--gold); border:1px solid rgba(232,184,75,0.3); }
+.tag-green { background:rgba(6,199,85,0.1); color:var(--green); border:1px solid rgba(6,199,85,0.3); }
+
+.card-body {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:1.2rem; font-size:0.88rem;
+}
+.card-section h4 {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.7rem; color:var(--cyan);
+  letter-spacing:0.12em; margin-bottom:0.5rem;
+}
+.card-section ul { list-style:none; }
+.card-section li {
+  color:var(--gray); line-height:1.8;
+  padding-left:1rem; position:relative;
+}
+.card-section li::before {
+  content:'→'; position:absolute; left:0;
+  color:var(--cyan); font-size:0.75rem;
+}
+.career-item {
+  background:rgba(0,200,224,0.05);
+  border:1px solid rgba(0,200,224,0.1);
+  border-radius:6px; padding:0.5rem 0.8rem;
+  font-size:0.83rem; color:var(--gray);
+  margin-bottom:0.5rem;
+}
+.career-item strong { color:var(--white); }
+
+/* hours badge */
+.hours-badge {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:6px; padding:0.4rem 0.8rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.75rem; color:var(--gray);
+  margin-top:1rem;
+}
+.hours-badge strong { color:var(--white); }
+
+/* FLOW ARROW */
+.flow-arrow {
+  display:flex; align-items:center; gap:1rem;
+  padding-left: calc(36px + 2rem);
+  margin-bottom:1.5rem; margin-top:-1.5rem;
+}
+.arrow-line {
+  width:2px; height:32px;
+  background:linear-gradient(180deg, var(--cyan), transparent);
+  margin-left:35px;
+}
+
+/* CTA */
+.cta-wrap {
+  text-align:center; padding:4rem 2rem;
+  background: linear-gradient(135deg, rgba(18,70,170,0.15), rgba(0,200,224,0.05));
+  border-top:1px solid rgba(0,200,224,0.1);
+  border-radius:16px; margin:0 4rem 4rem;
+}
+.cta-wrap h2 {
+  font-family:'Barlow',sans-serif; font-weight:800;
+  font-size:2rem; margin-bottom:1rem;
+}
+.cta-wrap p { color:var(--gray); font-size:0.95rem; margin-bottom:2rem; line-height:1.8; }
+.btn-line {
+  display:inline-flex; align-items:center; gap:0.6rem;
+  background:#06C755; color:var(--navy);
+  font-family:'Barlow',sans-serif; font-weight:700;
+  font-size:1rem; padding:0.9rem 2rem;
+  border-radius:6px; text-decoration:none;
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.btn-line:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(6,199,85,0.3); }
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+  .header { padding:1rem 1.5rem; }
+  .hero { padding:4rem 1.5rem 2rem; }
+  .roadmap { padding:2rem 1.5rem 4rem; }
+  .roadmap::before { left:calc(1.5rem + 36px); }
+  .flow-arrow { padding-left:calc(36px + 1rem); }
+  .card-body { grid-template-columns:1fr; }
+  .cta-wrap { margin:0 1.5rem 3rem; }
+  .overview { gap:1rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="https://privatellm.jp" class="logo">Private<span>LLM</span>.jp</a>
+  <a href="https://privatellm.jp" class="back-btn">← トップへ戻る</a>
+</header>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <span class="hero-label">CERTIFICATION ROADMAP</span>
+  <h1>4つの資格で<br><em>プロへの道</em>を歩む</h1>
+  <p>ビジネス理解から上級エンジニア・認定講師まで。<br>あなたのゴールに合わせてステップアップできます。</p>
+</section>
+
+<div class="overview">
+  <div class="ov-item">
+    <span class="ov-num">4</span>
+    <span class="ov-label">グレード</span>
+  </div>
+  <div class="ov-item">
+    <span class="ov-num">10h〜</span>
+    <span class="ov-label">最短学習時間（3級）</span>
+  </div>
+  <div class="ov-item">
+    <span class="ov-num">¥8,000〜</span>
+    <span class="ov-label">受験料</span>
+  </div>
+  <div class="ov-item">
+    <span class="ov-num">2年</span>
+    <span class="ov-label">有効期限</span>
+  </div>
+</div>
+
+<div class="roadmap">
+
+  <!-- 3級 -->
+  <div class="grade-block">
+    <div class="grade-node lv3">
+      <span class="node-num">3級</span>
+      <span class="node-label">LEVEL 3</span>
+    </div>
+    <div class="grade-card featured">
+      <div class="card-top">
+        <div>
+          <div class="card-title">PrivateLLM構築士 3級</div>
+          <div class="card-subtitle">ビジネスパーソン向け — AIの入口</div>
+        </div>
+        <div class="card-price">¥8,000<span>受験料（税込）</span></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-cyan">IT知識不問</span>
+        <span class="tag tag-blue">オンライン受験</span>
+        <span class="tag tag-blue">40問・60分・4択</span>
+        <span class="tag tag-blue">合格基準70%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <h4>前提スキル</h4>
+          <ul>
+            <li>プログラミング不要</li>
+            <li>IT専門知識不要</li>
+            <li>AIに興味があれば誰でも</li>
+            <li>スマホ・PCが使えれば十分</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>出題範囲</h4>
+          <ul>
+            <li>プライベートLLMの基礎概念</li>
+            <li>セキュリティ・コンプライアンス</li>
+            <li>導入判断・費用対効果</li>
+            <li>主要ツールの概要</li>
+            <li>ビジネス活用事例</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>取得後のキャリア</h4>
+          <div class="career-item"><strong>社内AI推進担当</strong> として発令</div>
+          <div class="career-item"><strong>DX推進部門</strong> への異動・転職</div>
+          <div class="career-item">2級受験への<strong>ステップアップ</strong></div>
+        </div>
+        <div class="card-section">
+          <h4>こんな方に</h4>
+          <ul>
+            <li>AIを仕事に活かしたい</li>
+            <li>社内のAI担当になりたい</li>
+            <li>上司にAIを提案したい</li>
+            <li>転職でAIスキルをアピール</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hours-badge">⏱ 推奨学習時間：<strong>10〜16時間</strong>（1〜2週間）｜ 公式テキスト無料配布中</div>
+    </div>
+  </div>
+
+  <!-- 2級 -->
+  <div class="grade-block">
+    <div class="grade-node lv2">
+      <span class="node-num">2級</span>
+      <span class="node-label">LEVEL 2</span>
+    </div>
+    <div class="grade-card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">PrivateLLM構築士 2級</div>
+          <div class="card-subtitle">エンジニア・IT担当向け — 実装力の証明</div>
+        </div>
+        <div class="card-price">¥15,000<span>受験料（税込）</span></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-cyan">3級取得者対象</span>
+        <span class="tag tag-blue">実技＋筆記</span>
+        <span class="tag tag-blue">50問・90分</span>
+        <span class="tag tag-blue">合格基準70%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <h4>前提スキル</h4>
+          <ul>
+            <li>3級取得済み</li>
+            <li>Linuxの基本操作</li>
+            <li>Pythonの基礎</li>
+            <li>ネットワーク基礎知識</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>出題範囲</h4>
+          <ul>
+            <li>Ollama・vLLMの構築・設定</li>
+            <li>RAGシステムの設計・実装</li>
+            <li>セキュリティ設計・アクセス制御</li>
+            <li>モデル選定・量子化</li>
+            <li>Dify・APIサーバー連携</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>取得後のキャリア</h4>
+          <div class="career-item"><strong>社内AI構築担当エンジニア</strong></div>
+          <div class="career-item"><strong>ITコンサル・SIer</strong> での提案力強化</div>
+          <div class="career-item">年収<strong>アップ・副業案件獲得</strong></div>
+        </div>
+        <div class="card-section">
+          <h4>こんな方に</h4>
+          <ul>
+            <li>実際にLLMを構築したい</li>
+            <li>社内RAGを作りたい</li>
+            <li>AIエンジニアに転向したい</li>
+            <li>認定講師を目指している</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hours-badge">⏱ 推奨学習時間：<strong>40〜60時間</strong>（1〜2ヶ月）｜ 公式テキスト準備中</div>
+    </div>
+  </div>
+
+  <!-- 1級 -->
+  <div class="grade-block">
+    <div class="grade-node lv1">
+      <span class="node-num">1級</span>
+      <span class="node-label">LEVEL 1</span>
+    </div>
+    <div class="grade-card gold">
+      <div class="card-top">
+        <div>
+          <div class="card-title">PrivateLLM構築士 1級</div>
+          <div class="card-subtitle">上級エンジニア・コンサルタント向け — 最高位の証明</div>
+        </div>
+        <div class="card-price">¥30,000<span>受験料（税込）</span></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-gold">2級取得者対象</span>
+        <span class="tag tag-gold">実技審査あり</span>
+        <span class="tag tag-gold">論述＋実装</span>
+        <span class="tag tag-gold">審査制</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <h4>前提スキル</h4>
+          <ul>
+            <li>2級取得済み</li>
+            <li>実務でのLLM構築経験</li>
+            <li>クラウド・インフラ知識</li>
+            <li>チーム開発経験</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>出題範囲</h4>
+          <ul>
+            <li>マルチモーダル・ファインチューニング</li>
+            <li>大規模エンタープライズ設計</li>
+            <li>MLOps・モデル管理・監視</li>
+            <li>コスト最適化・スケーリング</li>
+            <li>企業向け導入提案設計</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>取得後のキャリア</h4>
+          <div class="career-item"><strong>AIアーキテクト</strong>・技術責任者</div>
+          <div class="career-item"><strong>独立コンサルタント</strong>として高単価案件</div>
+          <div class="career-item"><strong>認定講師</strong>への最短ルート</div>
+        </div>
+        <div class="card-section">
+          <h4>こんな方に</h4>
+          <ul>
+            <li>企業のAI責任者になりたい</li>
+            <li>独立・高単価コンサルを目指す</li>
+            <li>海外展開を視野に入れている</li>
+            <li>資格の最高峰を目指したい</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hours-badge">⏱ 推奨学習時間：<strong>100時間以上</strong>（3〜6ヶ月）｜ 実務経験必須</div>
+    </div>
+  </div>
+
+  <!-- 認定講師 -->
+  <div class="grade-block">
+    <div class="grade-node lvinst">
+      <span class="node-num" style="font-size:1rem;">認定<br>講師</span>
+    </div>
+    <div class="grade-card green-card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">PrivateLLM 認定講師</div>
+          <div class="card-subtitle">2級以上取得者 — 教える側へ・フランチャイズ展開</div>
+        </div>
+        <div class="card-price">¥50,000<span>年間ライセンス（税込）</span></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-green">2級以上取得者対象</span>
+        <span class="tag tag-green">審査・面接あり</span>
+        <span class="tag tag-green">年間更新制</span>
+        <span class="tag tag-green">全国展開可能</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <h4>取得できる権利</h4>
+          <ul>
+            <li>企業研修・講座の開講権</li>
+            <li>PAPA公認ロゴの使用権</li>
+            <li>公式テキストの配布権</li>
+            <li>認定証発行サポート</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>サポート内容</h4>
+          <ul>
+            <li>講師向け研修テキスト提供</li>
+            <li>カリキュラム・スライド提供</li>
+            <li>PAPAによる集客支援</li>
+            <li>全国講師ネットワーク参加</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>収益モデル</h4>
+          <div class="career-item"><strong>企業研修</strong>：1回30万円〜</div>
+          <div class="career-item"><strong>公開講座</strong>：1人5万円〜</div>
+          <div class="career-item"><strong>副業〜独立</strong>まで規模は自由</div>
+        </div>
+        <div class="card-section">
+          <h4>こんな方に</h4>
+          <ul>
+            <li>副業・独立を目指している</li>
+            <li>地元企業にAIを広めたい</li>
+            <li>研修講師として活動したい</li>
+            <li>PAPAと一緒に事業を作りたい</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hours-badge" style="border-color:rgba(6,199,85,0.2); color:#06C755;">🌱 認定講師になると：<strong>教える側からAI普及に貢献できます</strong></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-wrap">
+  <h2>まずは3級から始めよう</h2>
+  <p>公式テキスト（22ページ・無料）を読めば<br>1〜2週間で3級合格を目指せます。</p>
+  <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="btn-line">
+    <svg width="20" height="20" viewBox="0 0 48 48" fill="white"><path d="M24 4C12.95 4 4 11.9 4 21.5c0 6.6 4.2 12.4 10.5 15.7L12 40l7.2-3.2C10.547 20.41 11.264 20.5 12 20.5c5.523 0 10-4.015 10-8.997C22 6.477 17.523 2 12 2zm-3.5 12H7v-5h1.5v5zm3 0h-1.5V9.5L13 12V9h1.5v5H13l-1.5-2.5V14zm5-.5h-3V9h1.5v3H16.5v1.5z"/></svg>
+    LINEで受験通知を受け取る（無料）
+  </a>
+  <p style="margin-top:1.2rem; font-size:0.82rem; color:#4A5568;">© 2026 プライベートAI推進協会（PAPA）｜ privatellm.jp</p>
+</div>
+
+</body>
+</html>
