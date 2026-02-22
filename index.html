@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrivateLLM構築士 | プライベートAI推進協会（PAPA）</title>
+<meta name="description" content="日本初・プライベートLLM（社内AI）の専門資格。PrivateLLM構築士3級〜1級・認定講師。情報漏洩ゼロの社内AI構築スキルを証明する唯一の資格。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Syne:wght@400;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A1628;
+  --blue: #1246AA;
+  --cyan: #00C8E0;
+  --gold: #E8B84B;
+  --white: #F5F7FA;
+  --gray: #8892A4;
+  --card-bg: #111D35;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Noto Serif JP', serif;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 4rem;
+  background: rgba(10,22,40,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,200,224,0.15);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 1.15rem;
+  color: var(--cyan); letter-spacing: 0.05em;
+}
+.nav-logo span { color: var(--white); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem; color: var(--gray);
+  text-decoration: none; letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--cyan); }
+.nav-btn {
+  background: var(--cyan); color: var(--navy);
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.85rem; padding: 0.55rem 1.4rem;
+  border: none; border-radius: 4px; cursor: pointer;
+  letter-spacing: 0.06em; transition: transform 0.2s, opacity 0.2s;
+}
+.nav-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 8rem 4rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,200,224,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,224,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow {
+  position: absolute;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(18,70,170,0.35) 0%, transparent 70%);
+  top: -100px; right: -100px; pointer-events: none;
+}
+.hero-glow2 {
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,200,224,0.12) 0%, transparent 70%);
+  bottom: 50px; left: 200px; pointer-events: none;
+}
+.hero-content { position: relative; max-width: 720px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(0,200,224,0.1);
+  border: 1px solid rgba(0,200,224,0.3);
+  border-radius: 100px;
+  padding: 0.4rem 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem; color: var(--cyan);
+  letter-spacing: 0.1em; margin-bottom: 2rem;
+  animation: fadeUp 0.8s ease both;
+}
+.hero-badge::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--cyan); border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800; line-height: 1.05;
+  letter-spacing: -0.02em;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+.hero h1 em {
+  font-style: normal; color: var(--cyan);
+  display: block;
+}
+.hero-sub {
+  font-size: 1.05rem; line-height: 1.9;
+  color: #9CAABF; margin: 1.8rem 0 2.8rem;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+.hero-sub strong { color: var(--white); }
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+.btn-primary {
+  background: var(--cyan); color: var(--navy);
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1rem; padding: 1rem 2.2rem;
+  border: none; border-radius: 6px; cursor: pointer;
+  letter-spacing: 0.04em; text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,200,224,0.35);
+}
+.btn-outline {
+  background: transparent; color: var(--white);
+  font-family: 'Syne', sans-serif; font-weight: 600;
+  font-size: 1rem; padding: 1rem 2.2rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 6px; cursor: pointer;
+  letter-spacing: 0.04em; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+.hero-stats {
+  display: flex; gap: 3rem; margin-top: 4rem;
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+.stat-item {}
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.2rem; font-weight: 800;
+  color: var(--cyan); display: block;
+}
+.stat-label {
+  font-size: 0.8rem; color: var(--gray);
+  letter-spacing: 0.08em;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── PROBLEM ─── */
+.section {
+  padding: 6rem 4rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem; color: var(--cyan);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800; line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+.section-title em { font-style: normal; color: var(--cyan); }
+
+.problem-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
+}
+.problem-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px; padding: 2rem;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.problem-card:hover {
+  border-color: rgba(0,200,224,0.3);
+  transform: translateY(-4px);
+}
+.problem-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  opacity: 0; transition: opacity 0.3s;
+}
+.problem-card:hover::before { opacity: 1; }
+.problem-icon {
+  font-size: 2rem; margin-bottom: 1rem;
+}
+.problem-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 0.7rem; color: var(--white);
+}
+.problem-card p {
+  font-size: 0.9rem; line-height: 1.75; color: var(--gray);
+}
+
+/* ─── GRADES ─── */
+.grades-section {
+  background: var(--card-bg);
+  border-top: 1px solid rgba(0,200,224,0.1);
+  border-bottom: 1px solid rgba(0,200,224,0.1);
+  padding: 6rem 4rem;
+}
+.grades-inner { max-width: 1200px; margin: 0 auto; }
+.grades-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
+}
+.grade-card {
+  border-radius: 14px; padding: 2rem 1.8rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(18,70,170,0.15), rgba(10,22,40,0.8));
+  transition: transform 0.3s;
+}
+.grade-card:hover { transform: translateY(-6px); }
+.grade-card.featured {
+  border-color: var(--cyan);
+  background: linear-gradient(135deg, rgba(0,200,224,0.12), rgba(10,22,40,0.9));
+}
+.grade-tag {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.12em;
+  background: rgba(0,200,224,0.15);
+  color: var(--cyan); border-radius: 100px;
+  padding: 0.25rem 0.75rem; margin-bottom: 1.2rem;
+}
+.grade-card.featured .grade-tag {
+  background: var(--cyan); color: var(--navy);
+}
+.grade-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 3rem; font-weight: 800;
+  line-height: 1; margin-bottom: 0.3rem;
+}
+.grade-name {
+  font-size: 0.95rem; color: var(--gray);
+  margin-bottom: 1.5rem;
+}
+.grade-desc {
+  font-size: 0.85rem; line-height: 1.75;
+  color: #7A8899; margin-bottom: 1.5rem;
+}
+.grade-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--white);
+}
+.grade-price span {
+  font-size: 0.8rem; color: var(--gray); font-weight: 400;
+}
+
+/* ─── SYLLABUS ─── */
+.syllabus-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
+}
+.syllabus-item {
+  display: flex; gap: 1.2rem;
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 1.5rem;
+  transition: border-color 0.3s;
+}
+.syllabus-item:hover { border-color: rgba(0,200,224,0.25); }
+.syllabus-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem; font-weight: 800;
+  color: rgba(0,200,224,0.2);
+  line-height: 1; flex-shrink: 0; width: 2.5rem;
+}
+.syllabus-text h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.syllabus-text p {
+  font-size: 0.85rem; color: var(--gray); line-height: 1.65;
+}
+.syllabus-pct {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem; color: var(--cyan);
+  margin-top: 0.5rem;
+}
+
+/* ─── WHY ─── */
+.why-section { padding: 6rem 4rem; }
+.why-inner { max-width: 1200px; margin: 0 auto; }
+.why-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center; margin-top: 3rem;
+}
+.why-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.why-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+.why-dot {
+  width: 10px; height: 10px;
+  background: var(--cyan); border-radius: 50%;
+  flex-shrink: 0; margin-top: 0.4rem;
+}
+.why-item h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.why-item p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
+
+.why-visual {
+  background: var(--card-bg);
+  border: 1px solid rgba(0,200,224,0.15);
+  border-radius: 16px; padding: 2.5rem;
+}
+.market-row {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.market-row:last-child { border-bottom: none; }
+.market-label { font-size: 0.88rem; color: var(--gray); }
+.market-bar-wrap { flex: 1; margin: 0 1.5rem; }
+.market-bar {
+  height: 6px; background: rgba(255,255,255,0.08);
+  border-radius: 3px; overflow: hidden;
+}
+.market-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transition: width 1s ease;
+}
+.market-val {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.82rem; color: var(--cyan); white-space: nowrap;
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  background: linear-gradient(135deg, var(--blue) 0%, #0A1628 100%);
+  border-top: 1px solid rgba(0,200,224,0.2);
+  padding: 6rem 4rem; text-align: center;
+}
+.cta-inner { max-width: 700px; margin: 0 auto; }
+.cta-inner h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800; margin-bottom: 1.2rem;
+}
+.cta-inner p {
+  font-size: 1rem; color: #9CAABF;
+  line-height: 1.8; margin-bottom: 2.5rem;
+}
+.cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #050E1C;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 3rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 1rem;
+  color: var(--cyan);
+}
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a {
+  font-size: 0.82rem; color: var(--gray);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+.footer-copy {
+  font-size: 0.78rem; color: #4A5568;
+}
+
+/* ─── COMING SOON BANNER ─── */
+.coming-banner {
+  background: linear-gradient(90deg, rgba(232,184,75,0.15), rgba(232,184,75,0.05));
+  border: 1px solid rgba(232,184,75,0.3);
+  border-radius: 8px; padding: 1rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 2rem; max-width: 600px;
+}
+.coming-banner .icon { font-size: 1.3rem; }
+.coming-banner p {
+  font-size: 0.9rem; color: #C9A23B; line-height: 1.5;
+}
+.coming-banner strong { color: var(--gold); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .section { padding: 4rem 1.5rem; }
+  .grades-section { padding: 4rem 1.5rem; }
+  .why-section { padding: 4rem 1.5rem; }
+  .cta-section { padding: 4rem 1.5rem; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .grades-grid { grid-template-columns: 1fr 1fr; }
+  .syllabus-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Private<span>LLM</span>.jp</div>
+  <ul class="nav-links">
+    <li><a href="#about">資格について</a></li>
+    <li><a href="#grades">グレード</a></li>
+    <li><a href="#syllabus">シラバス</a></li>
+    <li><a href="#why">なぜ今？</a></li>
+  </ul>
+  <button class="nav-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">
+    受験申込を通知する
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">日本初 — プライベートLLM専門資格</div>
+    <h1>
+      社内AIを<br>
+      <em>構築できる人材</em><br>
+      を証明する。
+    </h1>
+    <p class="hero-sub">
+      <strong>PrivateLLM構築士</strong>は、クラウドにデータを送らずに<br>
+      社内で動かすAI（プライベートLLM）の構築・運用スキルを<br>
+      証明する、日本で唯一の専門資格です。
+    </p>
+    <div class="hero-actions">
+      <a href="#grades" class="btn-primary">資格を見る</a>
+      <a href="#syllabus" class="btn-outline">シラバスを確認する</a>
+    </div>
+    <div class="coming-banner">
+      <div class="icon">📢</div>
+      <p><strong>2026年 第1回検定 実施予定</strong><br>
+      受験申込受付開始の通知を受け取る</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">0</span>
+        <span class="stat-label">競合資格（日本初）</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">300万+</span>
+        <span class="stat-label">対象中小企業数</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">4</span>
+        <span class="stat-label">グレード（3級〜講師）</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<div id="about">
+<div class="section">
+  <div class="section-label">WHY NOW</div>
+  <h2 class="section-title">企業が直面する<em>3つの課題</em></h2>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-icon">🔒</div>
+      <h3>情報漏洩リスク</h3>
+      <p>ChatGPTなどのクラウドAIに機密データを送信することへの不安。社内情報が外部に流出するリスクを企業は抱えています。</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">💸</div>
+      <h3>APIコストの青天井</h3>
+      <p>クラウドAIの従量課金は利用量が増えるほどコストが膨張。社内展開すると月数百万円に達するケースも。</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">👤</div>
+      <h3>人材がいない</h3>
+      <p>プライベートLLMを構築・運用できる人材は日本に極めて少ない。それを認定する資格もなく、スキルの証明手段がありませんでした。</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- GRADES -->
+<section class="grades-section" id="grades">
+  <div class="grades-inner">
+    <div class="section-label">CERTIFICATION GRADES</div>
+    <h2 class="section-title">4つの<em>グレード</em></h2>
+    <p style="color:var(--gray); font-size:0.95rem; margin-top:0.5rem;">ビジネス理解から上級エンジニア・認定講師まで、段階的にスキルを証明。</p>
+    <div class="grades-grid">
+      <div class="grade-card featured">
+        <div class="grade-tag">最初の一歩</div>
+        <div class="grade-num">3級</div>
+        <div class="grade-name">PrivateLLM構築士 3級</div>
+        <p class="grade-desc">概念理解・導入判断・活用事例。IT知識不問。ビジネスパーソン全般が対象。1〜2週間の学習で取得可能。</p>
+        <div class="grade-price">¥8,000 <span>（税込）</span></div>
+      </div>
+      <div class="grade-card">
+        <div class="grade-tag">エンジニア向け</div>
+        <div class="grade-num">2級</div>
+        <div class="grade-name">PrivateLLM構築士 2級</div>
+        <p class="grade-desc">Ollama・RAG・量子化・セキュリティ設計。実際に構築・運用できるスキルを証明。</p>
+        <div class="grade-price">¥15,000 <span>（税込）</span></div>
+      </div>
+      <div class="grade-card">
+        <div class="grade-tag">上級</div>
+        <div class="grade-num">1級</div>
+        <div class="grade-name">PrivateLLM構築士 1級</div>
+        <p class="grade-desc">マルチモーダル・ファインチューニング・大規模企業導入設計。最上位技術者の証明。</p>
+        <div class="grade-price">¥30,000 <span>（税込）</span></div>
+      </div>
+      <div class="grade-card">
+        <div class="grade-tag">フランチャイズ</div>
+        <div class="grade-num" style="font-size:1.8rem; margin-bottom:0.5rem;">認定<br>講師</div>
+        <div class="grade-name">PrivateLLM認定講師</div>
+        <p class="grade-desc">2級以上取得者が対象。企業研修・講座開講権を取得。全国で活躍できる認定講師に。</p>
+        <div class="grade-price">¥50,000 <span>（年間ライセンス）</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYLLABUS -->
+<div id="syllabus">
+<div class="section">
+  <div class="section-label">3級 SYLLABUS</div>
+  <h2 class="section-title">3級 出題範囲</h2>
+  <p style="color:var(--gray); font-size:0.95rem; margin-top:0.5rem;">全40問・60分・オンライン受験・合格基準70%</p>
+  <div class="syllabus-grid">
+    <div class="syllabus-item">
+      <div class="syllabus-num">01</div>
+      <div class="syllabus-text">
+        <h4>プライベートLLMの基礎概念</h4>
+        <p>LLMとは何か、クラウドLLMとの違い、主要オープンソースモデルの概要</p>
+        <div class="syllabus-pct">25% ／ 約10問</div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-num">02</div>
+      <div class="syllabus-text">
+        <h4>セキュリティ・コンプライアンス</h4>
+        <p>情報漏洩リスク・個人情報保護法・EU AI Act・業種別規制の概要</p>
+        <div class="syllabus-pct">20% ／ 約8問</div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-num">03</div>
+      <div class="syllabus-text">
+        <h4>導入判断と費用対効果</h4>
+        <p>導入検討フレームワーク・コスト比較・ROIの考え方・導入ステップ</p>
+        <div class="syllabus-pct">20% ／ 約8問</div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-num">04</div>
+      <div class="syllabus-text">
+        <h4>主要ツール・技術の概要</h4>
+        <p>Ollama・RAG・量子化・Dify・LibreChatなど主要ツールの概要</p>
+        <div class="syllabus-pct">20% ／ 約8問</div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-num">05</div>
+      <div class="syllabus-text">
+        <h4>ビジネス活用事例</h4>
+        <p>業種別活用事例・社内FAQ・文書要約・マルチモーダル・失敗事例と対策</p>
+        <div class="syllabus-pct">15% ／ 約6問</div>
+      </div>
+    </div>
+    <div class="syllabus-item" style="background: rgba(0,200,224,0.05); border-color: rgba(0,200,224,0.2);">
+      <div class="syllabus-num" style="color:rgba(0,200,224,0.4);">📄</div>
+      <div class="syllabus-text">
+        <h4>公式テキスト（無料）</h4>
+        <p>シラバス全範囲をカバーした公式テキストを無料配布予定。独学1〜2週間で合格可能。</p>
+        <div class="syllabus-pct" style="color:var(--gold);">準備中 — 近日公開</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- WHY -->
+<section class="why-section" id="why">
+<div class="why-inner">
+  <div class="section-label">MARKET OPPORTUNITY</div>
+  <h2 class="section-title">なぜ今、<em>この資格</em>なのか</h2>
+  <div class="why-grid">
+    <div class="why-list">
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>競合資格がゼロ</h4>
+          <p>プライベートLLMの構築・運用に特化した資格は、日本国内に存在しません。先行者が標準を作ります。</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>需要は確実に急拡大</h4>
+          <p>EU AI Act施行・情報漏洩事故増加・クラウドコスト高騰を背景に、プライベートLLM導入を検討する企業が急増しています。</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>世界展開のポテンシャル</h4>
+          <p>privatellm.netを保有。英語版シラバス・アジア展開・CompTIA/ISC²レベルの国際資格化を目指しています。</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>フランチャイズ展開可能</h4>
+          <p>認定講師制度により、全国・海外での研修展開が可能。規模に応じたスケールアップができます。</p>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div style="font-family:'Syne',sans-serif; font-size:0.85rem; color:var(--gray); letter-spacing:0.1em; margin-bottom:1.5rem;">市場需要の可視化</div>
+      <div class="market-row">
+        <div class="market-label">情報漏洩への懸念</div>
+        <div class="market-bar-wrap"><div class="market-bar"><div class="market-fill" style="width:92%"></div></div></div>
+        <div class="market-val">92%</div>
+      </div>
+      <div class="market-row">
+        <div class="market-label">社内AI導入意向</div>
+        <div class="market-bar-wrap"><div class="market-bar"><div class="market-fill" style="width:78%"></div></div></div>
+        <div class="market-val">78%</div>
+      </div>
+      <div class="market-row">
+        <div class="market-label">専門人材不足感</div>
+        <div class="market-bar-wrap"><div class="market-bar"><div class="market-fill" style="width:88%"></div></div></div>
+        <div class="market-val">88%</div>
+      </div>
+      <div class="market-row">
+        <div class="market-label">資格取得への意欲</div>
+        <div class="market-bar-wrap"><div class="market-bar"><div class="market-fill" style="width:65%"></div></div></div>
+        <div class="market-val">65%</div>
+      </div>
+      <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.06);">
+        <div style="font-size:0.78rem; color:var(--gray);">対象企業数（日本国内）</div>
+        <div style="font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--cyan); margin-top:0.3rem;">300万社以上</div>
+        <div style="font-size:0.78rem; color:var(--gray); margin-top:0.2rem;">中小企業全体（総務省統計）</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <div class="section-label" style="color:var(--gold);">COMING SOON</div>
+    <h2>第1回検定、まもなく開始。</h2>
+    <p>
+      2026年内に第1回PrivateLLM構築士検定を実施予定。<br>
+      受験申込受付開始の通知を受け取ってください。
+    </p>
+    <div class="cta-actions">
+      <a href="mailto:info@privatellm.jp" class="btn-primary">通知を受け取る（メール）</a>
+      <a href="https://privatellm-cert.com" target="_blank" class="btn-outline">認定証確認サイト</a>
+    </div>
+    <p style="margin-top:2rem; font-size:0.82rem; color:#4A5568;">
+      主催：プライベートAI推進協会（PAPA）｜ privatellm.jp
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">PrivateLLM.jp</div>
+  <div class="footer-links">
+    <a href="mailto:info@privatellm.jp">お問い合わせ</a>
+    <a href="https://privatellm-cert.com" target="_blank">認定証確認</a>
+    <a href="https://privatellm.net" target="_blank">Global</a>
+  </div>
+  <div class="footer-copy">© 2026 プライベートAI推進協会（PAPA）</div>
+</footer>
+
+</body>
+</html>
