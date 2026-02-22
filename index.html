@@ -433,9 +433,56 @@ footer {
 .coming-banner strong { color: var(--gold); }
 
 /* RESPONSIVE */
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  width: 40px; height: 40px;
+  background: transparent; border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px; cursor: pointer; gap: 5px; padding: 8px;
+}
+.hamburger span {
+  display: block; width: 20px; height: 2px;
+  background: var(--white); border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+.mobile-menu {
+  display: none;
+  position: fixed; top: 57px; left: 0; right: 0;
+  background: rgba(10,22,40,0.98);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,200,224,0.2);
+  padding: 1rem 1.5rem 1.5rem;
+  flex-direction: column; gap: 0;
+  z-index: 99;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Barlow', sans-serif; font-size: 1rem;
+  color: var(--gray); text-decoration: none;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--white); }
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-line-btn {
+  margin-top: 0.8rem;
+  background: #06C755 !important; color: var(--navy) !important;
+  font-weight: 700 !important; text-align: center;
+  border-radius: 8px; padding: 0.9rem !important;
+  border-bottom: none !important;
+}
+
 @media (max-width: 900px) {
   nav { padding: 1rem 1.5rem; }
   .nav-links { display: none; }
+  .nav-btn { display: none; }
+  .hamburger { display: flex; }
   .hero { padding: 6rem 1.5rem 3rem; }
   .section { padding: 4rem 1.5rem; }
   .grades-section { padding: 4rem 1.5rem; }
@@ -481,10 +528,25 @@ footer {
     <li><a href="exam-level3.html" style="color:var(--gold);">模擬試験</a></li>
     <li><a href="#about-papa">協会について</a></li>
   </ul>
-  <button class="nav-btn" href="https://line.me/R/ti/p/@609awsbq" target="_blank" style="background:#06C755;">
-    🟢 LINE登録する
+  <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="nav-btn" style="background:#06C755;">
+    🟢 LINE登録
+  </a>
+  <!-- ハンバーガーボタン（モバイル用） -->
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="メニュー">
+    <span></span><span></span><span></span>
   </button>
 </nav>
+<!-- モバイルメニュー -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">資格について</a>
+  <a href="#grades" onclick="closeMenu()">グレード</a>
+  <a href="#syllabus" onclick="closeMenu()">シラバス</a>
+  <a href="#why" onclick="closeMenu()">なぜ今？</a>
+  <a href="roadmap.html" style="color:var(--cyan);">📋 ロードマップ</a>
+  <a href="exam-level3.html" style="color:var(--gold);">📝 模擬試験（無料）</a>
+  <a href="#about-papa" onclick="closeMenu()">協会について</a>
+  <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="mobile-line-btn">🟢 LINEで登録する</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
