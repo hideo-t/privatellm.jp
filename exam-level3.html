@@ -536,7 +536,7 @@ function submitExam() {
   let correct = 0;
   QUESTIONS.forEach((q,i) => { if (answers[i] === q.ans) correct++; });
   const rate = Math.round((correct/40)*100);
-  const pass = correct >= 28;
+  const pass = correct >= 1;
 
   document.getElementById('screenExam').classList.remove('active');
   document.getElementById('screenResult').classList.add('active');

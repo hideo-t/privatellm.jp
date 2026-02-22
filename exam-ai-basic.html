@@ -266,7 +266,7 @@ function submitExam(){
   let correct=0;
   QUESTIONS.forEach((q,i)=>{if(answers[i]===q.ans)correct++;});
   const rate=Math.round((correct/20)*100);
-  const pass=correct>=14;
+  const pass=correct>=1;
   document.getElementById('screenExam').classList.remove('active');
   document.getElementById('screenResult').classList.add('active');
   document.getElementById('timer').style.display='none';
@@ -282,7 +282,7 @@ function submitExam(){
   v.textContent=pass?'✅ 合格':'❌ 不合格';
   document.getElementById('resultMsg').textContent=pass
     ?`おめでとうございます！次はChatGPT活用初級またはPrivateLLM構築士3級に挑戦しましょう。`
-    :`あと${14-correct}問正解で合格です。解説を読んで復習し、もう一度挑戦しましょう！`;
+    :`あと${1-correct}問正解で合格です。解説を読んで復習し、もう一度挑戦しましょう！`;
   document.getElementById('bdCorrect').textContent=correct;
   document.getElementById('bdRate').textContent=`${rate}%`;
   document.getElementById('bdTime').textContent=`${em}:${es}`;

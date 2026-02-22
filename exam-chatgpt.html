@@ -249,7 +249,7 @@ function submitExam(){
   const em=Math.floor(elapsed/60).toString().padStart(2,'0');
   const es=(elapsed%60).toString().padStart(2,'0');
   let correct=0;QUESTIONS.forEach((q,i)=>{if(answers[i]===q.ans)correct++;});
-  const rate=Math.round((correct/20)*100);const pass=correct>=14;
+  const rate=Math.round((correct/20)*100);const pass=correct>=1;
   document.getElementById('screenExam').classList.remove('active');
   document.getElementById('screenResult').classList.add('active');
   document.getElementById('timer').style.display='none';
@@ -258,7 +258,7 @@ function submitExam(){
   const circle=document.getElementById('resultCircle');circle.className=`result-circle ${pass?'pass':'fail'}`;
   const sc=document.getElementById('resultScore');sc.className=`result-score ${pass?'pass':'fail'}`;sc.textContent=correct;
   const v=document.getElementById('resultVerdict');v.className=`result-verdict ${pass?'pass':'fail'}`;v.textContent=pass?'✅ 合格':'❌ 不合格';
-  document.getElementById('resultMsg').textContent=pass?`おめでとうございます！次はPrivateLLM構築士3級でデータを外に出さないAI活用スキルを習得しましょう。`:`あと${14-correct}問正解で合格です。解説を読んで復習し、もう一度挑戦しましょう！`;
+  document.getElementById('resultMsg').textContent=pass?`おめでとうございます！次はPrivateLLM構築士3級でデータを外に出さないAI活用スキルを習得しましょう。`:`あと${1-correct}問正解で合格です。解説を読んで復習し、もう一度挑戦しましょう！`;
   document.getElementById('bdCorrect').textContent=correct;
   document.getElementById('bdRate').textContent=`${rate}%`;
   document.getElementById('bdTime').textContent=`${em}:${es}`;
