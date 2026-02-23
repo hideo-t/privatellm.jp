@@ -51,10 +51,9 @@ nav {
   border-bottom: 1px solid rgba(0,200,224,0.15);
 }
 .nav-logo {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-weight: 800; font-size: 1.15rem;
-  color: var(--cyan); letter-spacing: 0.05em;
+  display: flex; align-items: center;
 }
+.nav-logo img { height: 36px; width: auto; display: block; }
 .nav-logo span { color: var(--white); }
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
 .nav-links a {
@@ -527,7 +526,7 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Private<span>LLM</span>.jp</div>
+  <div class="nav-logo"><img src="PrivateLLMlogo.jpg" alt="PrivateLLM.jp" style="height:36px;width:auto;vertical-align:middle;"></div>
   <ul class="nav-links">
     <li><a href="#about">資格について</a></li>
     <li><a href="#grades">グレード</a></li>
