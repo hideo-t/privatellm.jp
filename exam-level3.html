@@ -684,7 +684,7 @@ function goStripe() {
   let url = 'https://buy.stripe.com/7sYcN4air0K84900XEb7y02';
   if (email)  url += '?prefilled_email=' + encodeURIComponent(email);
   if (certId) url += (email ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(certId);
-  window.open(url, '_blank');
+  window.location.href = url;
 }
 
 function retryExam() {
