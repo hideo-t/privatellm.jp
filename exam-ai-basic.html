@@ -449,12 +449,9 @@ function retryExam(){
 </script>
 
 <script>
-// ===== GAS連携 =====
-
 // ===== 本番モード判定 =====
 const IS_HONBAN = new URLSearchParams(window.location.search).get('mode') === 'honban';
 
-// スタート画面に本番バナーを表示
 window.addEventListener('DOMContentLoaded', () => {
   if (IS_HONBAN) {
     const banner = document.createElement('div');
@@ -462,9 +459,6 @@ window.addEventListener('DOMContentLoaded', () => {
     banner.innerHTML = '🏆 本番受験モード — 合格後にメール・LINEの入力が必要です';
     const screen = document.getElementById('screenStart');
     if (screen) screen.insertBefore(banner, screen.firstChild);
-    // コンタクト入力欄のラベルを「推奨」→「必須」に
-    const preLabel = document.querySelector('#screenStart [style*="任意"]');
-    if (preLabel) preLabel.textContent = '📬 連絡先を入力してください（本番受験・メールで認定証番号を受け取ります）';
   }
 });
 
@@ -477,24 +471,70 @@ function generateCertId() {
   return `PAPA-AIB-${year}-${seq}`;
 }
 
+function getPreContact() {
+  return {
+    email: document.getElementById('preEmail')?.value.trim() || '',
+    line:  document.getElementById('preLine')?.value.trim() || ''
+  };
+}
+
+async function sendContactToGAS() {
+  const certId = window._certId;
+  const email  = document.getElementById('postEmail').value.trim();
+  const line   = document.getElementById('postLine').value.trim();
+  if (!email && !line) {
+    document.getElementById('contactError').textContent = 'メールアドレスまたはLINE IDを入力してください';
+    document.getElementById('contactError').style.display = 'block';
+    return;
+  }
+  document.getElementById('contactError').style.display = 'none';
+  try {
+    const url = GAS_URL + "?action=saveContact"
+      + "&cert_id=" + encodeURIComponent(certId)
+      + "&email="   + encodeURIComponent(email)
+      + "&line_id=" + encodeURIComponent(line);
+    const img = new Image(); img.src = url;
+    fetch(url, {mode:"no-cors"}).catch(()=>{});
+    document.getElementById('contactSent').style.display = 'block';
+    window._contactEmail = email;
+    window._contactLine  = line;
+  } catch(e) {
+    document.getElementById('contactSent').style.display = 'block';
+  }
+}
+
 async function preRegisterToGAS(certId, gradeCode, score, total) {
   try {
-    await fetch(GAS_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {"Content-Type": "text/plain"},
-      body: JSON.stringify({
-        action: "preRegister",
-        cert_id: certId,
-        grade_code: gradeCode,
-        score: score,
-        rate: Math.round((score / total) * 100)
-      })
-    });
+    const rate = Math.round((score / total) * 100);
+    const url = GAS_URL + "?action=preRegister"
+      + "&cert_id="    + encodeURIComponent(certId)
+      + "&grade_code=" + encodeURIComponent(gradeCode)
+      + "&score=" + score
+      + "&rate="  + rate;
+    const img = new Image(); img.src = url;
+    fetch(url, {mode:"no-cors"}).catch(()=>{});
+    const pre = getPreContact();
+    if (pre.email || pre.line) {
+      const cUrl = GAS_URL + "?action=saveContact"
+        + "&cert_id=" + encodeURIComponent(certId)
+        + "&email="   + encodeURIComponent(pre.email)
+        + "&line_id=" + encodeURIComponent(pre.line)
+        + "&stage=pre";
+      const img2 = new Image(); img2.src = cUrl;
+      if (pre.email) document.getElementById('postEmail').value = pre.email;
+      if (pre.line)  document.getElementById('postLine').value  = pre.line;
+    }
     console.log("GAS事前登録:", certId);
   } catch(e) {
-    console.warn("GAS登録エラー（無視）:", e);
+    console.warn("GAS登録エラー:", e);
   }
+}
+
+function goStripe() {
+  const certId = window._certId || '';
+  const email  = window._contactEmail || document.getElementById('postEmail')?.value || '';
+  const url = 'https://privatellm.jp#stripe?cert_id=' + encodeURIComponent(certId) + '&email=' + encodeURIComponent(email);
+  window.open(url, '_blank');
 }
 </script>
 </body>
