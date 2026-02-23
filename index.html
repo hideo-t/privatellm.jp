@@ -564,40 +564,10 @@ footer {
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
   <div class="hero-content">
-    <!-- 試験中バナー -->
-    <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.35);border-radius:100px;padding:0.4rem 1.2rem;margin-bottom:0.8rem;width:fit-content;">
-      <span style="background:#FF5050;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:700;border-radius:100px;padding:0.15rem 0.5rem;letter-spacing:0.05em;">🚧 TEST</span>
-      <span style="font-size:0.82rem;color:var(--white);">サイト試験中 — <span style="color:#FF9090;">本番開始予定：2026年3月</span></span>
-    </div>
-    <!-- WHAT'S NEW -->
-    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;">
-      <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(6,199,85,0.1);border:1px solid rgba(6,199,85,0.35);border-radius:100px;padding:0.4rem 1rem;width:fit-content;">
-        <span style="background:var(--green);color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;border-radius:100px;padding:0.15rem 0.5rem;letter-spacing:0.05em;">NEW</span>
-        <span style="font-size:0.82rem;color:var(--white);">ChatGPT活用初級・AI基本検定の模擬試験が
-          <span style="color:var(--green);font-weight:700;">無料・回数無制限</span>
-          で受験できます
-        </span>
-      </div>
-      <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(232,184,75,0.08);border:1px solid rgba(232,184,75,0.3);border-radius:100px;padding:0.4rem 1rem;width:fit-content;">
-        <span style="background:var(--gold);color:var(--navy);font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;border-radius:100px;padding:0.15rem 0.5rem;letter-spacing:0.05em;">INFO</span>
-        <span style="font-size:0.82rem;color:var(--white);">認定証発行手数料を一律
-          <span style="color:var(--gold);font-weight:700;">¥3,000（税込）</span>
-          に統一しました
-        </span>
-      </div>
-    </div>
-    <!-- 認定証サンプルリンク -->
-    <div style="margin-bottom:1.2rem;">
-      <a href="cert-sample.html" target="_blank" style="display:inline-flex;align-items:center;gap:0.7rem;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.35);border-radius:12px;padding:0.7rem 1.4rem;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(201,168,76,0.15)'" onmouseout="this.style.background='rgba(201,168,76,0.08)'">
-        <span style="font-size:1.4rem;">🏆</span>
-        <span>
-          <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--gold);letter-spacing:0.12em;margin-bottom:0.15rem;">CERTIFICATE PREVIEW</span>
-          <span style="display:block;font-family:'Barlow',sans-serif;font-weight:700;font-size:0.92rem;color:var(--white);">認定証のサンプルを見る</span>
-        </span>
-        <span style="color:var(--gold);font-size:1rem;margin-left:0.3rem;">→</span>
-      </a>
-    </div>
-    <div class="hero-badge">日本初 — プライベートLLM専門資格</div>
+
+    <!-- ① メインキャッチコピー カード -->
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:1.5rem 1.8rem;margin-bottom:1.2rem;">
+      <div class="hero-badge" style="margin-bottom:0.8rem;">日本初 — プライベートLLM専門資格</div>
     <h1>
       社内AIを<br>
       <em>構築できる人材</em><br>
@@ -631,6 +601,35 @@ footer {
         <span class="stat-label">グレード（3級〜講師）</span>
       </div>
     </div>
+    </div><!-- /メインキャッチカード -->
+
+    <!-- ② お知らせカード（TEST・NEW・INFO） -->
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:1.2rem 1.5rem;margin-bottom:1.2rem;display:flex;flex-direction:column;gap:0.7rem;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--gray);letter-spacing:0.15em;margin-bottom:0.2rem;">📋 WHAT'S NEW</div>
+      <div style="display:flex;align-items:flex-start;gap:0.7rem;">
+        <span style="flex-shrink:0;background:#FF5050;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:700;border-radius:6px;padding:0.2rem 0.5rem;letter-spacing:0.04em;">🚧 TEST</span>
+        <span style="font-size:0.84rem;color:var(--white);">サイト試験中 — <span style="color:#FF9090;font-weight:700;">本番開始予定：2026年3月</span></span>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:0.7rem;">
+        <span style="flex-shrink:0;background:var(--green);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:700;border-radius:6px;padding:0.2rem 0.5rem;letter-spacing:0.04em;">NEW</span>
+        <span style="font-size:0.84rem;color:var(--white);">ChatGPT活用初級・AI基本検定の模擬試験が<span style="color:var(--green);font-weight:700;">無料・回数無制限</span>で受験できます</span>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:0.7rem;">
+        <span style="flex-shrink:0;background:var(--gold);color:var(--navy);font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:700;border-radius:6px;padding:0.2rem 0.5rem;letter-spacing:0.04em;">INFO</span>
+        <span style="font-size:0.84rem;color:var(--white);">認定証発行手数料を一律<span style="color:var(--gold);font-weight:700;">¥3,000（税込）</span>に統一しました</span>
+      </div>
+    </div>
+
+    <!-- ③ 認定証プレビューリンク -->
+    <a href="cert-sample.html" target="_blank" style="display:flex;align-items:center;gap:0.9rem;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.35);border-radius:14px;padding:0.9rem 1.4rem;text-decoration:none;transition:all 0.2s;margin-bottom:1rem;" onmouseover="this.style.background='rgba(201,168,76,0.16)'" onmouseout="this.style.background='rgba(201,168,76,0.08)'">
+      <span style="font-size:1.6rem;">🏆</span>
+      <span>
+        <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--gold);letter-spacing:0.12em;margin-bottom:0.2rem;">CERTIFICATE PREVIEW</span>
+        <span style="display:block;font-family:'Barlow',sans-serif;font-weight:700;font-size:0.95rem;color:var(--white);">認定証のサンプルを見る</span>
+      </span>
+      <span style="color:var(--gold);font-size:1.1rem;margin-left:auto;">→</span>
+    </a>
+
   </div>
 </section>
 
