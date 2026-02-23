@@ -231,26 +231,17 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
       </div>
 
     <div class="cert-section" id="certSection" style="display:none;">
-      <div class="cert-section-label">CERTIFICATE ISSUED</div>
-      <h3>🏆 認定証番号が発行されました</h3>
-      <p>以下の認定証番号を発行しました。<br>認定証番号をメール送信します。連絡先を入力してください。</p>
-      <!-- 合格後コンタクト入力（必須） -->
-      <div id="contactForm" style="background:rgba(6,199,85,0.05);border:1px solid rgba(6,199,85,0.2);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;text-align:left;">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--green);letter-spacing:0.12em;margin-bottom:0.8rem;">📬 認定証番号を受け取る（メールまたはLINE）</div>
-        <input type="email" id="postEmail" placeholder="メールアドレス（推奨）" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:0.7rem 1rem;color:var(--white);font-size:0.9rem;margin-bottom:0.7rem;outline:none;display:block;" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
-        <input type="text" id="postLine" placeholder="LINE ID（任意）" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:0.7rem 1rem;color:var(--white);font-size:0.9rem;margin-bottom:1rem;outline:none;display:block;" onfocus="this.style.borderColor='#06C755'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
-        <button onclick="sendContactToGAS()" style="width:100%;background:var(--green);color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:0.95rem;padding:0.8rem;border:none;border-radius:8px;cursor:pointer;">📨 認定証番号をメール・LINEで受け取る</button>
-        <div id="contactSent" style="display:none;margin-top:0.8rem;text-align:center;color:var(--green);font-size:0.85rem;">✅ 送信しました！メールをご確認ください</div>
-        <div id="contactError" style="display:none;margin-top:0.8rem;text-align:center;color:var(--red);font-size:0.85rem;"></div>
+
+      <!-- ① おめでとうございます -->
+      <div style="text-align:center;padding:1.5rem 0 1rem;">
+        <div style="font-size:3rem;margin-bottom:0.5rem;">🎉</div>
+        <div style="font-family:'Barlow',sans-serif;font-weight:800;font-size:1.6rem;color:var(--white);margin-bottom:0.3rem;">合格おめでとうございます！</div>
+        <div style="font-size:0.9rem;color:var(--gray);line-height:1.7;">AI基本検定に合格しました。<br>この実績を認定証として証明しましょう。</div>
       </div>
-      <div class="cert-id-display" id="certIdDisplay" onclick="copyCertId()">
-        <span class="cert-id-copied" id="copiedMsg">コピーしました！</span>
-        <span id="certIdText">PAPA-3-2026-0001</span>
-      </div>
-      <div style="font-size:0.78rem;color:var(--gray);margin-bottom:1.5rem;">↑ タップでコピー</div>
-      <!-- Blurred cert preview -->
-      <div class="cert-blur-wrap">
-        <div class="cert-blur-inner">
+
+      <!-- ② サンプル認定証プレビュー（ぼかし） -->
+      <div style="position:relative;margin:1rem 0;border-radius:12px;overflow:hidden;">
+        <div style="filter:blur(3px) brightness(0.7);pointer-events:none;">
           <div class="mini-cert">
             <div class="mini-cert-header">
               <div>
@@ -262,32 +253,78 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
             <div class="mini-cert-gold-line"></div>
             <div class="mini-cert-body">
               <div class="mini-cert-label">CERTIFICATE OF ACHIEVEMENT</div>
-              <div style="font-family:serif;font-size:clamp(5px,1vw,7px);color:#6B7280;margin-bottom:1%;">CERTIFIED HOLDER</div>
-              <div class="mini-cert-name" id="miniName">　　　　</div>
-              <div style="width:40%;height:1px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);margin:2% auto;"></div>
+              <div style="font-family:serif;font-size:0.65rem;color:#6B7280;margin-bottom:0.4rem;">CERTIFIED HOLDER</div>
+              <div class="mini-cert-name" style="color:#C9A84C;">あなたの名前</div>
+              <div style="width:40%;height:1px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);margin:0.5rem auto;"></div>
               <div class="mini-cert-grade">
-                <div class="mini-cert-grade-name">PrivateLLM Architect — Level 3</div>
-                <div class="mini-cert-grade-ja">PrivateLLM構築士 3級</div>
+                <div class="mini-cert-grade-name">AI Basic Certification</div>
+                <div class="mini-cert-grade-ja">AI基本検定</div>
               </div>
             </div>
             <div class="mini-cert-bottom">
-              <div class="mini-cert-id" id="miniId">PAPA-3-2026-0001</div>
+              <div class="mini-cert-id" id="miniId">----</div>
               <div class="mini-cert-seal"><div class="mini-cert-seal-text">PAPA<br>認定</div></div>
               <div class="mini-cert-qr">⬛</div>
             </div>
           </div>
         </div>
-        <div class="cert-blur-overlay">
-          <div class="cert-blur-badge">決済後に受け取れます</div>
-          <div class="cert-blur-sub">認定証番号をメモしてから決済してください</div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,22,40,0.5);">
+          <div style="background:var(--gold);color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:0.9rem;padding:0.5rem 1.5rem;border-radius:100px;margin-bottom:0.4rem;">SAMPLE</div>
+          <div style="color:var(--white);font-size:0.8rem;">決済後に氏名入りで発行されます</div>
         </div>
       </div>
-      <button class="btn-stripe" onclick="goStripe()">🏆 認定証を発行する — ¥3,000（税込）</button>
-      <div class="stripe-note">
-        Stripe決済 ・ クレジットカード / Apple Pay / Google Pay 対応<br>
-        決済後 → <a href="https://cert.privatellm.jp" target="_blank">cert.privatellm.jp</a> で認定証を受け取り
+
+      <!-- ③ 認定証番号 -->
+      <div style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:1rem;margin:1rem 0;text-align:center;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--gray);letter-spacing:0.12em;margin-bottom:0.4rem;">YOUR CERTIFICATE ID</div>
+        <div class="cert-id-display" id="certIdDisplay" onclick="copyCertId()" style="margin-bottom:0.3rem;">
+          <span class="cert-id-copied" id="copiedMsg">コピーしました！</span>
+          <span id="certIdText" style="font-size:1.1rem;">----</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--gray);">↑ タップでコピー ／ 決済後に必要です</div>
       </div>
+
+      <!-- ④ ステップ表示 -->
+      <div style="display:flex;gap:0.4rem;margin:1.2rem 0;align-items:stretch;">
+        <div style="flex:1;background:rgba(6,199,85,0.1);border:1px solid rgba(6,199,85,0.3);border-radius:8px;padding:0.7rem;text-align:center;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--green);margin-bottom:0.3rem;">STEP 1</div>
+          <div style="font-size:0.78rem;color:var(--white);font-weight:700;">メール入力</div>
+          <div style="font-size:0.7rem;color:var(--gray);">↓</div>
+        </div>
+        <div style="flex:1;background:rgba(232,184,75,0.1);border:1px solid rgba(232,184,75,0.3);border-radius:8px;padding:0.7rem;text-align:center;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--gold);margin-bottom:0.3rem;">STEP 2</div>
+          <div style="font-size:0.78rem;color:var(--white);font-weight:700;">¥3,000決済</div>
+          <div style="font-size:0.7rem;color:var(--gray);">↓</div>
+        </div>
+        <div style="flex:1;background:rgba(0,200,224,0.1);border:1px solid rgba(0,200,224,0.3);border-radius:8px;padding:0.7rem;text-align:center;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--cyan);margin-bottom:0.3rem;">STEP 3</div>
+          <div style="font-size:0.78rem;color:var(--white);font-weight:700;">認定証受取</div>
+          <div style="font-size:0.7rem;color:var(--gray);">完了</div>
+        </div>
+      </div>
+
+      <!-- ⑤ STEP1: メール入力 -->
+      <div id="contactForm" style="background:rgba(6,199,85,0.05);border:2px solid rgba(6,199,85,0.3);border-radius:12px;padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--green);letter-spacing:0.1em;margin-bottom:0.8rem;">📬 STEP 1 ― メール・LINEを入力（認定証番号を送信）</div>
+        <input type="email" id="postEmail" placeholder="メールアドレス（推奨）" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:0.7rem 1rem;color:var(--white);font-size:0.9rem;margin-bottom:0.6rem;outline:none;display:block;box-sizing:border-box;" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <input type="text" id="postLine" placeholder="LINE ID（任意）" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:0.7rem 1rem;color:var(--white);font-size:0.9rem;margin-bottom:0.8rem;outline:none;display:block;box-sizing:border-box;" onfocus="this.style.borderColor='#06C755'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <button onclick="sendContactToGAS()" style="width:100%;background:var(--green);color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:0.95rem;padding:0.8rem;border:none;border-radius:8px;cursor:pointer;">📨 認定証番号をメールで受け取る</button>
+        <div id="contactSent" style="display:none;margin-top:0.6rem;text-align:center;color:var(--green);font-size:0.85rem;">✅ 送信しました！メールをご確認ください</div>
+        <div id="contactError" style="display:none;margin-top:0.6rem;text-align:center;color:#F87171;font-size:0.85rem;"></div>
+      </div>
+
+      <!-- ⑥ STEP2: Stripe決済ボタン -->
+      <div style="background:rgba(232,184,75,0.05);border:2px solid rgba(232,184,75,0.3);border-radius:12px;padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.8rem;">💳 STEP 2 ― 認定証発行手数料を決済</div>
+        <button class="btn-stripe" onclick="goStripe()" style="width:100%;">🏆 認定証を発行する — ¥3,000（税込）</button>
+        <div style="margin-top:0.7rem;font-size:0.75rem;color:var(--gray);text-align:center;line-height:1.7;">
+          Stripe決済 ・ クレジットカード / Apple Pay / Google Pay 対応<br>
+          決済後 → <a href="https://cert.privatellm.jp" target="_blank" style="color:var(--cyan);">cert.privatellm.jp</a> で認定証を受け取り（STEP 3）
+        </div>
+      </div>
+
     </div>
+
       <div class="result-actions">
       <button class="btn-retry" onclick="retryExam()">もう一度挑戦する</button>
       <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="btn-line-result">🟢 本試験の通知を受け取る</a>
