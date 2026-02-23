@@ -571,7 +571,7 @@ async function preRegisterToGAS(certId, gradeCode, score, total) {
 function goStripe() {
   const certId = window._certId || document.getElementById('certIdText')?.textContent || '';
   const email  = window._contactEmail || document.getElementById('postEmail')?.value || '';
-  let url = 'https://buy.stripe.com/28E6oGcqzboMcFwgWCb7y03';
+  let url = 'https://buy.stripe.com/7sYcN4air0K84900XEb7y02';
   if (email)  url += '?prefilled_email=' + encodeURIComponent(email);
   if (certId) url += (email ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(certId);
   window.open(url, '_blank');
