@@ -532,9 +532,11 @@ async function preRegisterToGAS(certId, gradeCode, score, total) {
 }
 
 function goStripe() {
-  const certId = window._certId || '';
+  const certId = window._certId || document.getElementById('certIdText')?.textContent || '';
   const email  = window._contactEmail || document.getElementById('postEmail')?.value || '';
-  const url = 'https://privatellm.jp#stripe?cert_id=' + encodeURIComponent(certId) + '&email=' + encodeURIComponent(email);
+  let url = 'https://buy.stripe.com/28E6oGcqzboMcFwgWCb7y03';
+  if (email)  url += '?prefilled_email=' + encodeURIComponent(email);
+  if (certId) url += (email ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(certId);
   window.open(url, '_blank');
 }
 </script>

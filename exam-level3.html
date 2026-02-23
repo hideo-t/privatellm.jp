@@ -642,20 +642,12 @@ function copyCertId() {
 }
 
 function goStripe() {
-  const certId = window._certId || document.getElementById('certIdText').textContent;
-  // Stripe payment link - add cert_id as parameter
-  // 本番: https://buy.stripe.com/YOUR_LINK?client_reference_id=CERT_ID
-  const stripeUrl = `https://buy.stripe.com/test_placeholder?client_reference_id=${encodeURIComponent(certId)}`;
-  // Show instruction
-  if (confirm(`認定証番号：${certId}
-
-この番号をメモしてから決済に進んでください。
-
-決済完了後、cert.privatellm.jp で認定証を発行できます。
-
-決済ページに進みますか？`)) {
-    window.open('https://cert.privatellm.jp', '_blank');
-  }
+  const certId = window._certId || document.getElementById('certIdText')?.textContent || '';
+  const email  = window._contactEmail || document.getElementById('postEmail')?.value || '';
+  let url = 'https://buy.stripe.com/14AbJ0air8cA6h835Mb7y05';
+  if (email)  url += '?prefilled_email=' + encodeURIComponent(email);
+  if (certId) url += (email ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(certId);
+  window.open(url, '_blank');
 }
 
 function retryExam() {
