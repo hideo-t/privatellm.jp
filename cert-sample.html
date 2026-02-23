@@ -11,7 +11,12 @@
   --green:#06C755;--white:#F0F4FF;--gray:#8892A4;--card:#111D35;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-serif;min-height:100vh;padding:2rem 1rem;}
+body{
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(18,70,170,0.25) 0%, transparent 60%),
+    linear-gradient(180deg, #0D1F3C 0%, #0A1628 100%);
+  color:var(--white);font-family:'Noto Sans JP',sans-serif;min-height:100vh;padding:2rem 1rem;
+}
 
 /* ===== ページタイトル ===== */
 .page-title{text-align:center;margin-bottom:2.5rem;}
@@ -32,7 +37,20 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
 
 /* ===== 認定証本体 ===== */
 .cert-container{max-width:720px;margin:0 auto;}
-.cert-wrap{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 20px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(201,168,76,0.2);}
+.cert-stage{
+  background:radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.08) 0%, rgba(10,22,40,0) 70%);
+  border-radius:20px;padding:2rem 1.5rem;
+  border:1px solid rgba(201,168,76,0.1);
+}
+.cert-wrap{
+  position:relative;border-radius:12px;overflow:hidden;
+  /* 金色の外枠＋グロー */
+  box-shadow:
+    0 0 0 2px #C9A84C,
+    0 0 0 5px rgba(201,168,76,0.25),
+    0 0 40px rgba(201,168,76,0.2),
+    0 30px 80px rgba(0,0,0,0.8);
+}
 
 .cert{
   width:100%;aspect-ratio:1.414;
@@ -228,7 +246,7 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
 </div>
 
 <!-- 認定証本体 -->
-<div class="cert-container">
+<div class="cert-container"><div class="cert-stage">
   <div class="cert-wrap">
     <div class="cert" id="cert">
       <!-- 装飾枠 -->
