@@ -248,7 +248,7 @@ nav {
 }
 .grades-inner { max-width: 1200px; margin: 0 auto; }
 .grades-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem; margin-top: 3rem;
 }
 .grade-card {
@@ -490,7 +490,7 @@ footer {
   .cta-section { padding: 3rem 1.2rem; }
   footer { padding: 2rem 1.2rem; flex-direction: column; text-align: center; gap: 1rem; }
   .problem-grid { grid-template-columns: 1fr; }
-  .grades-grid { grid-template-columns: 1fr 1fr; }
+  .grades-grid { grid-template-columns: 1fr 1fr !important; }
   .syllabus-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
   .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
@@ -506,7 +506,7 @@ footer {
   .stat-item { flex: 1; min-width: 120px; }
 }
 @media (max-width: 600px) {
-  .grades-grid { grid-template-columns: 1fr; }
+  .grades-grid { grid-template-columns: 1fr !important; }
   .hero h1 { font-size: 2rem; line-height: 1.2; }
   .hero-stats { flex-wrap: wrap; justify-content: center; }
   .stat-num { font-size: 1.8rem; }
@@ -519,7 +519,7 @@ footer {
 @media (max-width: 400px) {
   .hero { padding: 4.5rem 1rem 2.5rem; }
   .hero h1 { font-size: 1.75rem; }
-  .grades-grid { grid-template-columns: 1fr; }
+  .grades-grid { grid-template-columns: 1fr !important; }
 }
 </style>
 </head>
@@ -650,7 +650,7 @@ footer {
     <div class="section-label">CERTIFICATION GRADES</div>
     <h2 class="section-title">4つの<em>グレード</em></h2>
     <p style="color:var(--gray); font-size:0.95rem; margin-top:0.5rem;">ビジネス理解から上級エンジニア・認定講師まで、段階的にスキルを証明。</p>
-    <div class="grades-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="grades-grid">
       <!-- 認定講師 -->
       <div class="grade-card" style="border-color:rgba(6,199,85,0.3);">
         <div class="grade-tag" style="background:rgba(6,199,85,0.15);color:#06C755;">FC展開可</div>
