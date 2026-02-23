@@ -663,19 +663,20 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbw_CzhFm5NMSaWNsRVIKNgk
 
 async function preRegisterToGAS(certId, gradeCode, score, total) {
   try {
-    await fetch(GAS_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {"Content-Type": "text/plain"},
-      body: JSON.stringify({
-        action: "preRegister",
-        cert_id: certId,
-        grade_code: gradeCode,
-        score: score,
-        rate: Math.round((score / total) * 100)
-      })
-    });
-    console.log("GAS事前登録:", certId);
+    const rate = Math.round((score / total) * 100);
+    // GETリクエストでURLパラメータとして送信（no-cors不要・確実に届く）
+    const url = GAS_URL
+      + "?action=preRegister"
+      + "&cert_id=" + encodeURIComponent(certId)
+      + "&grade_code=" + encodeURIComponent(gradeCode)
+      + "&score=" + score
+      + "&rate=" + rate;
+    // no-corsのimgタグトリック（最も確実）
+    const img = new Image();
+    img.src = url;
+    // fetchも並行して試みる
+    fetch(url, {mode:"no-cors"}).catch(()=>{});
+    console.log("GAS事前登録送信:", certId);
   } catch(e) {
     console.warn("GAS登録エラー（無視）:", e);
   }
