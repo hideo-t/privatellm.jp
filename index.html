@@ -483,34 +483,43 @@ footer {
   .nav-links { display: none; }
   .nav-btn { display: none !important; }
   .hamburger { display: flex !important; }
-  .hero { padding: 6rem 1.5rem 3rem; }
-  .section { padding: 4rem 1.5rem; }
-  .grades-section { padding: 4rem 1.5rem; }
-  .why-section { padding: 4rem 1.5rem; }
-  .cta-section { padding: 4rem 1.5rem; }
-  footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  .hero { padding: 5rem 1.2rem 3rem; }
+  .section { padding: 3rem 1.2rem; }
+  .grades-section { padding: 3rem 1.2rem; }
+  .why-section { padding: 3rem 1.2rem; }
+  .cta-section { padding: 3rem 1.2rem; }
+  footer { padding: 2rem 1.2rem; flex-direction: column; text-align: center; gap: 1rem; }
   .problem-grid { grid-template-columns: 1fr; }
-  .grades-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .grades-grid { grid-template-columns: 1fr 1fr; }
   .syllabus-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
-  .hero-stats { gap: 2rem; }
-  /* 事例セクション */
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
   .cases-grid { grid-template-columns: 1fr !important; }
-  /* 協会セクション */
   .about-grid { grid-template-columns: 1fr !important; }
-  /* 団体概要テーブルの幅 */
   .about-table-label { width: 80px !important; font-size:0.75rem !important; }
-  /* coming banner */
-  .coming-banner { flex-direction: column; }
-  /* ダウンロードボタン */
+  .coming-banner { flex-direction: column; text-align: center; }
   .dl-btns { flex-direction: column; align-items: stretch !important; }
   .dl-btns a { text-align: center; justify-content: center; }
+  /* What's New バナー */
+  [style*="fit-content"] { width: 100% !important; box-sizing: border-box; }
+  /* hero統計 */
+  .stat-item { flex: 1; min-width: 120px; }
 }
 @media (max-width: 600px) {
   .grades-grid { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 2.4rem; }
-  .hero-stats { flex-wrap: wrap; }
+  .hero h1 { font-size: 2rem; line-height: 1.2; }
+  .hero-stats { flex-wrap: wrap; justify-content: center; }
   .stat-num { font-size: 1.8rem; }
+  /* What's New バナー文字 */
+  [style*="NEW"], [style*="INFO"] { font-size: 0.75rem; }
+  .hero-badge { font-size: 0.72rem; }
+  /* nav */
+  nav { padding: 0.8rem 1rem; }
+}
+@media (max-width: 400px) {
+  .hero { padding: 4.5rem 1rem 2.5rem; }
+  .hero h1 { font-size: 1.75rem; }
+  .grades-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -556,6 +565,23 @@ footer {
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
   <div class="hero-content">
+    <!-- WHAT'S NEW -->
+    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;">
+      <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(6,199,85,0.1);border:1px solid rgba(6,199,85,0.35);border-radius:100px;padding:0.4rem 1rem;width:fit-content;">
+        <span style="background:var(--green);color:var(--navy);font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;border-radius:100px;padding:0.15rem 0.5rem;letter-spacing:0.05em;">NEW</span>
+        <span style="font-size:0.82rem;color:var(--white);">ChatGPT活用初級・AI基本検定の受験料が
+          <span style="text-decoration:line-through;color:var(--gray);">¥3,000〜¥5,000</span>
+          <span style="color:var(--green);font-weight:700;">→ 期間限定 無料</span>
+        </span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(232,184,75,0.08);border:1px solid rgba(232,184,75,0.3);border-radius:100px;padding:0.4rem 1rem;width:fit-content;">
+        <span style="background:var(--gold);color:var(--navy);font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;border-radius:100px;padding:0.15rem 0.5rem;letter-spacing:0.05em;">INFO</span>
+        <span style="font-size:0.82rem;color:var(--white);">認定証発行手数料を一律
+          <span style="color:var(--gold);font-weight:700;">¥3,000（税込）</span>
+          に統一しました
+        </span>
+      </div>
+    </div>
     <div class="hero-badge">日本初 — プライベートLLM専門資格</div>
     <h1>
       社内AIを<br>
