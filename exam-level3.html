@@ -675,6 +675,24 @@ function retryExam() {
 
 <script>
 // ===== GAS連携 =====
+
+// ===== 本番モード判定 =====
+const IS_HONBAN = new URLSearchParams(window.location.search).get('mode') === 'honban';
+
+// スタート画面に本番バナーを表示
+window.addEventListener('DOMContentLoaded', () => {
+  if (IS_HONBAN) {
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:rgba(232,184,75,0.12);border:1px solid rgba(232,184,75,0.4);border-radius:10px;padding:0.8rem 1.2rem;margin-bottom:1rem;text-align:center;font-size:0.85rem;color:var(--gold);font-weight:700;';
+    banner.innerHTML = '🏆 本番受験モード — 合格後にメール・LINEの入力が必要です';
+    const screen = document.getElementById('screenStart');
+    if (screen) screen.insertBefore(banner, screen.firstChild);
+    // コンタクト入力欄のラベルを「推奨」→「必須」に
+    const preLabel = document.querySelector('#screenStart [style*="任意"]');
+    if (preLabel) preLabel.textContent = '📬 連絡先を入力してください（本番受験・メールで認定証番号を受け取ります）';
+  }
+});
+
 const GAS_URL = "https://script.google.com/macros/s/AKfycbw1E931BEVOLqSPyX_LdS6aTuw997k8t9d639Tfvcz5EUjcsrkmokJ2RBdnFWNF-brT/exec";
 
 // 試験開始時に入力済みコンタクトを取得

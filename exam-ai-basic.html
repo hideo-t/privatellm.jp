@@ -107,6 +107,29 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
   .result-actions{flex-direction:column;}
   .btn-retry,.btn-line-result{width:100%;justify-content:center;}
 }
+
+/* ===== アップセル誘導セクション ===== */
+.upsell-section{background:linear-gradient(135deg,rgba(18,70,170,0.15),rgba(0,200,224,0.08));border:1px solid rgba(0,200,224,0.2);border-radius:16px;padding:2rem;margin:2rem 0;text-align:center;}
+.upsell-label{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--cyan);letter-spacing:0.15em;margin-bottom:0.8rem;}
+.upsell-title{font-family:'Barlow',sans-serif;font-weight:800;font-size:1.3rem;color:var(--white);margin-bottom:0.5rem;}
+.upsell-desc{font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;line-height:1.8;}
+.upsell-cards{display:grid;gap:1rem;margin-bottom:1.5rem;}
+.upsell-card{background:rgba(10,22,40,0.6);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.2rem;text-align:left;display:flex;gap:1rem;align-items:flex-start;text-decoration:none;transition:all 0.2s;cursor:pointer;}
+.upsell-card:hover{border-color:var(--cyan);background:rgba(0,200,224,0.08);transform:translateY(-2px);}
+.upsell-card-icon{font-size:2rem;flex-shrink:0;}
+.upsell-card-body{}
+.upsell-card-name{font-family:'Barlow',sans-serif;font-weight:800;font-size:1rem;color:var(--white);margin-bottom:0.3rem;}
+.upsell-card-desc{font-size:0.82rem;color:var(--gray);line-height:1.6;}
+.upsell-card-price{margin-top:0.4rem;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;}
+.upsell-card-price .free{color:var(--green);font-weight:700;}
+.upsell-card-price .paid{color:var(--gold);}
+.upsell-card-arrow{color:var(--cyan);font-size:1.2rem;margin-left:auto;align-self:center;flex-shrink:0;}
+@media(max-width:600px){
+  .upsell-section{padding:1.2rem;}
+  .upsell-cards{gap:0.7rem;}
+  .upsell-card{padding:0.9rem;}
+}
+
 </style>
 </head>
 <body>
@@ -134,6 +157,14 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
           <span style="color:var(--green);font-weight:800;">無料</span>
         </div>
         <div class="info-sub" style="color:var(--green);">🎁 期間限定無料</div>
+    </div>
+    <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin:1rem 0 1.5rem;">
+      <a href="AI基本検定シラバスv1.0.pdf" download style="display:inline-flex;align-items:center;gap:0.4rem;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:#3B82F6;text-decoration:none;border:1px solid rgba(59,130,246,0.3);border-radius:6px;padding:0.45rem 1rem;background:rgba(0,0,0,0.2);">
+        📄 シラバス PDF（無料）
+      </a>
+      <a href="https://privatellm.jp#syllabus" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:#06C755;text-decoration:none;border:1px solid rgba(6,199,85,0.3);border-radius:6px;padding:0.45rem 1rem;background:rgba(0,0,0,0.2);">
+        📚 公式テキスト（無料）
+      </a>
     </div>
     <button class="btn-start" onclick="startExam()">模擬試験を開始する →</button>
     <p style="margin-top:1rem;font-size:0.82rem;color:#4A5568;">※ 回答はブラウザ内で完結。外部に送信されません。</p>
@@ -167,7 +198,96 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
       <div class="breakdown-card"><div class="breakdown-label">所要時間</div><div class="breakdown-val" id="bdTime">—</div><div class="breakdown-sub">（制限：30分）</div></div>
     </div>
     <div id="nextStep"></div>
-    <div class="result-actions">
+    
+      <!-- アップセル誘導（合格時のみ表示） -->
+      <div class="upsell-section" id="upsellSection" style="display:none;">
+        <div class="upsell-label">NEXT STEP</div>
+        <div class="upsell-title">🚀 次はPrivateLLM構築士に挑戦しよう</div>
+        <div class="upsell-desc">AI基本検定合格者の次のステップ。<br>社内AIを自分で構築・運用できる専門家として、圧倒的な差別化を。</div>
+        <div class="upsell-cards">
+          <a href="exam-level3.html" class="upsell-card" style="border-color:rgba(232,184,75,0.4);">
+            <div class="upsell-card-icon">🏆</div>
+            <div class="upsell-card-body">
+              <div class="upsell-card-name">PrivateLLM構築士 3級</div>
+              <div class="upsell-card-desc">データを外部に出さない社内AI構築スキルを証明。AI基本検定の知識がそのまま活きる！40問・60分。</div>
+              <div class="upsell-card-price"><span class="paid">受験料 ¥8,000 ／ 認定証 ¥3,000</span></div>
+            </div>
+            <div class="upsell-card-arrow">→</div>
+          </a>
+          <a href="https://privatellm.jp#grades" class="upsell-card" style="border-color:rgba(18,70,170,0.4);">
+            <div class="upsell-card-icon">📋</div>
+            <div class="upsell-card-body">
+              <div class="upsell-card-name">全資格ロードマップを見る</div>
+              <div class="upsell-card-desc">3級→2級→1級→認定講師。キャリアパスと各グレードの詳細を確認。</div>
+              <div class="upsell-card-price"><span class="free">privatellm.jp で確認</span></div>
+            </div>
+            <div class="upsell-card-arrow">→</div>
+          </a>
+        </div>
+        <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;background:#06C755;color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:0.9rem;padding:0.8rem 1.8rem;border-radius:8px;text-decoration:none;">
+          🟢 PrivateLLM構築士の受付開始をLINEで受け取る
+        </a>
+      </div>
+
+    <div class="cert-section" id="certSection" style="display:none;">
+      <div class="cert-section-label">CERTIFICATE ISSUED</div>
+      <h3>🏆 認定証番号が発行されました</h3>
+      <p>以下の認定証番号を発行しました。<br>認定証番号をメール送信します。連絡先を入力してください。</p>
+      <!-- 合格後コンタクト入力（必須） -->
+      <div id="contactForm" style="background:rgba(6,199,85,0.05);border:1px solid rgba(6,199,85,0.2);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;text-align:left;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--green);letter-spacing:0.12em;margin-bottom:0.8rem;">📬 認定証番号を受け取る（メールまたはLINE）</div>
+        <input type="email" id="postEmail" placeholder="メールアドレス（推奨）" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:0.7rem 1rem;color:var(--white);font-size:0.9rem;margin-bottom:0.7rem;outline:none;display:block;" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <input type="text" id="postLine" placeholder="LINE ID（任意）" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:0.7rem 1rem;color:var(--white);font-size:0.9rem;margin-bottom:1rem;outline:none;display:block;" onfocus="this.style.borderColor='#06C755'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <button onclick="sendContactToGAS()" style="width:100%;background:var(--green);color:var(--navy);font-family:'Barlow',sans-serif;font-weight:800;font-size:0.95rem;padding:0.8rem;border:none;border-radius:8px;cursor:pointer;">📨 認定証番号をメール・LINEで受け取る</button>
+        <div id="contactSent" style="display:none;margin-top:0.8rem;text-align:center;color:var(--green);font-size:0.85rem;">✅ 送信しました！メールをご確認ください</div>
+        <div id="contactError" style="display:none;margin-top:0.8rem;text-align:center;color:var(--red);font-size:0.85rem;"></div>
+      </div>
+      <div class="cert-id-display" id="certIdDisplay" onclick="copyCertId()">
+        <span class="cert-id-copied" id="copiedMsg">コピーしました！</span>
+        <span id="certIdText">PAPA-3-2026-0001</span>
+      </div>
+      <div style="font-size:0.78rem;color:var(--gray);margin-bottom:1.5rem;">↑ タップでコピー</div>
+      <!-- Blurred cert preview -->
+      <div class="cert-blur-wrap">
+        <div class="cert-blur-inner">
+          <div class="mini-cert">
+            <div class="mini-cert-header">
+              <div>
+                <div class="mini-cert-header-text">PRIVATE AI PROMOTION ASSOCIATION</div>
+                <div class="mini-cert-header-text" style="color:rgba(255,255,255,0.4);font-size:0.7em;">プライベートAI推進協会（PAPA）</div>
+              </div>
+              <div class="mini-cert-header-logo">privatellm.jp</div>
+            </div>
+            <div class="mini-cert-gold-line"></div>
+            <div class="mini-cert-body">
+              <div class="mini-cert-label">CERTIFICATE OF ACHIEVEMENT</div>
+              <div style="font-family:serif;font-size:clamp(5px,1vw,7px);color:#6B7280;margin-bottom:1%;">CERTIFIED HOLDER</div>
+              <div class="mini-cert-name" id="miniName">　　　　</div>
+              <div style="width:40%;height:1px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);margin:2% auto;"></div>
+              <div class="mini-cert-grade">
+                <div class="mini-cert-grade-name">PrivateLLM Architect — Level 3</div>
+                <div class="mini-cert-grade-ja">PrivateLLM構築士 3級</div>
+              </div>
+            </div>
+            <div class="mini-cert-bottom">
+              <div class="mini-cert-id" id="miniId">PAPA-3-2026-0001</div>
+              <div class="mini-cert-seal"><div class="mini-cert-seal-text">PAPA<br>認定</div></div>
+              <div class="mini-cert-qr">⬛</div>
+            </div>
+          </div>
+        </div>
+        <div class="cert-blur-overlay">
+          <div class="cert-blur-badge">決済後に受け取れます</div>
+          <div class="cert-blur-sub">認定証番号をメモしてから決済してください</div>
+        </div>
+      </div>
+      <button class="btn-stripe" onclick="goStripe()">🏆 認定証を発行する — ¥3,000（税込）</button>
+      <div class="stripe-note">
+        Stripe決済 ・ クレジットカード / Apple Pay / Google Pay 対応<br>
+        決済後 → <a href="https://cert.privatellm.jp" target="_blank">cert.privatellm.jp</a> で認定証を受け取り
+      </div>
+    </div>
+      <div class="result-actions">
       <button class="btn-retry" onclick="retryExam()">もう一度挑戦する</button>
       <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="btn-line-result">🟢 本試験の通知を受け取る</a>
     </div>
@@ -302,6 +422,20 @@ function submitExam(){
   });
   document.getElementById('reviewList').innerHTML=html;
   window.scrollTo(0,0);
+
+  // 合格時：認定証番号発行 + certSection表示
+  if(pass){
+    const certId = generateCertId();
+    document.getElementById('certIdText').textContent = certId;
+    if(document.getElementById('miniId')) document.getElementById('miniId').textContent = certId;
+    document.getElementById('certSection').style.display = 'block';
+    if(document.getElementById('upsellSection')) document.getElementById('upsellSection').style.display = 'block';
+    window._certId = certId;
+    window._certScore = correct;
+    window._certRate = rate;
+    const gradeCode = 'AIB';
+    preRegisterToGAS(certId, gradeCode, correct, 20);
+  }
 }
 function retryExam(){
   answers=new Array(20).fill(null);currentQ=0;timeLeft=30*60;
@@ -316,7 +450,32 @@ function retryExam(){
 
 <script>
 // ===== GAS連携 =====
+
+// ===== 本番モード判定 =====
+const IS_HONBAN = new URLSearchParams(window.location.search).get('mode') === 'honban';
+
+// スタート画面に本番バナーを表示
+window.addEventListener('DOMContentLoaded', () => {
+  if (IS_HONBAN) {
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:rgba(232,184,75,0.12);border:1px solid rgba(232,184,75,0.4);border-radius:10px;padding:0.8rem 1.2rem;margin-bottom:1rem;text-align:center;font-size:0.85rem;color:var(--gold);font-weight:700;';
+    banner.innerHTML = '🏆 本番受験モード — 合格後にメール・LINEの入力が必要です';
+    const screen = document.getElementById('screenStart');
+    if (screen) screen.insertBefore(banner, screen.firstChild);
+    // コンタクト入力欄のラベルを「推奨」→「必須」に
+    const preLabel = document.querySelector('#screenStart [style*="任意"]');
+    if (preLabel) preLabel.textContent = '📬 連絡先を入力してください（本番受験・メールで認定証番号を受け取ります）';
+  }
+});
+
 const GAS_URL = "https://script.google.com/macros/s/AKfycbw1E931BEVOLqSPyX_LdS6aTuw997k8t9d639Tfvcz5EUjcsrkmokJ2RBdnFWNF-brT/exec";
+
+function generateCertId() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const seq = String(Math.floor(Math.random() * 9000) + 1000);
+  return `PAPA-AIB-${year}-${seq}`;
+}
 
 async function preRegisterToGAS(certId, gradeCode, score, total) {
   try {
