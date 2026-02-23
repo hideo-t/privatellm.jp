@@ -593,7 +593,7 @@ function submitExam() {
     window._certId = certId;
     window._certScore = correct;
     // GASに事前登録
-    preRegisterToGAS(certId, "3", correct, questions.length);
+    preRegisterToGAS(certId, "3", correct, QUESTIONS.length);
     window._certRate = rate;
   }
 }
