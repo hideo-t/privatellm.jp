@@ -3,1022 +3,635 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PrivateLLM構築士 | プライベートAI推進協会（PAPA）</title>
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="PrivateLLM構築士 | 日本初・社内AI専門資格">
-<meta property="og:description" content="クラウドにデータを送らず社内で動くAIの構築・運用スキルを証明する日本初の専門資格。3級〜1級・認定講師。無料テキスト配布中。">
-<meta property="og:url" content="https://privatellm.jp">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="プライベートAI推進協会（PAPA）">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="PrivateLLM構築士 | 日本初・社内AI専門資格">
-<meta name="twitter:description" content="情報漏洩ゼロ・社内AIを構築できる人材を証明する唯一の資格。無料テキスト配布中。">
-<link rel="canonical" href="https://privatellm.jp">
-<link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<meta name="description" content="日本初・プライベートLLM（社内AI）の専門資格。PrivateLLM構築士3級〜1級・認定講師。情報漏洩ゼロの社内AI構築スキルを証明する唯一の資格。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Barlow:ital,wght@0,400;0,700;0,800;1,400&family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<title>認定証発行 | cert.privatellm.jp</title>
+<meta name="description" content="PrivateLLM構築士・AI基本検定の認定証を発行するサイト。認定証番号・氏名・生年月日を入力して認定証を受け取れます。 | privatellm.jp">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;600;700&family=Barlow:wght@400;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-:root {
-  --navy: #0A1628;
-  --blue: #1246AA;
-  --cyan: #00C8E0;
-  --gold: #E8B84B;
-  --white: #F5F7FA;
-  --gray: #8892A4;
-  --card-bg: #111D35;
+:root{
+  --navy:#0A1628;--blue:#1246AA;--cyan:#00C8E0;
+  --gold:#C9A84C;--gold-l:#E8C97A;--gold-d:#8B6914;
+  --cream:#FBF8F0;--warm:#F5EFE0;--gray:#6B7280;--light:#EEF4FF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0D1117;color:white;font-family:'Noto Sans JP',sans-serif;min-height:100vh;}
+
+/* ====== HEADER ====== */
+.site-header{background:rgba(10,22,40,0.95);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+.site-logo{font-family:'Cinzel',serif;font-weight:700;font-size:1.1rem;color:var(--gold);text-decoration:none;letter-spacing:0.05em;}
+.site-logo span{color:rgba(255,255,255,0.5);font-size:0.7em;}
+.header-link{font-size:0.82rem;color:rgba(255,255,255,0.5);text-decoration:none;}
+.header-link:hover{color:var(--gold);}
+
+/* ====== MAIN ====== */
+.main{max-width:680px;margin:0 auto;padding:3rem 1.5rem;}
+
+/* Steps */
+.step-wrap{display:flex;gap:0;margin-bottom:3rem;position:relative;}
+.step-wrap::before{content:'';position:absolute;top:20px;left:20px;right:20px;height:1px;background:rgba(255,255,255,0.1);}
+.step{display:flex;flex-direction:column;align-items:center;gap:0.4rem;flex:1;position:relative;}
+.step-num{width:40px;height:40px;border-radius:50%;background:#161B27;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--gray);transition:all 0.3s;z-index:1;}
+.step-num.active{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:700;}
+.step-num.done{background:rgba(6,199,85,0.2);border-color:#06C755;color:#06C755;}
+.step-label{font-size:0.72rem;color:var(--gray);text-align:center;font-family:'IBM Plex Mono',monospace;}
+.step-label.active{color:var(--gold);}
+
+/* Cards */
+.card{background:#161B27;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2rem;margin-bottom:1.5rem;}
+.card-title{font-family:'Cinzel',serif;font-size:0.85rem;letter-spacing:0.15em;color:var(--gold);margin-bottom:1.5rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(201,168,76,0.15);}
+
+/* Form */
+.form-group{margin-bottom:1.2rem;}
+.form-label{display:block;font-size:0.78rem;color:#9CA3AF;letter-spacing:0.05em;margin-bottom:0.4rem;font-family:'IBM Plex Mono',monospace;}
+.form-input{width:100%;background:#0D1117;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.8rem 1rem;color:white;font-family:'Noto Sans JP',sans-serif;font-size:0.95rem;transition:border-color 0.2s;}
+.form-input:focus{outline:none;border-color:var(--gold);}
+.form-input.mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.05em;}
+.form-input.readonly{background:rgba(255,255,255,0.03);color:#9CA3AF;cursor:default;}
+.form-hint{font-size:0.75rem;color:var(--gray);margin-top:0.3rem;}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
+.btn-primary{width:100%;background:linear-gradient(135deg,var(--gold-d),var(--gold),var(--gold-l));color:var(--navy);border:none;border-radius:10px;padding:1rem;font-family:'Barlow',sans-serif;font-weight:800;font-size:1.05rem;cursor:pointer;transition:all 0.2s;letter-spacing:0.03em;}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(201,168,76,0.35);}
+.btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.btn-secondary{width:100%;background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:0.85rem;font-family:'Barlow',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.2s;margin-top:0.6rem;}
+.btn-secondary:hover{background:rgba(201,168,76,0.08);}
+
+.error-msg{background:rgba(224,48,48,0.1);border:1px solid rgba(224,48,48,0.3);border-radius:8px;padding:0.8rem 1rem;font-size:0.85rem;color:#F87171;margin-bottom:1rem;display:none;}
+.success-msg{background:rgba(6,199,85,0.1);border:1px solid rgba(6,199,85,0.3);border-radius:8px;padding:0.8rem 1rem;font-size:0.85rem;color:#06C755;margin-bottom:1rem;display:none;}
+
+/* Auto-filled badge */
+.auto-badge{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.7rem;color:#06C755;background:rgba(6,199,85,0.1);border:1px solid rgba(6,199,85,0.2);border-radius:100px;padding:0.15rem 0.5rem;margin-left:0.5rem;vertical-align:middle;}
+
+/* Orientation selector */
+.orientation-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.orientation-btn{background:#0D1117;border:2px solid rgba(255,255,255,0.1);border-radius:10px;padding:1rem;cursor:pointer;text-align:center;transition:all 0.2s;}
+.orientation-btn:hover{border-color:rgba(201,168,76,0.4);}
+.orientation-btn.selected{border-color:var(--gold);background:rgba(201,168,76,0.06);}
+.orientation-icon{font-size:2rem;margin-bottom:0.4rem;}
+.orientation-label{font-size:0.85rem;color:white;font-weight:500;}
+.orientation-sub{font-size:0.72rem;color:var(--gray);margin-top:0.2rem;}
+
+/* ====== CERTIFICATE ====== */
+.cert-output{display:none;margin-top:1.5rem;}
+.cert-actions{display:flex;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap;}
+.btn-dl{flex:1;min-width:120px;background:linear-gradient(135deg,var(--gold-d),var(--gold));color:var(--navy);border:none;border-radius:8px;padding:0.75rem;font-family:'Barlow',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all 0.2s;}
+.btn-dl:hover{transform:translateY(-1px);}
+.btn-share{flex:1;min-width:120px;background:#06C755;color:var(--navy);border:none;border-radius:8px;padding:0.75rem;font-family:'Barlow',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;}
+
+/* Copy protection wrapper */
+.cert-protect{position:relative;user-select:none;-webkit-user-select:none;}
+.cert-protect::after{content:'';position:absolute;inset:0;z-index:10;}
+
+/* ====== LANDSCAPE CERT ====== */
+#certLandscape{
+  width:100%;
+  max-width:700px;
+  aspect-ratio:1.414/1;
+  position:relative;
+  background:var(--cream);
+  overflow:hidden;
+  margin:0 auto;
+}
+/* ====== PORTRAIT CERT ====== */
+#certPortrait{
+  width:100%;
+  max-width:495px;
+  aspect-ratio:1/1.414;
+  position:relative;
+  background:var(--cream);
+  overflow:hidden;
+  margin:0 auto;
+  display:none;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* SHARED CERT STYLES */
+.cert-bg-pattern{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(201,168,76,0.06) 0%,transparent 60%),linear-gradient(135deg,#FBF8F0 0%,#F5EFE0 50%,#FBF8F0 100%);}
+.cert-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cinzel',serif;color:rgba(201,168,76,0.04);font-weight:700;user-select:none;pointer-events:none;white-space:nowrap;}
+.cert-border-o{position:absolute;inset:10px;border:2px solid var(--gold);pointer-events:none;}
+.cert-border-i{position:absolute;inset:15px;border:0.5px solid rgba(201,168,76,0.35);pointer-events:none;}
 
-html { scroll-behavior: smooth; }
+/* LANDSCAPE layout */
+.l-header{position:absolute;top:10px;left:10px;right:10px;background:linear-gradient(135deg,#0A1628,#1246AA);display:flex;align-items:center;justify-content:space-between;padding:0 3%;}
+.l-body{position:absolute;left:4%;right:4%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.l-footer{position:absolute;left:3%;right:3%;display:flex;align-items:flex-end;justify-content:space-between;}
 
-body {
-  background: var(--navy);
-  color: var(--white);
-  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
-  overflow-x: hidden;
-}
+/* PORTRAIT layout */
+.p-header{position:absolute;top:10px;left:10px;right:10px;background:linear-gradient(135deg,#0A1628,#1246AA);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.p-body{position:absolute;left:6%;right:6%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.p-footer{position:absolute;left:4%;right:4%;display:flex;align-items:flex-end;justify-content:space-between;}
 
-/* ─── NAV ─── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1.2rem 4rem;
-  background: rgba(10,22,40,0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,200,224,0.15);
-}
-.nav-logo {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-weight: 800; font-size: 1.15rem;
-  color: var(--cyan); letter-spacing: 0.05em;
-}
-.nav-logo span { color: var(--white); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-links a {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: 0.88rem; color: var(--gray);
-  text-decoration: none; letter-spacing: 0.08em;
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--cyan); }
-.nav-btn {
-  background: var(--cyan); color: var(--navy);
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif; font-weight: 700;
-  font-size: 0.85rem; padding: 0.55rem 1.4rem;
-  border: none; border-radius: 4px; cursor: pointer;
-  letter-spacing: 0.06em; transition: transform 0.2s, opacity 0.2s;
-}
-.nav-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+/* QR */
+#qrLandscape,#qrPortrait{background:white;padding:4px;}
 
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh;
-  display: flex; align-items: center;
-  padding: 8rem 4rem 4rem;
-  position: relative; overflow: hidden;
-}
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(0,200,224,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,200,224,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-.hero-glow {
-  position: absolute;
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(18,70,170,0.35) 0%, transparent 70%);
-  top: -100px; right: -100px; pointer-events: none;
-}
-.hero-glow2 {
-  position: absolute;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(0,200,224,0.12) 0%, transparent 70%);
-  bottom: 50px; left: 200px; pointer-events: none;
-}
-.hero-content { position: relative; max-width: 720px; }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: rgba(0,200,224,0.1);
-  border: 1px solid rgba(0,200,224,0.3);
-  border-radius: 100px;
-  padding: 0.4rem 1rem;
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  font-size: 0.78rem; color: var(--cyan);
-  letter-spacing: 0.1em; margin-bottom: 2rem;
-  animation: fadeUp 0.8s ease both;
-}
-.hero-badge::before {
-  content: ''; width: 6px; height: 6px;
-  background: var(--cyan); border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
-}
-.hero h1 {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  font-weight: 800; line-height: 1.05;
-  letter-spacing: -0.02em;
-  animation: fadeUp 0.8s 0.1s ease both;
-}
-.hero h1 em {
-  font-style: normal; color: var(--cyan);
-  display: block;
-}
-.hero-sub {
-  font-size: 1.05rem; line-height: 1.9;
-  color: #9CAABF; margin: 1.8rem 0 2.8rem;
-  animation: fadeUp 0.8s 0.2s ease both;
-}
-.hero-sub strong { color: var(--white); }
-.hero-actions {
-  display: flex; gap: 1rem; flex-wrap: wrap;
-  animation: fadeUp 0.8s 0.3s ease both;
-}
-.btn-primary {
-  background: var(--cyan); color: var(--navy);
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif; font-weight: 700;
-  font-size: 1rem; padding: 1rem 2.2rem;
-  border: none; border-radius: 6px; cursor: pointer;
-  letter-spacing: 0.04em; text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: inline-block;
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0,200,224,0.35);
-}
-.btn-outline {
-  background: transparent; color: var(--white);
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif; font-weight: 600;
-  font-size: 1rem; padding: 1rem 2.2rem;
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 6px; cursor: pointer;
-  letter-spacing: 0.04em; text-decoration: none;
-  transition: border-color 0.2s, color 0.2s;
-  display: inline-block;
-}
-.btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+/* Verify banner */
+.verify-card{background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:1.5rem;margin-top:1.5rem;}
+.verify-card h3{font-family:'Cinzel',serif;font-size:0.82rem;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.5rem;}
+.verify-card p{font-size:0.82rem;color:var(--gray);line-height:1.6;}
+.verify-row{display:flex;gap:0.5rem;margin-top:0.8rem;}
+.verify-input{flex:1;background:#0D1117;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:white;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;}
+.verify-input:focus{outline:none;border-color:var(--gold);}
+.btn-verify{background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:var(--gold);border-radius:6px;padding:0.55rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;cursor:pointer;white-space:nowrap;}
+.verify-result{margin-top:0.5rem;font-size:0.82rem;}
+.vok{color:#06C755;}
+.vng{color:#E03030;}
 
-.hero-stats {
-  display: flex; gap: 3rem; margin-top: 4rem;
-  animation: fadeUp 0.8s 0.4s ease both;
-}
-.stat-item {}
-.stat-num {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: 2.2rem; font-weight: 800;
-  color: var(--cyan); display: block;
-}
-.stat-label {
-  font-size: 0.8rem; color: var(--gray);
-  letter-spacing: 0.08em;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── PROBLEM ─── */
-.section {
-  padding: 6rem 4rem;
-  max-width: 1200px; margin: 0 auto;
-}
-.section-label {
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  font-size: 0.75rem; color: var(--cyan);
-  letter-spacing: 0.2em; text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-.section-title {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 800; line-height: 1.2;
-  margin-bottom: 1.2rem;
-}
-.section-title em { font-style: normal; color: var(--cyan); }
-
-.problem-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem; margin-top: 3rem;
-}
-.problem-card {
-  background: var(--card-bg);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 12px; padding: 2rem;
-  position: relative; overflow: hidden;
-  transition: border-color 0.3s, transform 0.3s;
-}
-.problem-card:hover {
-  border-color: rgba(0,200,224,0.3);
-  transform: translateY(-4px);
-}
-.problem-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--blue), var(--cyan));
-  opacity: 0; transition: opacity 0.3s;
-}
-.problem-card:hover::before { opacity: 1; }
-.problem-icon {
-  font-size: 2rem; margin-bottom: 1rem;
-}
-.problem-card h3 {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: 1.1rem; font-weight: 700;
-  margin-bottom: 0.7rem; color: var(--white);
-}
-.problem-card p {
-  font-size: 0.9rem; line-height: 1.75; color: var(--gray);
-}
-
-/* ─── GRADES ─── */
-.grades-section {
-  background: var(--card-bg);
-  border-top: 1px solid rgba(0,200,224,0.1);
-  border-bottom: 1px solid rgba(0,200,224,0.1);
-  padding: 6rem 4rem;
-}
-.grades-inner { max-width: 1200px; margin: 0 auto; }
-.grades-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem; margin-top: 3rem;
-}
-.grade-card {
-  border-radius: 14px; padding: 2rem 1.8rem;
-  border: 1px solid rgba(255,255,255,0.08);
-  position: relative; overflow: hidden;
-  background: linear-gradient(135deg, rgba(18,70,170,0.15), rgba(10,22,40,0.8));
-  transition: transform 0.3s;
-}
-.grade-card:hover { transform: translateY(-6px); }
-.grade-card.featured {
-  border-color: var(--cyan);
-  background: linear-gradient(135deg, rgba(0,200,224,0.12), rgba(10,22,40,0.9));
-}
-.grade-tag {
-  display: inline-block;
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  font-size: 0.72rem; letter-spacing: 0.12em;
-  background: rgba(0,200,224,0.15);
-  color: var(--cyan); border-radius: 100px;
-  padding: 0.25rem 0.75rem; margin-bottom: 1.2rem;
-}
-.grade-card.featured .grade-tag {
-  background: var(--cyan); color: var(--navy);
-}
-.grade-num {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: 3rem; font-weight: 800;
-  line-height: 1; margin-bottom: 0.3rem;
-}
-.grade-name {
-  font-size: 0.95rem; color: var(--gray);
-  margin-bottom: 1.5rem;
-}
-.grade-desc {
-  font-size: 0.85rem; line-height: 1.75;
-  color: #7A8899; margin-bottom: 1.5rem;
-}
-.grade-price {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: 1.4rem; font-weight: 700;
-  color: var(--white);
-}
-.grade-price span {
-  font-size: 0.8rem; color: var(--gray); font-weight: 400;
-}
-
-/* ─── SYLLABUS ─── */
-.syllabus-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem; margin-top: 3rem;
-}
-.syllabus-item {
-  display: flex; gap: 1.2rem;
-  background: var(--card-bg);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 10px; padding: 1.5rem;
-  transition: border-color 0.3s;
-}
-.syllabus-item:hover { border-color: rgba(0,200,224,0.25); }
-.syllabus-num {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: 2rem; font-weight: 800;
-  color: rgba(0,200,224,0.2);
-  line-height: 1; flex-shrink: 0; width: 2.5rem;
-}
-.syllabus-text h4 {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: 1rem; font-weight: 700;
-  margin-bottom: 0.4rem;
-}
-.syllabus-text p {
-  font-size: 0.85rem; color: var(--gray); line-height: 1.65;
-}
-.syllabus-pct {
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  font-size: 0.75rem; color: var(--cyan);
-  margin-top: 0.5rem;
-}
-
-/* ─── WHY ─── */
-.why-section { padding: 6rem 4rem; }
-.why-inner { max-width: 1200px; margin: 0 auto; }
-.why-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 4rem; align-items: center; margin-top: 3rem;
-}
-.why-list { display: flex; flex-direction: column; gap: 1.5rem; }
-.why-item { display: flex; gap: 1.2rem; align-items: flex-start; }
-.why-dot {
-  width: 10px; height: 10px;
-  background: var(--cyan); border-radius: 50%;
-  flex-shrink: 0; margin-top: 0.4rem;
-}
-.why-item h4 {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: 1.05rem; font-weight: 700;
-  margin-bottom: 0.3rem;
-}
-.why-item p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
-
-.why-visual {
-  background: var(--card-bg);
-  border: 1px solid rgba(0,200,224,0.15);
-  border-radius: 16px; padding: 2.5rem;
-}
-.market-row {
-  display: flex; justify-content: space-between;
-  align-items: center; padding: 1rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.market-row:last-child { border-bottom: none; }
-.market-label { font-size: 0.88rem; color: var(--gray); }
-.market-bar-wrap { flex: 1; margin: 0 1.5rem; }
-.market-bar {
-  height: 6px; background: rgba(255,255,255,0.08);
-  border-radius: 3px; overflow: hidden;
-}
-.market-fill {
-  height: 100%; border-radius: 3px;
-  background: linear-gradient(90deg, var(--blue), var(--cyan));
-  transition: width 1s ease;
-}
-.market-val {
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  font-size: 0.82rem; color: var(--cyan); white-space: nowrap;
-}
-
-/* ─── CTA ─── */
-.cta-section {
-  background: linear-gradient(135deg, var(--blue) 0%, #0A1628 100%);
-  border-top: 1px solid rgba(0,200,224,0.2);
-  padding: 6rem 4rem; text-align: center;
-}
-.cta-inner { max-width: 700px; margin: 0 auto; }
-.cta-inner h2 {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 800; margin-bottom: 1.2rem;
-}
-.cta-inner p {
-  font-size: 1rem; color: #9CAABF;
-  line-height: 1.8; margin-bottom: 2.5rem;
-}
-.cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-/* ─── FOOTER ─── */
-footer {
-  background: #050E1C;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 3rem 4rem;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 1rem;
-}
-.footer-logo {
-  font-family: 'Barlow', 'Barlow Condensed', 'Arial Black', sans-serif;
-  font-weight: 800; font-size: 1rem;
-  color: var(--cyan);
-}
-.footer-links { display: flex; gap: 2rem; }
-.footer-links a {
-  font-size: 0.82rem; color: var(--gray);
-  text-decoration: none; transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--white); }
-.footer-copy {
-  font-size: 0.78rem; color: #4A5568;
-}
-
-/* ─── COMING SOON BANNER ─── */
-.coming-banner {
-  background: linear-gradient(90deg, rgba(232,184,75,0.15), rgba(232,184,75,0.05));
-  border: 1px solid rgba(232,184,75,0.3);
-  border-radius: 8px; padding: 1rem 1.5rem;
-  display: flex; align-items: center; gap: 1rem;
-  margin-top: 2rem; max-width: 600px;
-}
-.coming-banner .icon { font-size: 1.3rem; }
-.coming-banner p {
-  font-size: 0.9rem; color: #C9A23B; line-height: 1.5;
-}
-.coming-banner strong { color: var(--gold); }
-
-/* RESPONSIVE */
-/* HAMBURGER */
-.hamburger {
-  display: none;
-  flex-direction: column; justify-content: center; align-items: center;
-  width: 40px; height: 40px;
-  background: transparent; border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px; cursor: pointer; gap: 5px; padding: 8px;
-}
-.hamburger span {
-  display: block; width: 20px; height: 2px;
-  background: var(--white); border-radius: 2px;
-  transition: all 0.3s;
-}
-.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-.mobile-menu {
-  display: none;
-  position: fixed; top: 60px; left: 0; right: 0;
-  background: rgba(10,22,40,0.98);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(0,200,224,0.2);
-  padding: 1rem 1.5rem 1.5rem;
-  flex-direction: column; gap: 0;
-  z-index: 99;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: 'Barlow', sans-serif; font-size: 1rem;
-  color: var(--gray); text-decoration: none;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  transition: color 0.2s;
-}
-.mobile-menu a:hover { color: var(--white); }
-.mobile-menu a:last-child { border-bottom: none; }
-.mobile-line-btn {
-  margin-top: 0.8rem;
-  background: #06C755 !important; color: var(--navy) !important;
-  font-weight: 700 !important; text-align: center;
-  border-radius: 8px; padding: 0.9rem !important;
-  border-bottom: none !important;
-}
-
-@media (max-width: 900px) {
-  nav { padding: 1rem 1.5rem; }
-  .nav-links { display: none; }
-  .nav-btn { display: none !important; }
-  .hamburger { display: flex !important; }
-  .hero { padding: 6rem 1.5rem 3rem; }
-  .section { padding: 4rem 1.5rem; }
-  .grades-section { padding: 4rem 1.5rem; }
-  .why-section { padding: 4rem 1.5rem; }
-  .cta-section { padding: 4rem 1.5rem; }
-  footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
-  .problem-grid { grid-template-columns: 1fr; }
-  .grades-grid { grid-template-columns: 1fr 1fr 1fr; }
-  .syllabus-grid { grid-template-columns: 1fr; }
-  .why-grid { grid-template-columns: 1fr; }
-  .hero-stats { gap: 2rem; }
-  /* 事例セクション */
-  .cases-grid { grid-template-columns: 1fr !important; }
-  /* 協会セクション */
-  .about-grid { grid-template-columns: 1fr !important; }
-  /* 団体概要テーブルの幅 */
-  .about-table-label { width: 80px !important; font-size:0.75rem !important; }
-  /* coming banner */
-  .coming-banner { flex-direction: column; }
-  /* ダウンロードボタン */
-  .dl-btns { flex-direction: column; align-items: stretch !important; }
-  .dl-btns a { text-align: center; justify-content: center; }
-}
-@media (max-width: 600px) {
-  .grades-grid { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 2.4rem; }
-  .hero-stats { flex-wrap: wrap; }
-  .stat-num { font-size: 1.8rem; }
+@media(max-width:600px){
+  .main{padding:1.5rem 1rem;}
+  .form-row{grid-template-columns:1fr;}
+  .cert-actions{flex-direction:column;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Private<span>LLM</span>.jp</div>
-  <ul class="nav-links">
-    <li><a href="#about">資格について</a></li>
-    <li><a href="#grades">グレード</a></li>
-    <li><a href="#syllabus">シラバス</a></li>
-    <li><a href="#why">なぜ今？</a></li>
-    <li><a href="roadmap.html" style="color:var(--cyan);">ロードマップ</a></li>
-    <li><a href="exam-level3.html" style="color:var(--gold);">模擬試験</a></li>
-    <li><a href="#about-papa">協会について</a></li>
-  </ul>
-  <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="nav-btn" style="background:#06C755;">
-    🟢 LINE登録
-  </a>
-  <!-- ハンバーガーボタン（モバイル用） -->
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="メニュー">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<!-- モバイルメニュー -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="closeMenu()">資格について</a>
-  <a href="#grades" onclick="closeMenu()">グレード</a>
-  <a href="#syllabus" onclick="closeMenu()">シラバス</a>
-  <a href="#why" onclick="closeMenu()">なぜ今？</a>
-  <a href="roadmap.html" style="color:var(--cyan);">📋 ロードマップ</a>
-  <a href="exam-ai-basic.html" style="color:#3B82F6;">📝 AI基本検定 模擬試験</a>
-  <a href="exam-chatgpt.html" style="color:#10A37F;">📝 ChatGPT活用初級 模擬試験</a>
-  <a href="exam-level3.html" style="color:var(--gold);">📝 PrivateLLM 3級 模擬試験</a>
-  <a href="#about-papa" onclick="closeMenu()">協会について</a>
-  <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="mobile-line-btn">🟢 LINEで登録する</a>
-</div>
+<header class="site-header">
+  <a href="https://privatellm.jp" class="site-logo">cert.privatellm<span>.jp</span></a>
+  <a href="https://privatellm.jp" class="header-link">← privatellm.jp</a>
+</header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-  <div class="hero-content">
-    <div class="hero-badge">日本初 — プライベートLLM専門資格</div>
-    <h1>
-      社内AIを<br>
-      <em>構築できる人材</em><br>
-      を証明する。
-    </h1>
-    <p class="hero-sub">
-      <strong>PrivateLLM構築士</strong>は、クラウドにデータを送らずに<br>
-      社内で動かすAI（プライベートLLM）の構築・運用スキルを<br>
-      証明する、日本で唯一の専門資格です。
-    </p>
-    <div class="hero-actions">
-      <a href="#grades" class="btn-primary">資格を見る</a>
-      <a href="#syllabus" class="btn-outline">シラバスを確認する</a>
-    </div>
-    <div class="coming-banner">
-      <div class="icon">📢</div>
-      <p><strong>2026年 第1回検定 実施予定</strong><br>
-      <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" style="color:#06C755; font-weight:bold;">👉 LINEで友達追加して通知を受け取る</a></p>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num">0</span>
-        <span class="stat-label">競合資格（日本初）</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">300万+</span>
-        <span class="stat-label">対象中小企業数</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">4</span>
-        <span class="stat-label">グレード（3級〜講師）</span>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="main">
 
-<!-- PROBLEM -->
-<div id="about">
-<div class="section">
-  <div class="section-label">WHY NOW</div>
-  <h2 class="section-title">企業が直面する<em>3つの課題</em></h2>
-  <div class="problem-grid">
-    <div class="problem-card">
-      <div class="problem-icon">🔒</div>
-      <h3>情報漏洩リスク</h3>
-      <p>ChatGPTなどのクラウドAIに機密データを送信することへの不安。社内情報が外部に流出するリスクを企業は抱えています。</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-icon">💸</div>
-      <h3>APIコストの青天井</h3>
-      <p>クラウドAIの従量課金は利用量が増えるほどコストが膨張。社内展開すると月数百万円に達するケースも。</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-icon">👤</div>
-      <h3>人材がいない</h3>
-      <p>プライベートLLMを構築・運用できる人材は日本に極めて少ない。それを認定する資格もなく、スキルの証明手段がありませんでした。</p>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- GRADES -->
-<section class="grades-section" id="grades">
-  <div class="grades-inner">
-    <div class="section-label">CERTIFICATION GRADES</div>
-    <h2 class="section-title">4つの<em>グレード</em></h2>
-    <p style="color:var(--gray); font-size:0.95rem; margin-top:0.5rem;">ビジネス理解から上級エンジニア・認定講師まで、段階的にスキルを証明。</p>
-    <div class="grades-grid" style="grid-template-columns:repeat(3,1fr);">
-      <!-- 認定講師 -->
-      <div class="grade-card" style="border-color:rgba(6,199,85,0.3);">
-        <div class="grade-tag" style="background:rgba(6,199,85,0.15);color:#06C755;">FC展開可</div>
-        <div class="grade-num" style="color:#06C755;">講師</div>
-        <div class="grade-name">PrivateLLM 認定講師</div>
-        <p class="grade-desc">2級以上取得者が審査で取得。企業研修開講権・公認ロゴ使用権。全国展開・副業〜独立まで対応。</p>
-        <div class="grade-price">¥50,000 <span>/年（税込）</span></div>
-      </div>
-      <!-- 1級 -->
-      <div class="grade-card">
-        <div class="grade-tag" style="background:rgba(232,184,75,0.15);color:var(--gold);">最高位</div>
-        <div class="grade-num" style="color:var(--gold);">1級</div>
-        <div class="grade-name">PrivateLLM構築士 1級</div>
-        <p class="grade-desc">大規模設計・MLOps・エンタープライズ対応。上級エンジニア・コンサルタント向けの最高位資格。</p>
-        <div class="grade-price">¥30,000 <span>（税込）</span></div>
-      </div>
-      <!-- 2級 -->
-      <div class="grade-card">
-        <div class="grade-tag">エンジニア向け</div>
-        <div class="grade-num">2級</div>
-        <div class="grade-name">PrivateLLM構築士 2級</div>
-        <p class="grade-desc">Ollama・RAG・セキュリティ設計。実務エンジニア向け。構築スキルを実証する中級資格。</p>
-        <div class="grade-price">¥15,000 <span>（税込）</span></div>
-      </div>
-      <!-- PrivateLLM 3級 -->
-      <div class="grade-card featured">
-        <div class="grade-tag">最初の一歩</div>
-        <div class="grade-num">3級</div>
-        <div class="grade-name">PrivateLLM構築士 3級</div>
-        <p class="grade-desc">概念理解・導入判断・活用事例。IT知識不問。ビジネスパーソン全般が対象。1〜2週間の学習で取得可能。</p>
-        <div class="grade-price">¥8,000 <span>（税込）</span></div>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem;">
-          <a href="exam-level3.html" style="font-size:0.75rem;color:var(--cyan);text-decoration:none;border:1px solid rgba(0,200,224,0.3);border-radius:4px;padding:0.2rem 0.6rem;">模擬試験 →</a>
-          <a href="syllabus-level3-v1.pdf" download style="font-size:0.75rem;color:var(--cyan);text-decoration:none;border:1px solid rgba(0,200,224,0.3);border-radius:4px;padding:0.2rem 0.6rem;">シラバス PDF</a>
-          <a href="textbook-level3-v1.pdf" download style="font-size:0.75rem;color:#06C755;text-decoration:none;border:1px solid rgba(6,199,85,0.3);border-radius:4px;padding:0.2rem 0.6rem;">テキスト 無料</a>
-        </div>
-      </div>
-      <!-- ChatGPT活用初級 -->
-      <div class="grade-card" style="border-color:rgba(16,163,127,0.3);">
-        <div class="grade-tag" style="background:rgba(16,163,127,0.15);color:#5FFFD5;">生成AI活用</div>
-        <div class="grade-num" style="color:#10A37F;">ChatGPT</div>
-        <div class="grade-name">ChatGPT活用初級</div>
-        <p class="grade-desc">ChatGPTを業務で安全・効果的に活用するスキルを証明。プロンプト・安全・実践テクニックを網羅。</p>
-        <div class="grade-price">¥5,000 <span>（税込）</span></div>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem;">
-          <a href="exam-chatgpt.html" style="font-size:0.75rem;color:#10A37F;text-decoration:none;border:1px solid rgba(16,163,127,0.3);border-radius:4px;padding:0.2rem 0.6rem;">模擬試験 →</a>
-          <a href="ChatGPT活用初級シラバスv1.0.pdf" download style="font-size:0.75rem;color:#10A37F;text-decoration:none;border:1px solid rgba(16,163,127,0.3);border-radius:4px;padding:0.2rem 0.6rem;">シラバス PDF</a>
-          <a href="textbook-chatgpt-v1.pdf" download style="font-size:0.75rem;color:#06C755;text-decoration:none;border:1px solid rgba(6,199,85,0.3);border-radius:4px;padding:0.2rem 0.6rem;">テキスト 無料</a>
-        </div>
-      </div>
-      <!-- AI基本検定 -->
-      <div class="grade-card" style="border-color:rgba(59,130,246,0.3);">
-        <div class="grade-tag" style="background:rgba(59,130,246,0.15);color:#7AABFF;">AI基礎知識</div>
-        <div class="grade-num" style="color:#3B82F6;">AI基本</div>
-        <div class="grade-name">AI基本検定</div>
-        <p class="grade-desc">ローカルAIとクラウドAIの違いを中心に、AIの基礎知識を体系的に学ぶ。IT知識ゼロでも受験可能。</p>
-        <div class="grade-price">¥3,000 <span>（税込）</span></div>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem;">
-          <a href="exam-ai-basic.html" style="font-size:0.75rem;color:#3B82F6;text-decoration:none;border:1px solid rgba(59,130,246,0.3);border-radius:4px;padding:0.2rem 0.6rem;">模擬試験 →</a>
-          <a href="AI基本検定シラバスv1.0.pdf" download style="font-size:0.75rem;color:#3B82F6;text-decoration:none;border:1px solid rgba(59,130,246,0.3);border-radius:4px;padding:0.2rem 0.6rem;">シラバス PDF</a>
-          <a href="textbook-ai-basic-v1.pdf" download style="font-size:0.75rem;color:#06C755;text-decoration:none;border:1px solid rgba(6,199,85,0.3);border-radius:4px;padding:0.2rem 0.6rem;">テキスト 無料</a>
-        </div>
-      </div>
-    </div>
-    </section>
-
-<!-- SYLLABUS -->
-<div id="syllabus">
-<div class="section">
-  <div class="section-label">3級 SYLLABUS</div>
-  <h2 class="section-title">3級 出題範囲</h2>
-  <p style="color:var(--gray); font-size:0.95rem; margin-top:0.5rem;">全40問・60分・オンライン受験・合格基準70%</p>
-  <div class="syllabus-grid">
-    <div class="syllabus-item">
-      <div class="syllabus-num">01</div>
-      <div class="syllabus-text">
-        <h4>プライベートLLMの基礎概念</h4>
-        <p>LLMとは何か、クラウドLLMとの違い、主要オープンソースモデルの概要</p>
-        <div class="syllabus-pct">25% ／ 約10問</div>
-      </div>
-    </div>
-    <div class="syllabus-item">
-      <div class="syllabus-num">02</div>
-      <div class="syllabus-text">
-        <h4>セキュリティ・コンプライアンス</h4>
-        <p>情報漏洩リスク・個人情報保護法・EU AI Act・業種別規制の概要</p>
-        <div class="syllabus-pct">20% ／ 約8問</div>
-      </div>
-    </div>
-    <div class="syllabus-item">
-      <div class="syllabus-num">03</div>
-      <div class="syllabus-text">
-        <h4>導入判断と費用対効果</h4>
-        <p>導入検討フレームワーク・コスト比較・ROIの考え方・導入ステップ</p>
-        <div class="syllabus-pct">20% ／ 約8問</div>
-      </div>
-    </div>
-    <div class="syllabus-item">
-      <div class="syllabus-num">04</div>
-      <div class="syllabus-text">
-        <h4>主要ツール・技術の概要</h4>
-        <p>Ollama・RAG・量子化・Dify・LibreChatなど主要ツールの概要</p>
-        <div class="syllabus-pct">20% ／ 約8問</div>
-      </div>
-    </div>
-    <div class="syllabus-item">
-      <div class="syllabus-num">05</div>
-      <div class="syllabus-text">
-        <h4>ビジネス活用事例</h4>
-        <p>業種別活用事例・社内FAQ・文書要約・マルチモーダル・失敗事例と対策</p>
-        <div class="syllabus-pct">15% ／ 約6問</div>
-      </div>
-    </div>
-    <div class="syllabus-item" style="background: rgba(0,200,224,0.05); border-color: rgba(0,200,224,0.2);">
-      <div class="syllabus-num" style="color:rgba(0,200,224,0.4);">📄</div>
-      <div class="syllabus-text">
-        <h4>公式テキスト（無料）</h4>
-        <p>シラバス全範囲をカバーした公式テキストを無料配布予定。独学1〜2週間で合格可能。</p>
-        <a href="textbook-level3-v1.pdf" download style="display:inline-flex; align-items:center; gap:0.5rem; margin-top:0.5rem; font-family:IBM Plex Mono,monospace; font-size:0.75rem; color:#06C755; font-weight:600; text-decoration:none;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          ダウンロード（無料・PDF）
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="dl-btns" style="margin-top:2.5rem; text-align:center; display:flex; flex-direction:column; align-items:center; gap:1rem;">
-    <a href="syllabus-level3-v1.pdf" download class="btn-primary" style="display:inline-flex; align-items:center; gap:0.7rem; font-size:1rem;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      3級シラバス PDFをダウンロード（無料）
-    </a>
-    <p style="margin-top:0.8rem; font-size:0.82rem; color:var(--gray);">ver.1.0 ／ 2026年2月発行 ／ プライベートAI推進協会（PAPA）</p>
-    <div style="margin-top:1rem;">
-      <a href="textbook-level3-v1.pdf" download class="btn-outline" style="display:inline-flex; align-items:center; gap:0.7rem; font-size:1rem;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        公式テキスト（全22ページ・無料）をダウンロード
-      </a>
-      <p style="margin-top:0.6rem; font-size:0.82rem; color:var(--gray);">練習問題20問・重要用語集収録</p>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- WHY -->
-<section class="why-section" id="why">
-<div class="why-inner">
-  <div class="section-label">MARKET OPPORTUNITY</div>
-  <h2 class="section-title">なぜ今、<em>この資格</em>なのか</h2>
-  <div class="why-grid">
-    <div class="why-list">
-      <div class="why-item">
-        <div class="why-dot"></div>
-        <div>
-          <h4>競合資格がゼロ</h4>
-          <p>プライベートLLMの構築・運用に特化した資格は、日本国内に存在しません。先行者が標準を作ります。</p>
-        </div>
-      </div>
-      <div class="why-item">
-        <div class="why-dot"></div>
-        <div>
-          <h4>需要は確実に急拡大</h4>
-          <p>EU AI Act施行・情報漏洩事故増加・クラウドコスト高騰を背景に、プライベートLLM導入を検討する企業が急増しています。</p>
-        </div>
-      </div>
-      <div class="why-item">
-        <div class="why-dot"></div>
-        <div>
-          <h4>世界展開のポテンシャル</h4>
-          <p>privatellm.netを保有。英語版シラバス・アジア展開・CompTIA/ISC²レベルの国際資格化を目指しています。</p>
-        </div>
-      </div>
-      <div class="why-item">
-        <div class="why-dot"></div>
-        <div>
-          <h4>フランチャイズ展開可能</h4>
-          <p>認定講師制度により、全国・海外での研修展開が可能。規模に応じたスケールアップができます。</p>
-        </div>
-      </div>
-    </div>
-    <div class="why-visual">
-      <div style="font-family:'Syne',sans-serif; font-size:0.85rem; color:var(--gray); letter-spacing:0.1em; margin-bottom:1.5rem;">市場需要の可視化</div>
-      <div class="market-row">
-        <div class="market-label">情報漏洩への懸念</div>
-        <div class="market-bar-wrap"><div class="market-bar"><div class="market-fill" style="width:92%"></div></div></div>
-        <div class="market-val">92%</div>
-      </div>
-      <div class="market-row">
-        <div class="market-label">社内AI導入意向</div>
-        <div class="market-bar-wrap"><div class="market-bar"><div class="market-fill" style="width:78%"></div></div></div>
-        <div class="market-val">78%</div>
-      </div>
-      <div class="market-row">
-        <div class="market-label">専門人材不足感</div>
-        <div class="market-bar-wrap"><div class="market-bar"><div class="market-fill" style="width:88%"></div></div></div>
-        <div class="market-val">88%</div>
-      </div>
-      <div class="market-row">
-        <div class="market-label">資格取得への意欲</div>
-        <div class="market-bar-wrap"><div class="market-bar"><div class="market-fill" style="width:65%"></div></div></div>
-        <div class="market-val">65%</div>
-      </div>
-      <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.06);">
-        <div style="font-size:0.78rem; color:var(--gray);">対象企業数（日本国内）</div>
-        <div style="font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--cyan); margin-top:0.3rem;">300万社以上</div>
-        <div style="font-size:0.78rem; color:var(--gray); margin-top:0.2rem;">中小企業全体（総務省統計）</div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-
-
-
-<!-- CASES -->
-<section style="background:var(--card-bg); border-top:1px solid rgba(0,200,224,0.08); border-bottom:1px solid rgba(0,200,224,0.08); padding:4rem clamp(1.5rem, 5vw, 4rem);" >
-<div style="max-width:1200px; margin:0 auto;">
-  <div class="section-label">REAL WORLD USE CASES</div>
-  <h2 class="section-title">導入・検討<em>事例</em></h2>
-  <p style="color:var(--gray); font-size:0.95rem; margin-top:0.5rem;">プライベートAI推進協会が関わる実際のプロジェクト（社名は非公開）</p>
-
-  <div class="cases-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3rem;">
-
-    <!-- A社 -->
-    <div style="background:linear-gradient(135deg,rgba(18,70,170,0.15),rgba(10,22,40,0.8)); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:2rem; transition:transform 0.3s; position:relative; overflow:hidden;">
-      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));"></div>
-      <div style="font-size:2.5rem; margin-bottom:1rem;">🏔️</div>
-      <div style="font-family:Syne,sans-serif; font-size:0.72rem; letter-spacing:0.15em; color:var(--cyan); margin-bottom:0.5rem;">THEME PARK — A社</div>
-      <h3 style="font-family:Syne,sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:1rem; line-height:1.4;">来場者向け<br>AI体験サービス</h3>
-      <p style="font-size:0.88rem; color:var(--gray); line-height:1.8; margin-bottom:1.2rem;">関東圏の大型テーマパークにて、来場者向けのプライベートAIを活用した体験型診断サービスを検討中。顧客データを外部送信せずに処理するプライベートLLMを採用予定。</p>
-      <div style="display:inline-flex; align-items:center; gap:0.4rem; background:rgba(232,184,75,0.12); border:1px solid rgba(232,184,75,0.3); border-radius:100px; padding:0.3rem 0.8rem; font-family:IBM Plex Mono,monospace; font-size:0.72rem; color:var(--gold);">● 検討中</div>
-    </div>
-
-    <!-- C社 -->
-    <div style="background:linear-gradient(135deg,rgba(0,200,224,0.1),rgba(10,22,40,0.85)); border:1px solid rgba(0,200,224,0.25); border-radius:16px; padding:2rem; position:relative; overflow:hidden;">
-      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan),#00E8A0);"></div>
-      <div style="font-size:2.5rem; margin-bottom:1rem;">🍺</div>
-      <div style="font-family:Syne,sans-serif; font-size:0.72rem; letter-spacing:0.15em; color:var(--cyan); margin-bottom:0.5rem;">IZAKAYA CHAIN — C社（FC展開中）</div>
-      <h3 style="font-family:Syne,sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:1rem; line-height:1.4;">POSデータ分析から<br>経営改善アプリまで内製化</h3>
-      <p style="font-size:0.88rem; color:var(--gray); line-height:1.8; margin-bottom:1.2rem;">FC展開中の居酒屋チェーンにて、各店舗のPOSデータをプライベートAIでリアルタイム分析。売上予測・仕入れ最適化・人員配置の改善アプリまでを外部ベンダーなしで内製化。クラウド送信ゼロで機密性を確保。</p>
-      <div style="display:inline-flex; align-items:center; gap:0.4rem; background:rgba(0,200,224,0.12); border:1px solid rgba(0,200,224,0.3); border-radius:100px; padding:0.3rem 0.8rem; font-family:IBM Plex Mono,monospace; font-size:0.72rem; color:var(--cyan);">● 導入・運用中</div>
-    </div>
-
-    <!-- D社 -->
-    <div style="background:linear-gradient(135deg,rgba(18,70,170,0.15),rgba(10,22,40,0.8)); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:2rem; position:relative; overflow:hidden;">
-      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));"></div>
-      <div style="font-size:2.5rem; margin-bottom:1rem;">🏢</div>
-      <div style="font-family:Syne,sans-serif; font-size:0.72rem; letter-spacing:0.15em; color:var(--cyan); margin-bottom:0.5rem;">IT COMPANY — D社</div>
-      <h3 style="font-family:Syne,sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:1rem; line-height:1.4;">社内ナレッジの<br>RAG化・全社展開</h3>
-      <p style="font-size:0.88rem; color:var(--gray); line-height:1.8; margin-bottom:1.2rem;">数千件の社内マニュアル・議事録・技術文書をRAGで検索可能に。社員からの質問に24時間自動回答するシステムを構築。問い合わせ対応コストを大幅削減。現在、全社展開に向け調整中。</p>
-      <div style="display:inline-flex; align-items:center; gap:0.4rem; background:rgba(232,184,75,0.12); border:1px solid rgba(232,184,75,0.3); border-radius:100px; padding:0.3rem 0.8rem; font-family:IBM Plex Mono,monospace; font-size:0.72rem; color:var(--gold);">● 実証実験中</div>
-    </div>
-
+  <!-- Steps -->
+  <div class="step-wrap">
+    <div class="step"><div class="step-num active" id="s1">1</div><div class="step-label active">番号入力</div></div>
+    <div class="step"><div class="step-num" id="s2">2</div><div class="step-label" id="sl2">情報確認</div></div>
+    <div class="step"><div class="step-num" id="s3">3</div><div class="step-label" id="sl3">認定証発行</div></div>
   </div>
 
-  <p style="text-align:center; margin-top:2rem; font-size:0.82rem; color:#4A5568;">※ 掲載事例はすべて守秘義務のもと、社名・詳細を一部変更して掲載しています。</p>
-</div>
-</section>
+  <!-- STEP 1: Input -->
+  <div id="step1">
+    <div class="card">
+      <div class="card-title">STEP 1 — 認定証番号・氏名・生年月日を入力</div>
 
-<!-- ABOUT -->
-<section id="about-papa" style="background: var(--navy); padding: 4rem clamp(1.5rem, 5vw, 4rem); border-top: 1px solid rgba(0,200,224,0.08);">
-<div style="max-width:1200px; margin:0 auto;">
-  <div class="section-label">ABOUT PAPA</div>
-  <h2 class="section-title">主催団体について</h2>
+      <div id="errorMsg" class="error-msg"></div>
 
-  <div class="about-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:3rem; align-items:start;">
+      <div class="form-group">
+        <label class="form-label">認定証番号 <span style="color:#E03030;">*</span></label>
+        <input class="form-input mono" id="inCertId" type="text" placeholder="PAPA-3-2026-0001" oninput="onCertIdInput()">
+        <div class="form-hint">試験完了後に表示された番号を入力またはコピペしてください</div>
+      </div>
 
-    <!-- Left: 主意書 -->
-    <div>
-      <div style="font-family:Syne,sans-serif; font-size:1.1rem; font-weight:700; color:var(--cyan); margin-bottom:1.2rem; letter-spacing:0.05em;">設立主意書</div>
-      <p style="font-size:0.95rem; line-height:2; color:#9CAABF; margin-bottom:1.2rem;">
-        生成AIの急速な普及により、企業は「AIを活用すべき」という強いプレッシャーを受けています。しかしその多くは、クラウドAIへの情報漏洩リスク、法的コンプライアンスの不確実性、そして<b style="color:var(--white);">「社内でAIを動かせる人材がいない」</b>という現実に直面しています。
-      </p>
-      <p style="font-size:0.95rem; line-height:2; color:#9CAABF; margin-bottom:1.2rem;">
-        プライベートAI推進協会（PAPA）は、<b style="color:var(--white);">データを外部に送らずに社内で動くAI（プライベートLLM）の構築・運用スキルを体系化し、客観的に証明できる仕組み</b>を日本に根付かせるために設立されました。
-      </p>
-      <p style="font-size:0.95rem; line-height:2; color:#9CAABF;">
-        プライバシーと生産性は両立できます。本協会はその実現を支える人材育成に取り組みます。
-      </p>
-    </div>
-
-    <!-- Right: 団体概要 -->
-    <div>
-      <div style="font-family:Syne,sans-serif; font-size:1.1rem; font-weight:700; color:var(--cyan); margin-bottom:1.2rem; letter-spacing:0.05em;">団体概要</div>
-      <div style="background:var(--card-bg); border:1px solid rgba(0,200,224,0.15); border-radius:12px; overflow:hidden;">
-
-        <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">正式名称</div>
-          <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white); line-height:1.6;">プライベートAI推進協会<br><span style="font-size:0.82rem; color:var(--gray);">Private AI Promotion Association（PAPA）</span></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">氏名（日本語） <span style="color:#E03030;">*</span></label>
+          <input class="form-input" id="inNameJa" type="text" placeholder="山田 太郎">
         </div>
+        <div class="form-group">
+          <label class="form-label">NAME（ローマ字） <span style="color:#E03030;">*</span></label>
+          <input class="form-input" id="inNameEn" type="text" placeholder="Taro Yamada">
+        </div>
+      </div>
 
-        <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">法人格</div>
-          <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white); line-height:1.6;">
-            一般社団法人として設立準備中
-            <div style="display:inline-flex; align-items:center; gap:0.4rem; background:rgba(232,184,75,0.12); border:1px solid rgba(232,184,75,0.3); border-radius:4px; padding:0.2rem 0.6rem; font-size:0.75rem; color:var(--gold); font-family:Space Mono,monospace; margin-top:0.4rem;">設立準備中</div>
+      <div class="form-group">
+        <label class="form-label">生年月日 <span style="color:#E03030;">*</span> <span style="font-size:0.72rem;color:var(--gray);">（本人確認用）</span></label>
+        <input class="form-input" id="inDob" type="date">
+        <div class="form-hint">認定証には表示されません。本人確認のみに使用します。</div>
+      </div>
+
+      <!-- Auto-filled section -->
+      <div id="autoFillSection" style="display:none;">
+        <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:1.2rem;margin-bottom:1.2rem;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#06C755;margin-bottom:0.8rem;">✅ 番号確認済み — 以下の情報が自動入力されました</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">資格グレード <span class="auto-badge">自動</span></label>
+            <input class="form-input readonly" id="inGrade" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">発行日 <span class="auto-badge">自動</span></label>
+            <input class="form-input readonly mono" id="inIssueDate" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">有効期限 <span class="auto-badge">自動</span></label>
+          <input class="form-input readonly mono" id="inExpDate" readonly>
+        </div>
+      </div>
+
+      <!-- Orientation -->
+      <div style="margin-bottom:1rem;">
+        <label class="form-label" style="margin-bottom:0.8rem;display:block;">認定証の向き</label>
+        <div class="orientation-wrap">
+          <div class="orientation-btn selected" id="btnLandscape" onclick="selectOrientation('landscape')">
+            <div class="orientation-icon">🖼</div>
+            <div class="orientation-label">横型</div>
+            <div class="orientation-sub">A4横 ・ 印刷向き</div>
+          </div>
+          <div class="orientation-btn" id="btnPortrait" onclick="selectOrientation('portrait')">
+            <div class="orientation-icon">📜</div>
+            <div class="orientation-label">縦型</div>
+            <div class="orientation-sub">A4縦 ・ スマホ向き</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btnGenerate" onclick="generateCert()">認定証を発行する →</button>
+    </div>
+  </div>
+
+  <!-- CERT OUTPUT -->
+  <div class="cert-output" id="certOutput">
+    <div class="card">
+      <div class="card-title">STEP 3 — 認定証</div>
+
+      <div class="cert-actions">
+        <button class="btn-dl" onclick="downloadCert()">⬇ PNG 保存</button>
+        <button class="btn-dl" onclick="printCert()" style="background:linear-gradient(135deg,#1A2E5A,#1246AA);color:white;">🖨 印刷する</button>
+        <button class="btn-share" onclick="shareCert()">📤 シェア</button>
+      </div>
+
+      <div class="cert-protect" oncontextmenu="return false;" ondragstart="return false;">
+        <!-- LANDSCAPE -->
+        <div id="certLandscape">
+          <div class="cert-bg-pattern"></div>
+          <div class="cert-wm" style="font-size:100px;">PAPA</div>
+          <div class="cert-border-o"></div>
+          <div class="cert-border-i"></div>
+          <!-- corners -->
+          <svg style="position:absolute;top:6px;left:6px;width:36px;height:36px;" viewBox="0 0 36 36" fill="none"><path d="M2 2L2 14M2 2L14 2" stroke="#C9A84C" stroke-width="1.5"/><circle cx="2" cy="2" r="2" fill="#C9A84C"/></svg>
+          <svg style="position:absolute;top:6px;right:6px;width:36px;height:36px;transform:scaleX(-1);" viewBox="0 0 36 36" fill="none"><path d="M2 2L2 14M2 2L14 2" stroke="#C9A84C" stroke-width="1.5"/><circle cx="2" cy="2" r="2" fill="#C9A84C"/></svg>
+          <svg style="position:absolute;bottom:6px;left:6px;width:36px;height:36px;transform:scaleY(-1);" viewBox="0 0 36 36" fill="none"><path d="M2 2L2 14M2 2L14 2" stroke="#C9A84C" stroke-width="1.5"/><circle cx="2" cy="2" r="2" fill="#C9A84C"/></svg>
+          <svg style="position:absolute;bottom:6px;right:6px;width:36px;height:36px;transform:scale(-1,-1);" viewBox="0 0 36 36" fill="none"><path d="M2 2L2 14M2 2L14 2" stroke="#C9A84C" stroke-width="1.5"/><circle cx="2" cy="2" r="2" fill="#C9A84C"/></svg>
+
+          <div class="l-header" style="height:13%;top:10px;">
+            <div>
+              <div style="font-family:'Cinzel',serif;font-size:clamp(6px,1.1vw,9px);color:rgba(255,255,255,0.7);letter-spacing:0.15em;">PRIVATE AI PROMOTION ASSOCIATION</div>
+              <div style="font-family:'Noto Serif JP',serif;font-size:clamp(5px,0.9vw,7px);color:rgba(255,255,255,0.45);margin-top:1px;">プライベートAI推進協会（PAPA）</div>
+            </div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(8px,1.6vw,13px);font-weight:700;color:#E8C97A;letter-spacing:0.1em;">privatellm.jp</div>
+          </div>
+          <!-- gold line -->
+          <div style="position:absolute;left:10px;right:10px;height:2px;background:linear-gradient(90deg,transparent,#C9A84C,#E8C97A,#C9A84C,transparent);" id="lGoldLine"></div>
+
+          <div class="l-body" style="top:17%;bottom:14%;">
+            <div style="font-family:'Cinzel',serif;font-size:clamp(5px,0.9vw,7px);letter-spacing:0.35em;color:#8B6914;margin-bottom:1.5%;">CERTIFICATE OF ACHIEVEMENT</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(7px,1.1vw,10px);color:#1A2E5A;letter-spacing:0.08em;text-align:center;line-height:1.5;margin-bottom:2%;">この証は、下記の者が所定の試験に合格し所定の資格を取得したことを証明します</div>
+            <div style="width:15%;height:1px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);margin-bottom:2%;"></div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(5px,0.8vw,6.5px);letter-spacing:0.3em;color:#6B7280;margin-bottom:1%;">CERTIFIED HOLDER</div>
+            <div id="lName" style="font-family:'Noto Serif JP',serif;font-size:clamp(14px,3.5vw,28px);font-weight:700;color:#0A1628;letter-spacing:0.06em;">山田 太郎</div>
+            <div id="lNameEn" style="font-family:'Cormorant Garamond',serif;font-size:clamp(8px,1.3vw,11px);font-style:italic;color:#6B7280;margin-top:0.5%;letter-spacing:0.04em;">Taro Yamada</div>
+            <div style="width:25%;height:0.5px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent);margin:2% auto;"></div>
+            <div style="background:linear-gradient(135deg,#0A1628,#1246AA);border:1px solid #C9A84C;border-radius:3px;padding:1.5% 4%;text-align:center;">
+              <div id="lGradeEn" style="font-family:'Cinzel',serif;font-size:clamp(7px,1.3vw,11px);font-weight:700;color:#E8C97A;letter-spacing:0.08em;">PrivateLLM Architect — Level 3</div>
+              <div id="lGradeJa" style="font-family:'Noto Serif JP',serif;font-size:clamp(5px,0.95vw,8px);color:rgba(255,255,255,0.75);margin-top:1px;">PrivateLLM構築士 3級</div>
+            </div>
+            <div id="lCertText" style="font-family:'Noto Serif JP',serif;font-size:clamp(5px,0.85vw,7px);color:#374151;text-align:center;line-height:2;letter-spacing:0.04em;margin-top:2%;">
+              上記の者は プライベートAI推進協会（PAPA）が実施する検定試験において所定の成績を収め<br>本資格の認定要件を満たしたと認定する
+            </div>
+          </div>
+
+          <div class="l-footer" style="bottom:10px;bottom:10px;height:12%;">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.7vw,6px);color:#6B7280;letter-spacing:0.1em;">ISSUED DATE</div>
+              <div id="lIssueDate" style="font-family:'Cormorant Garamond',serif;font-size:clamp(8px,1.4vw,12px);color:#0A1628;font-weight:600;">2026.02.23</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.7vw,6px);color:#6B7280;letter-spacing:0.1em;margin-top:3px;">VALID UNTIL</div>
+              <div id="lExpDate" style="font-family:'Cormorant Garamond',serif;font-size:clamp(7px,1.1vw,10px);color:#0A1628;">2028.02.22</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:clamp(60px,12vw,90px);height:1px;background:#0A1628;margin:0 auto 2px;"></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(7px,1.2vw,10px);color:#0A1628;">Hideo Takahashi</div>
+              <div style="font-family:'Noto Serif JP',serif;font-size:clamp(4px,0.75vw,6px);color:#6B7280;margin-top:1px;">代表 / Representative Director</div>
+              <div style="width:clamp(28px,6vw,50px);height:clamp(28px,6vw,50px);border-radius:50%;background:linear-gradient(135deg,#0A1628,#1246AA);border:1.5px solid #C9A84C;display:flex;align-items:center;justify-content:center;margin:2px auto 0;">
+                <div style="font-family:'Cinzel',serif;font-size:clamp(3px,0.6vw,5px);color:#E8C97A;text-align:center;line-height:1.4;">PAPA<br>認定<br>OFFICIAL</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div id="qrLandscape" style="margin-left:auto;margin-bottom:2px;"></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.7vw,6px);color:#6B7280;letter-spacing:0.08em;">CERT. NO.</div>
+              <div id="lCertId" style="font-family:'IBM Plex Mono',monospace;font-size:clamp(6px,1vw,8px);color:#0A1628;font-weight:600;">PAPA-3-2026-0001</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.6vw,5px);color:#8B6914;margin-top:1px;">cert.privatellm.jp で確認可</div>
+            </div>
           </div>
         </div>
 
-        <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">設立</div>
-          <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white);">2026年2月</div>
-        </div>
+        <!-- PORTRAIT -->
+        <div id="certPortrait" style="display:none;">
+          <div class="cert-bg-pattern"></div>
+          <div class="cert-wm" style="font-size:80px;writing-mode:initial;">PAPA</div>
+          <div class="cert-border-o"></div>
+          <div class="cert-border-i"></div>
+          <svg style="position:absolute;top:6px;left:6px;width:36px;height:36px;" viewBox="0 0 36 36" fill="none"><path d="M2 2L2 14M2 2L14 2" stroke="#C9A84C" stroke-width="1.5"/><circle cx="2" cy="2" r="2" fill="#C9A84C"/></svg>
+          <svg style="position:absolute;top:6px;right:6px;width:36px;height:36px;transform:scaleX(-1);" viewBox="0 0 36 36" fill="none"><path d="M2 2L2 14M2 2L14 2" stroke="#C9A84C" stroke-width="1.5"/><circle cx="2" cy="2" r="2" fill="#C9A84C"/></svg>
+          <svg style="position:absolute;bottom:6px;left:6px;width:36px;height:36px;transform:scaleY(-1);" viewBox="0 0 36 36" fill="none"><path d="M2 2L2 14M2 2L14 2" stroke="#C9A84C" stroke-width="1.5"/><circle cx="2" cy="2" r="2" fill="#C9A84C"/></svg>
+          <svg style="position:absolute;bottom:6px;right:6px;width:36px;height:36px;transform:scale(-1,-1);" viewBox="0 0 36 36" fill="none"><path d="M2 2L2 14M2 2L14 2" stroke="#C9A84C" stroke-width="1.5"/><circle cx="2" cy="2" r="2" fill="#C9A84C"/></svg>
 
-        <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">代表</div>
-          <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white);">Hideo Takahasi</div>
-        </div>
+          <div class="p-header" style="height:11%;top:10px;">
+            <div style="font-family:'Cinzel',serif;font-size:clamp(6px,1.5vw,9px);color:rgba(255,255,255,0.7);letter-spacing:0.12em;text-align:center;">PRIVATE AI PROMOTION ASSOCIATION</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(8px,2vw,13px);font-weight:700;color:#E8C97A;letter-spacing:0.1em;margin-top:2px;">privatellm.jp</div>
+          </div>
+          <div style="position:absolute;left:10px;right:10px;height:2px;background:linear-gradient(90deg,transparent,#C9A84C,#E8C97A,#C9A84C,transparent);" id="pGoldLine"></div>
 
-        <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">主要事業</div>
-          <div style="padding:1rem 1.2rem; font-size:0.92rem; color:var(--white); line-height:1.8;">
-            PrivateLLM構築士 検定試験の企画・運営<br>
-            公式テキスト・学習資材の開発・配布<br>
-            認定講師制度・企業研修プログラム<br>
-            プライベートAI導入支援・普及活動
+          <div class="p-body" style="top:14%;bottom:16%;">
+            <div style="font-family:'Cinzel',serif;font-size:clamp(5px,1vw,7px);letter-spacing:0.3em;color:#8B6914;margin-bottom:2%;">CERTIFICATE OF ACHIEVEMENT</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(7px,1.3vw,10px);color:#1A2E5A;text-align:center;line-height:1.6;margin-bottom:3%;">この証は、下記の者が所定の試験に合格し<br>所定の資格を取得したことを証明します</div>
+            <div style="width:30%;height:1px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);margin-bottom:3%;"></div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(5px,0.9vw,7px);letter-spacing:0.25em;color:#6B7280;margin-bottom:1.5%;">CERTIFIED HOLDER</div>
+            <div id="pName" style="font-family:'Noto Serif JP',serif;font-size:clamp(16px,4vw,30px);font-weight:700;color:#0A1628;letter-spacing:0.06em;text-align:center;">山田 太郎</div>
+            <div id="pNameEn" style="font-family:'Cormorant Garamond',serif;font-size:clamp(9px,1.8vw,13px);font-style:italic;color:#6B7280;margin-top:1%;letter-spacing:0.04em;">Taro Yamada</div>
+            <div style="width:40%;height:0.5px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent);margin:3% auto;"></div>
+            <div style="background:linear-gradient(135deg,#0A1628,#1246AA);border:1px solid #C9A84C;border-radius:4px;padding:2.5% 6%;text-align:center;width:90%;">
+              <div id="pGradeEn" style="font-family:'Cinzel',serif;font-size:clamp(8px,1.6vw,12px);font-weight:700;color:#E8C97A;letter-spacing:0.06em;">PrivateLLM Architect — Level 3</div>
+              <div id="pGradeJa" style="font-family:'Noto Serif JP',serif;font-size:clamp(7px,1.2vw,9px);color:rgba(255,255,255,0.75);margin-top:2px;">PrivateLLM構築士 3級</div>
+            </div>
+            <div style="font-family:'Noto Serif JP',serif;font-size:clamp(6px,1vw,8px);color:#374151;text-align:center;line-height:2;letter-spacing:0.04em;margin-top:3%;">上記の者は プライベートAI推進協会（PAPA）が<br>実施する検定試験において所定の成績を収め<br>本資格の認定要件を満たしたと認定する</div>
+            <!-- QR portrait -->
+            <div style="display:flex;align-items:center;gap:4%;margin-top:4%;width:90%;">
+              <div id="qrPortrait" style="flex-shrink:0;"></div>
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.8vw,6px);color:#6B7280;">CERT. NO.</div>
+                <div id="pCertId" style="font-family:'IBM Plex Mono',monospace;font-size:clamp(7px,1.2vw,9px);color:#0A1628;font-weight:600;">PAPA-3-2026-0001</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.7vw,5.5px);color:#8B6914;margin-top:2px;">cert.privatellm.jp で確認可</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.7vw,5.5px);color:#8B6914;">privatellm.jp</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-footer" style="bottom:10px;height:13%;">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.8vw,6px);color:#6B7280;">ISSUED DATE</div>
+              <div id="pIssueDate" style="font-family:'Cormorant Garamond',serif;font-size:clamp(9px,1.6vw,12px);color:#0A1628;font-weight:600;">2026.02.23</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(4px,0.8vw,6px);color:#6B7280;margin-top:2px;">VALID UNTIL</div>
+              <div id="pExpDate" style="font-family:'Cormorant Garamond',serif;font-size:clamp(8px,1.3vw,10px);color:#0A1628;">2028.02.22</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:clamp(50px,10vw,80px);height:1px;background:#0A1628;margin:0 auto 2px;"></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(8px,1.4vw,11px);color:#0A1628;">Hideo Takahashi</div>
+              <div style="font-family:'Noto Serif JP',serif;font-size:clamp(4px,0.8vw,7px);color:#6B7280;margin-top:1px;">代表 / Director</div>
+              <div style="width:clamp(30px,6vw,48px);height:clamp(30px,6vw,48px);border-radius:50%;background:linear-gradient(135deg,#0A1628,#1246AA);border:1.5px solid #C9A84C;display:flex;align-items:center;justify-content:center;margin:2px auto 0;">
+                <div style="font-family:'Cinzel',serif;font-size:clamp(3px,0.55vw,4.5px);color:#E8C97A;text-align:center;line-height:1.4;">PAPA<br>認定<br>OFFICIAL</div>
+              </div>
+            </div>
+            <div></div>
           </div>
         </div>
+      </div>
 
-        <div style="display:flex;">
-          <div class="about-table-label" style="width:110px; flex-shrink:0; padding:1rem 1.2rem; font-family:Syne,sans-serif; font-size:0.82rem; font-weight:700; color:var(--gray); letter-spacing:0.06em; background:rgba(0,0,0,0.2);">公式サイト</div>
-          <div style="padding:1rem 1.2rem; font-size:0.92rem;"><a href="https://privatellm.jp" style="color:var(--cyan); text-decoration:none;">privatellm.jp</a></div>
-        </div>
-
+      <div style="margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.78rem;color:var(--gray);line-height:1.7;">
+        ⚠ この認定証は個人のものです。第三者への譲渡・転売は禁止されています。<br>
+        採用担当者・取引先は <strong style="color:var(--gold);">cert.privatellm.jp</strong> で認定証番号を照合して真偽確認できます。
       </div>
     </div>
-  </div>
 
-  <!-- 代表メッセージ -->
-  <div style="margin-top:3rem; background:linear-gradient(135deg, rgba(18,70,170,0.12), rgba(0,200,224,0.05)); border:1px solid rgba(0,200,224,0.18); border-radius:16px; padding:2.5rem;">
-    <div style="font-family:Syne,sans-serif; font-size:0.8rem; color:var(--cyan); letter-spacing:0.15em; margin-bottom:1.2rem;">代表メッセージ</div>
-    <p style="font-size:1rem; line-height:2.1; color:#BDC8DC; font-style:italic; margin-bottom:1.5rem;">
-      「AIを使いたいが、情報を外に出したくない」——この声を何度聞いたかわかりません。技術的な解決策はすでに存在します。問題は、それを実装できる人材と、スキルを証明する仕組みがないことです。本協会はその空白を埋めるために立ち上がりました。」
-    </p>
-    <div style="display:flex; align-items:center; gap:1rem;">
-      <div style="width:44px; height:44px; background:linear-gradient(135deg, var(--blue), var(--cyan)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:Syne,sans-serif; font-weight:800; font-size:1rem; color:var(--navy);">H</div>
-      <div>
-        <div style="font-family:Syne,sans-serif; font-weight:700; color:var(--white); font-size:0.95rem;">Hideo Takahasi</div>
-        <div style="font-size:0.82rem; color:var(--gray);">代表 ／ プライベートAI推進協会（PAPA）</div>
+    <!-- Verify banner -->
+    <div class="verify-card">
+      <h3>🔍 CERTIFICATE VERIFICATION</h3>
+      <p>採用担当者・取引先の方へ。認定証番号を入力して真偽を確認できます。</p>
+      <div class="verify-row">
+        <input class="verify-input" id="verifyInput" placeholder="PAPA-3-2026-0001">
+        <button class="btn-verify" onclick="verifyCert()">確認する</button>
       </div>
+      <div class="verify-result" id="verifyResult"></div>
     </div>
   </div>
 
-</div>
-</section>
+</div><!-- /main -->
 
-<!-- CTA -->
-<section class="cta-section" id="cta">
-  <div class="cta-inner">
-    <div class="section-label" style="color:var(--gold);">COMING SOON</div>
-    <h2>第1回検定、まもなく開始。</h2>
-    <p>
-      2026年内に第1回PrivateLLM構築士検定を実施予定。<br>
-      受験申込受付開始の通知を受け取ってください。
-    </p>
-    <div class="cta-actions">
-      <a href="https://line.me/R/ti/p/@609awsbq" target="_blank" class="btn-primary" style="background:#06C755; display:inline-flex; align-items:center; gap:0.6rem;">
-        <svg width="20" height="20" viewBox="0 0 48 48" fill="white"><path d="M24 4C12.95 4 4 11.9 4 21.5c0 6.6 4.2 12.4 10.5 15.7L12 40l7.2-3.2c1.5.4 3.1.6 4.8.6 11.05 0 20-7.9 20-17.5S35.05 4 24 4z"/></svg>
-        LINEで通知を受け取る
-      </a>
-      <a href="https://privatellm-cert.com" target="_blank" class="btn-outline">認定証確認サイト</a>
-    </div>
-    <p style="margin-top:2rem; font-size:0.82rem; color:#4A5568;">
-      主催：プライベートAI推進協会（PAPA）｜ privatellm.jp
-    </p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">PrivateLLM.jp</div>
-  <div class="footer-links">
-    <a href="/cdn-cgi/l/email-protection#92fbfcf4fdd2e2e0fbe4f3e6f7fefeffbcf8e2">お問い合わせ</a>
-    <a href="https://privatellm-cert.com" target="_blank">認定証確認</a>
-    <a href="https://privatellm.net" target="_blank">Global</a>
-  </div>
-  <div class="footer-copy">©
 <script>
-function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  const btn = document.getElementById('hamburger');
-  menu.classList.toggle('open');
-  btn.classList.toggle('open');
+const GRADES = {
+  'AIB':  { en:'AI Basic Certification', ja:'AI基本検定', price:3000 },
+  'CGP':  { en:'ChatGPT Practitioner — Beginner', ja:'ChatGPT活用初級', price:5000 },
+  '3':    { en:'PrivateLLM Architect — Level 3', ja:'PrivateLLM構築士 3級', price:8000 },
+  '2':    { en:'PrivateLLM Architect — Level 2', ja:'PrivateLLM構築士 2級', price:15000 },
+  '1':    { en:'PrivateLLM Architect — Level 1', ja:'PrivateLLM構築士 1級', price:30000 },
+  'INS':  { en:'PrivateLLM Certified Instructor', ja:'PrivateLLM 認定講師', price:50000 },
+};
+
+let orientation = 'landscape';
+let qrLandscape = null;
+let qrPortrait = null;
+
+// URL params auto-fill
+const params = new URLSearchParams(window.location.search);
+if (params.get('cert_id')) {
+  document.getElementById('inCertId').value = params.get('cert_id');
+  onCertIdInput();
 }
-function closeMenu() {
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
+
+function selectOrientation(o) {
+  orientation = o;
+  document.getElementById('btnLandscape').className = 'orientation-btn' + (o==='landscape'?' selected':'');
+  document.getElementById('btnPortrait').className = 'orientation-btn' + (o==='portrait'?' selected':'');
 }
-document.addEventListener('click', function(e) {
-  const menu = document.getElementById('mobileMenu');
-  const btn = document.getElementById('hamburger');
-  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
-    menu.classList.remove('open');
-    btn.classList.remove('open');
+
+function parseCertId(id) {
+  // PAPA-{grade}-{year}-{seq}
+  const parts = id.toUpperCase().trim().split('-');
+  if (parts.length < 4 || parts[0] !== 'PAPA') return null;
+  const gradeCode = parts.slice(1, parts.length-2).join('-');
+  const year = parts[parts.length-2];
+  if (!GRADES[gradeCode]) return null;
+  return { gradeCode, year, grade: GRADES[gradeCode] };
+}
+
+function onCertIdInput() {
+  const val = document.getElementById('inCertId').value;
+  const parsed = parseCertId(val);
+  const sec = document.getElementById('autoFillSection');
+  if (parsed) {
+    const today = new Date();
+    const exp = new Date(today); exp.setFullYear(exp.getFullYear()+2);
+    document.getElementById('inGrade').value = parsed.grade.ja;
+    document.getElementById('inIssueDate').value = fmt(today);
+    document.getElementById('inExpDate').value = fmt(exp);
+    sec.style.display = 'block';
+  } else {
+    sec.style.display = 'none';
   }
-});
+}
+
+function fmt(d) {
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function generateCert() {
+  const certId = document.getElementById('inCertId').value.trim();
+  const nameJa = document.getElementById('inNameJa').value.trim();
+  const nameEn = document.getElementById('inNameEn').value.trim();
+  const dob = document.getElementById('inDob').value;
+  const errEl = document.getElementById('errorMsg');
+
+  errEl.style.display = 'none';
+  if (!certId) { showErr('認定証番号を入力してください'); return; }
+  if (!parseCertId(certId)) { showErr('認定証番号の形式が正しくありません（例：PAPA-3-2026-0001）'); return; }
+  if (!nameJa) { showErr('氏名（日本語）を入力してください'); return; }
+  if (!nameEn) { showErr('NAME（ローマ字）を入力してください'); return; }
+  if (!dob) { showErr('生年月日を入力してください'); return; }
+
+  const parsed = parseCertId(certId);
+  const today = new Date();
+  const exp = new Date(today); exp.setFullYear(exp.getFullYear()+2);
+  const issueDateStr = fmt(today);
+  const expDateStr = fmt(exp);
+  const verifyUrl = `https://cert.privatellm.jp/?verify=${encodeURIComponent(certId)}`;
+
+  // Fill landscape
+  document.getElementById('lName').textContent = nameJa;
+  document.getElementById('lNameEn').textContent = nameEn;
+  document.getElementById('lGradeEn').textContent = parsed.grade.en;
+  document.getElementById('lGradeJa').textContent = parsed.grade.ja;
+  document.getElementById('lIssueDate').textContent = issueDateStr;
+  document.getElementById('lExpDate').textContent = expDateStr;
+  document.getElementById('lCertId').textContent = certId;
+
+  // Position gold line for landscape
+  const lh = document.getElementById('certLandscape');
+  const gl = document.getElementById('lGoldLine');
+  gl.style.top = '13%';
+
+  // Fill portrait
+  document.getElementById('pName').textContent = nameJa;
+  document.getElementById('pNameEn').textContent = nameEn;
+  document.getElementById('pGradeEn').textContent = parsed.grade.en;
+  document.getElementById('pGradeJa').textContent = parsed.grade.ja;
+  document.getElementById('pIssueDate').textContent = issueDateStr;
+  document.getElementById('pExpDate').textContent = expDateStr;
+  document.getElementById('pCertId').textContent = certId;
+
+  // Position gold line for portrait
+  const pg = document.getElementById('pGoldLine');
+  pg.style.top = '11%';
+
+  // Show correct orientation
+  document.getElementById('certLandscape').style.display = orientation==='landscape' ? 'block' : 'none';
+  document.getElementById('certPortrait').style.display = orientation==='portrait' ? 'block' : 'none';
+
+  // Generate QR codes
+  generateQR('qrLandscape', verifyUrl, orientation==='landscape' ? 36 : 0);
+  generateQR('qrPortrait', verifyUrl, orientation==='portrait' ? 44 : 0);
+
+  // Show output
+  document.getElementById('certOutput').style.display = 'block';
+  document.getElementById('certOutput').scrollIntoView({behavior:'smooth', block:'start'});
+  // GASに発行完了を通知
+  const _dob = document.getElementById('inDob').value;
+  markIssuedToGAS(certId, nameJa, nameEn, _dob);
+
+  // Update steps
+  document.getElementById('s2').className = 'step-num done';
+  document.getElementById('s3').className = 'step-num active';
+  document.getElementById('sl2').className = 'step-label done';
+  document.getElementById('sl3').className = 'step-label active';
+}
+
+function generateQR(containerId, url, size) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  if (size > 0) {
+    try {
+      new QRCode(el, { text: url, width: size, height: size, colorDark:'#0A1628', colorLight:'#FFFFFF', correctLevel: QRCode.CorrectLevel.M });
+    } catch(e) {
+      el.style.width = size+'px'; el.style.height = size+'px';
+      el.style.background = 'white';
+      el.style.display = 'flex'; el.style.alignItems = 'center'; el.style.justifyContent = 'center';
+      el.style.fontSize = (size*0.5)+'px';
+      el.textContent = '⬛';
+    }
+  }
+}
+
+function showErr(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.scrollIntoView({behavior:'smooth'});
+}
+
+function downloadCert() {
+  alert('本番実装：html2canvasでPNG/PDFとしてダウンロード可能です。\n現在はブラウザの印刷機能（Ctrl+P）をお使いください。');
+}
+
+function printCert() {
+  window.print();
+}
+
+function shareCert() {
+  const certId = document.getElementById('inCertId').value.trim();
+  const url = `https://cert.privatellm.jp/?verify=${encodeURIComponent(certId)}`;
+  if (navigator.share) {
+    navigator.share({ title: 'PrivateLLM 認定証', text: `認定証番号：${certId}`, url });
+  } else {
+    navigator.clipboard.writeText(url).then(() => alert('URLをコピーしました:\n' + url));
+  }
+}
+
+async function verifyCert() {
+  const val = document.getElementById('verifyInput').value.trim();
+  const res = document.getElementById('verifyResult');
+  if (!val) { res.innerHTML = ''; return; }
+  res.innerHTML = '<span style="color:#9CA3AF;">照合中...</span>';
+  const data = await verifyCertFromGAS(val);
+  if (data && data.ok && data.valid) {
+    res.innerHTML = `<span class="vok">✅ 有効な認定証です｜${data.nameJa}（${data.nameEn}）｜${data.grade}｜発行日：${data.issued}｜有効期限：${data.expires}</span>`;
+  } else if (data && data.ok && !data.valid) {
+    res.innerHTML = `<span class="vng">❌ ${data.message || 'この認定証番号は見つかりません'}</span>`;
+  } else {
+    // GASが使えない場合はローカルで簡易チェック
+    const parsed = parseCertId(val);
+    if (parsed) {
+      res.innerHTML = `<span class="vok">✅ 有効な形式の認定証番号です｜${parsed.grade.ja}｜発行年：${parsed.year}</span>`;
+    } else {
+      res.innerHTML = `<span class="vng">❌ この番号は認識できません</span>`;
+    }
+  }
+}
+
+// Auto-verify from URL
+if (params.get('verify')) {
+  document.getElementById('verifyInput').value = params.get('verify');
+  setTimeout(verifyCert, 500);
+}
+</script>
+
+<script>
+// ===== GAS連携 =====
+const GAS_URL = "https://script.google.com/macros/s/AKfycbw1E931BEVOLqSPyX_LdS6aTuw997k8t9d639Tfvcz5EUjcsrkmokJ2RBdnFWNF-brT/exec";
+
+// 認定証データ取得（決済確認＋グレード・日付の自動入力）
+async function fetchCertFromGAS(certId, dob) {
+  try {
+    const url = GAS_URL + "?action=getCert&cert_id=" + encodeURIComponent(certId) + "&dob=" + encodeURIComponent(dob||"");
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
+  } catch(e) {
+    console.warn("GASデータ取得エラー:", e);
+    return null;
+  }
+}
+
+// 発行完了をGASに通知
+async function markIssuedToGAS(certId, nameJa, nameEn, dob) {
+  try {
+    await fetch(GAS_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type": "text/plain"},
+      body: JSON.stringify({
+        action: "issueCert",
+        cert_id: certId,
+        name_ja: nameJa,
+        name_en: nameEn,
+        dob: dob
+      })
+    });
+    console.log("GAS発行記録:", certId);
+  } catch(e) {
+    console.warn("GAS発行記録エラー:", e);
+  }
+}
+
+// 番号照合（verifyフォーム用）
+async function verifyCertFromGAS(certId) {
+  try {
+    const url = GAS_URL + "?action=verify&cert_id=" + encodeURIComponent(certId);
+    const res = await fetch(url);
+    return await res.json();
+  } catch(e) {
+    return { ok: false, valid: false, error: "照合に失敗しました" };
+  }
+}
 </script>
 </body>
 </html>
