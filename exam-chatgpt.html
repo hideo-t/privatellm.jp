@@ -416,7 +416,7 @@ function submitExam(){
   const em=Math.floor(elapsed/60).toString().padStart(2,'0');
   const es=(elapsed%60).toString().padStart(2,'0');
   let correct=0;QUESTIONS.forEach((q,i)=>{if(answers[i]===q.ans)correct++;});
-  const rate=Math.round((correct/20)*100);const pass=correct>=1;
+  const rate=Math.round((correct/20)*100);const pass=correct>=14;
   document.getElementById('screenExam').classList.remove('active');
   document.getElementById('screenResult').classList.add('active');
   document.getElementById('timer').style.display='none';
