@@ -501,7 +501,10 @@ function retryExam(){
 
 <script>
 // ===== 本番モード判定 =====
-const IS_HONBAN = new URLSearchParams(window.location.search).get('mode') === 'honban';
+const _params = new URLSearchParams(window.location.search);
+const SESSION_ID = _params.get('session_id') || '';
+const GRADE_CODE = "AIB";
+const IS_HONBAN = _params.get('mode') === 'honban' || !!SESSION_ID;
 
 window.addEventListener('DOMContentLoaded', () => {
   if (IS_HONBAN) {
@@ -514,6 +517,34 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 const GAS_URL = "https://script.google.com/macros/s/AKfycbw1E931BEVOLqSPyX_LdS6aTuw997k8t9d639Tfvcz5EUjcsrkmokJ2RBdnFWNF-brT/exec";
+
+// ===== Stripe本番受験（session_id）: 購入記録＋重複受験防止 =====
+window.addEventListener('DOMContentLoaded', function(){
+  if (!SESSION_ID) return;
+  var doneKey = 'honban_done_' + SESSION_ID, isDone = false;
+  try { isDone = !!localStorage.getItem(doneKey); } catch(e){}
+  var sc = document.getElementById('screenStart');
+  var startBtn = sc ? sc.querySelector('[onclick*="startExam"]') : null;
+  if (isDone) {
+    var warn = document.createElement('div');
+    warn.style.cssText = 'background:rgba(232,184,75,0.12);border:1px solid rgba(232,184,75,0.4);border-radius:10px;padding:0.9rem 1.2rem;margin-bottom:1rem;text-align:center;font-size:0.88rem;color:var(--gold);font-weight:700;';
+    warn.innerHTML = '✅ この受験（ご購入分）は完了済みです。再受験はできません。<br>認定証・結果の再発行は info@privatellm.jp へご連絡ください。';
+    if (sc) sc.insertBefore(warn, sc.firstChild);
+    if (startBtn){ startBtn.style.opacity='0.45'; startBtn.style.pointerEvents='none'; startBtn.setAttribute('aria-disabled','true'); }
+    return;
+  }
+  // 購入記録をGASへ（GAS側がStripe APIで明細取得→購入者タブに追記。重複はGAS側でも排除）
+  try {
+    var pUrl = GAS_URL + '?action=purchase&session_id=' + encodeURIComponent(SESSION_ID) + '&grade_code=' + encodeURIComponent(GRADE_CODE);
+    (new Image()).src = pUrl;
+    fetch(pUrl, {mode:'no-cors'}).catch(function(){});
+  } catch(e){}
+  // 本番開始でこの決済を消費済みに（リロード再受験防止）
+  if (typeof window.startExam === 'function') {
+    var _origStart = window.startExam;
+    window.startExam = function(){ try { localStorage.setItem(doneKey, '1'); } catch(e){} return _origStart.apply(this, arguments); };
+  }
+});
 
 function generateCertId() {
   const now = new Date();
@@ -543,7 +574,8 @@ async function sendContactToGAS() {
     const url = GAS_URL + "?action=saveContact"
       + "&cert_id=" + encodeURIComponent(certId)
       + "&email="   + encodeURIComponent(email)
-      + "&line_id=" + encodeURIComponent(line);
+      + "&line_id=" + encodeURIComponent(line)
+     + (SESSION_ID ? "&session_id=" + encodeURIComponent(SESSION_ID) : "");
     const img = new Image(); img.src = url;
     fetch(url, {mode:"no-cors"}).catch(()=>{});
     document.getElementById('contactSent').style.display = 'block';
@@ -561,7 +593,7 @@ async function preRegisterToGAS(certId, gradeCode, score, total) {
       + "&cert_id="    + encodeURIComponent(certId)
       + "&grade_code=" + encodeURIComponent(gradeCode)
       + "&score=" + score
-      + "&rate="  + rate;
+      + "&rate="  + rate + (SESSION_ID ? "&session_id=" + encodeURIComponent(SESSION_ID) : "");
     const img = new Image(); img.src = url;
     fetch(url, {mode:"no-cors"}).catch(()=>{});
     const pre = getPreContact();
@@ -570,7 +602,8 @@ async function preRegisterToGAS(certId, gradeCode, score, total) {
         + "&cert_id=" + encodeURIComponent(certId)
         + "&email="   + encodeURIComponent(pre.email)
         + "&line_id=" + encodeURIComponent(pre.line)
-        + "&stage=pre";
+        + "&stage=pre"
+        + (SESSION_ID ? "&session_id=" + encodeURIComponent(SESSION_ID) : "");
       const img2 = new Image(); img2.src = cUrl;
       if (pre.email) document.getElementById('postEmail').value = pre.email;
       if (pre.line)  document.getElementById('postLine').value  = pre.line;
