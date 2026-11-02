@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SR30FLX97K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SR30FLX97K');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プライベートAIとは？社外にデータを出さない社内AIの仕組み・費用・始め方｜PrivateLLM構築士</title>
+<meta name="description" content="プライベートAIとは、データを社外のクラウドに送らず、自社の管理下で動かすAIのこと。ChatGPTなどのクラウドAIとの違い、メリット・注意点、必要な機材と費用の目安、始め方の5ステップを中小企業向けにやさしく解説します。">
+<link rel="canonical" href="https://privatellm.jp/private-ai.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="プライベートAI推進協会（PAPA）">
+<meta property="og:title" content="プライベートAIとは？社外にデータを出さない社内AIの仕組み・費用・始め方">
+<meta property="og:description" content="クラウドAIとの違い、メリットと注意点、費用の目安、始め方までを中小企業向けに解説。">
+<meta property="og:url" content="https://privatellm.jp/private-ai.html">
+<meta property="og:image" content="https://privatellm.jp/PrivateLLMlogo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="プライベートAIとは？社外にデータを出さない社内AIの仕組み・費用・始め方">
+<meta name="twitter:description" content="クラウドAIとの違い、メリットと注意点、費用の目安、始め方までを中小企業向けに解説。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Barlow:wght@400;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "プライベートAIとは？社外にデータを出さない社内AIの仕組み・費用・始め方",
+      "description": "プライベートAI（社内AI・ローカルAI）の定義、クラウドAIとの違い、メリットと注意点、費用の目安、始め方を解説。",
+      "datePublished": "2026-11-02",
+      "dateModified": "2026-11-02",
+      "inLanguage": "ja",
+      "mainEntityOfPage": "https://privatellm.jp/private-ai.html",
+      "image": "https://privatellm.jp/PrivateLLMlogo.jpg",
+      "author": { "@type": "Person", "name": "高橋秀夫（Hideo Takahashi）", "jobTitle": "プライベートAI推進協会 代表" },
+      "publisher": { "@type": "Organization", "name": "プライベートAI推進協会（PAPA）", "url": "https://privatellm.jp/", "logo": { "@type": "ImageObject", "url": "https://privatellm.jp/PrivateLLMlogo.jpg" } }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://privatellm.jp/" },
+        { "@type": "ListItem", "position": 2, "name": "プライベートAIとは", "item": "https://privatellm.jp/private-ai.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "プライベートAIとローカルAI・ローカルLLMは違うものですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "ほぼ同じものを指します。自社のパソコンやサーバーで動かす点を強調すると「ローカルAI」「ローカルLLM」、社外にデータを出さない点を強調すると「プライベートAI」「社内AI」と呼ばれます。" } },
+        { "@type": "Question", "name": "プライベートAIはChatGPTと同じくらい賢いですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "最先端のクラウドAIと比べると、難しい推論や幅広い知識では劣る場合があります。一方、社内文書の検索・要約・定型文の作成など、範囲の決まった業務では実用十分な水準のモデルが公開されています。" } },
+        { "@type": "Question", "name": "プライベートAIなら情報漏洩は起きませんか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "データを外部のAI事業者に送らない分、リスクは大きく下げられますが、ゼロにはなりません。アクセス権限の管理、ログの保存、端末やネットワークの保護など、通常の情報セキュリティ対策は引き続き必要です。" } },
+        { "@type": "Question", "name": "小さな会社でも導入できますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "できます。まずは手元のパソコンで無料のソフトを使って試し、効果を確かめてから専用機材を用意する段階的な進め方がおすすめです。" } },
+        { "@type": "Question", "name": "プライベートAIを学ぶにはどうすればよいですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "プライベートAI推進協会のPrivateLLM構築士3級は、IT知識不問で概念・導入判断・活用事例を学べる入門資格です。公式テキストと模擬試験は無料で公開しています。" } }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root {
+  --navy: #0A1628;
+  --blue: #1246AA;
+  --cyan: #00C8E0;
+  --gold: #E8B84B;
+  --green: #06C755;
+  --white: #F5F7FA;
+  --gray: #8892A4;
+  --card: #111D35;
+  --line: rgba(0,200,224,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+a { color: var(--cyan); }
+
+/* HEADER */
+.header {
+  background: rgba(10,22,40,0.95);
+  border-bottom: 1px solid var(--line);
+  padding: 1.1rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.logo { font-family:'Barlow',sans-serif; font-weight:800; font-size:1.1rem; color:var(--white); text-decoration:none; letter-spacing:0.02em; }
+.logo span { color: var(--cyan); }
+.back-btn { color: var(--gray); text-decoration:none; font-size:0.85rem; }
+.back-btn:hover { color: var(--white); }
+
+/* HERO */
+.hero { position: relative; padding: 4.5rem 1.5rem 3rem; text-align: center; overflow: hidden; }
+.hero::before {
+  content:""; position:absolute; inset:0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px; opacity: 0.35; pointer-events:none;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+.hero-label { position:relative; font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.2em; color:var(--cyan); }
+.hero h1 { position:relative; font-size: clamp(1.7rem, 4.4vw, 2.7rem); font-weight:900; line-height:1.45; margin:1rem auto 1.2rem; max-width: 820px; }
+.hero h1 em { font-style:normal; color: var(--gold); }
+.ib { display: inline-block; }
+.hero p { position:relative; color: var(--gray); max-width: 640px; margin: 0 auto; font-size: 0.98rem; }
+.meta { position:relative; margin-top:1.4rem; font-size:0.8rem; color:var(--gray); font-family:'IBM Plex Mono',monospace; }
+
+/* LAYOUT */
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+.crumb { font-size:0.8rem; color:var(--gray); margin: 1.2rem 0 2rem; }
+.crumb a { color: var(--gray); }
+
+.summary {
+  background: linear-gradient(135deg, rgba(18,70,170,0.35), rgba(0,200,224,0.08));
+  border: 1px solid rgba(0,200,224,0.3);
+  border-radius: 14px; padding: 1.6rem 1.8rem; margin-bottom: 2.5rem;
+}
+.summary h2 { font-size:1rem; color: var(--cyan); margin-bottom: 0.6rem; font-family:'Barlow',sans-serif; letter-spacing:0.08em; }
+.summary ul { padding-left: 1.2rem; }
+.summary li { margin: 0.35rem 0; }
+
+.toc { background: var(--card); border-radius: 12px; padding: 1.3rem 1.6rem; margin-bottom: 3rem; border: 1px solid rgba(255,255,255,0.06); }
+.toc p { font-weight: 700; margin-bottom: 0.4rem; font-size: 0.95rem; }
+.toc ol { padding-left: 1.3rem; font-size: 0.92rem; }
+.toc a { color: var(--white); text-decoration: none; }
+.toc a:hover { color: var(--cyan); }
+
+article h2 {
+  font-size: clamp(1.3rem, 3vw, 1.65rem); font-weight: 900; line-height: 1.5;
+  margin: 3.5rem 0 1.2rem; padding-left: 0.9rem; border-left: 4px solid var(--gold);
+  scroll-margin-top: 90px;
+}
+article h3 { font-size: 1.1rem; margin: 2rem 0 0.6rem; color: var(--cyan); }
+article p { margin: 0 0 1.1rem; }
+article ul, article ol { margin: 0 0 1.2rem 1.4rem; }
+article li { margin: 0.3rem 0; }
+strong { color: var(--gold); font-weight: 700; }
+
+.callout { background: var(--card); border-left: 3px solid var(--cyan); border-radius: 0 10px 10px 0; padding: 1rem 1.3rem; margin: 1.5rem 0; font-size: 0.95rem; }
+.callout.warn { border-left-color: var(--gold); }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; margin: 1.2rem 0 1.6rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 560px; }
+th, td { padding: 0.85rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid rgba(255,255,255,0.07); }
+thead th { background: rgba(18,70,170,0.45); font-weight: 700; }
+thead th:nth-child(2) { color: var(--cyan); }
+tbody th { color: var(--gray); font-weight: 700; white-space: nowrap; background: rgba(255,255,255,0.02); }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
+
+/* CARDS */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1.2rem 0 1.6rem; }
+.card { background: var(--card); border-radius: 12px; padding: 1.3rem; border: 1px solid rgba(255,255,255,0.06); }
+.card .num { font-family:'Barlow',sans-serif; font-weight:800; color: var(--gold); font-size: 1.6rem; line-height: 1; }
+.card h4 { font-size: 1rem; margin: 0.6rem 0 0.4rem; }
+.card p { font-size: 0.88rem; color: #C9D1DE; margin: 0; line-height: 1.75; }
+
+/* STACK DIAGRAM */
+.stack { display: grid; gap: 0.6rem; margin: 1.4rem 0 1.8rem; }
+.layer { display: grid; grid-template-columns: 150px 1fr; gap: 1rem; align-items: center; background: var(--card); border-radius: 10px; padding: 0.9rem 1.1rem; border: 1px solid rgba(255,255,255,0.06); }
+.layer .tag { font-family:'IBM Plex Mono',monospace; font-size: 0.78rem; color: var(--navy); background: var(--cyan); border-radius: 6px; padding: 0.3rem 0.5rem; text-align: center; font-weight: 600; }
+.layer:nth-child(2) .tag { background: #4FD8EA; }
+.layer:nth-child(3) .tag { background: var(--gold); }
+.layer:nth-child(4) .tag { background: #F2D08A; }
+.layer p { margin: 0; font-size: 0.9rem; }
+.layer small { color: var(--gray); display: block; font-size: 0.8rem; }
+
+/* STEPS */
+.steps { counter-reset: s; list-style: none; margin: 1.2rem 0 1.6rem !important; }
+.steps li { counter-increment: s; position: relative; padding: 0 0 1.2rem 3.2rem; margin: 0; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: 0.1rem; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--blue); color: var(--white); font-family:'Barlow',sans-serif; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.steps li strong { display: block; color: var(--white); }
+
+/* FAQ */
+details { background: var(--card); border-radius: 10px; margin: 0.7rem 0; border: 1px solid rgba(255,255,255,0.06); }
+summary { cursor: pointer; padding: 1rem 1.2rem; font-weight: 700; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "Q. "; color: var(--cyan); font-family:'Barlow',sans-serif; }
+details p { padding: 0 1.2rem 1.1rem; margin: 0; color: #C9D1DE; font-size: 0.93rem; }
+
+/* CTA */
+.cta { margin: 3.5rem 0 2rem; background: linear-gradient(135deg, var(--blue), #0B2F70); border-radius: 16px; padding: 2.2rem 1.8rem; text-align: center; }
+.cta h2 { border: none; padding: 0; margin: 0 0 0.6rem; font-size: 1.4rem; }
+.cta p { color: #DCE4F2; font-size: 0.95rem; }
+.cta-btns { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 1.2rem; }
+.btn { display: inline-block; padding: 0.8rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.92rem; }
+.btn.gold { background: var(--gold); color: var(--navy); }
+.btn.ghost { border: 1px solid rgba(255,255,255,0.5); color: var(--white); }
+.btn.line { background: var(--green); color: #fff; }
+
+.author { display: flex; gap: 1rem; align-items: flex-start; background: var(--card); border-radius: 12px; padding: 1.3rem; margin-top: 2rem; border: 1px solid rgba(255,255,255,0.06); }
+.avatar { flex: 0 0 52px; height: 52px; border-radius: 50%; background: var(--gold); color: var(--navy); font-family:'Barlow',sans-serif; font-weight: 800; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; }
+.author p { margin: 0; font-size: 0.88rem; color: #C9D1DE; }
+.author .name { color: var(--white); font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+
+footer { border-top: 1px solid var(--line); padding: 2rem 1.5rem; text-align: center; font-size: 0.8rem; color: var(--gray); }
+footer a { color: var(--gray); margin: 0 0.6rem; text-decoration: none; }
+footer a:hover { color: var(--white); }
+
+@media (max-width: 640px) {
+  .header { padding: 1rem 1rem; }
+  .wrap { padding: 0 1rem 3rem; }
+  .hero { padding: 3rem 1rem 2rem; }
+  .layer { grid-template-columns: 1fr; gap: 0.5rem; }
+  .layer .tag { justify-self: start; }
+  .summary { padding: 1.3rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="https://privatellm.jp/" class="logo">Private<span>LLM</span>.jp</a>
+  <a href="https://privatellm.jp/" class="back-btn">← トップへ戻る</a>
+</header>
+
+<section class="hero">
+  <span class="hero-label">WHAT IS PRIVATE AI</span>
+  <h1><span class="ib">プライベートAIとは？</span><br><span class="ib"><em>社外にデータを出さない</em></span><span class="ib">社内AIの</span><br><span class="ib">仕組み・費用・始め方</span></h1>
+  <p>「AIを使いたいが、社内の情報を外に出したくない」。その悩みに応えるのがプライベートAIです。中小企業の経営者・担当者向けに、専門用語をできるだけ使わずに解説します。</p>
+  <div class="meta">2026年11月2日 公開 ／ プライベートAI推進協会（PAPA）</div>
+</section>
+
+<div class="wrap">
+
+  <nav class="crumb" aria-label="パンくずリスト"><a href="https://privatellm.jp/">トップ</a> ＞ プライベートAIとは</nav>
+
+  <div class="summary">
+    <h2>この記事の要点</h2>
+    <ul>
+      <li><strong>プライベートAI</strong>とは、データを社外のAI事業者に送らず、<strong>自社の管理下で動かすAI</strong>のこと。ローカルAI・ローカルLLM・社内AIとも呼ばれます。</li>
+      <li>メリットは<strong>機密を守りやすい・使うほど高くなる従量課金がない・自社向けに調整できる</strong>こと。</li>
+      <li>最先端のクラウドAIより性能が劣る場面や、機材と運用の手間はあります。<strong>手元のPCで小さく試す</strong>のが失敗しない始め方です。</li>
+    </ul>
+  </div>
+
+  <nav class="toc" aria-label="目次">
+    <p>目次</p>
+    <ol>
+      <li><a href="#definition">プライベートAIとは</a></li>
+      <li><a href="#vs-cloud">ChatGPTなどクラウドAIとの違い</a></li>
+      <li><a href="#merit">プライベートAIの3つのメリット</a></li>
+      <li><a href="#caution">導入前に知っておきたい注意点</a></li>
+      <li><a href="#how">プライベートAIの仕組み（4つの部品）</a></li>
+      <li><a href="#cost">必要な機材と費用の目安</a></li>
+      <li><a href="#usecase">中小企業での活用例</a></li>
+      <li><a href="#start">始め方の5ステップ</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </nav>
+
+  <article>
+
+    <h2 id="definition">プライベートAIとは</h2>
+    <p>プライベートAIとは、<strong>会社のパソコンや社内サーバーなど、自社が管理する環境の中で動かすAI</strong>のことです。ChatGPTのようなクラウドAIは、入力した文章がインターネット経由でAI事業者のサーバーに送られて処理されます。プライベートAIでは、AIの「頭脳」にあたるモデルそのものを自社の機械に置くため、<strong>入力した情報が社外のAI事業者に渡りません</strong>。</p>
+    <p>呼び方はいくつかありますが、指しているものはほぼ同じです。</p>
+    <ul>
+      <li><strong>ローカルAI／ローカルLLM</strong>：自分のPCやサーバー（ローカル環境）で動かす点を強調した呼び方</li>
+      <li><strong>オンプレミスAI</strong>：社内に設置した機器で運用する点を強調した呼び方</li>
+      <li><strong>社内AI／プライベートLLM</strong>：社外にデータを出さない、自社専用である点を強調した呼び方</li>
+    </ul>
+    <div class="callout">
+      <strong>LLM</strong>（大規模言語モデル）とは、ChatGPTのように文章を理解・作成するAIの中核部分のことです。近年は、誰でもダウンロードして自社で動かせる<strong>オープンなモデル</strong>（Qwen、Gemma、Llama、gpt-ossなど）が数多く公開されており、これがプライベートAIを現実的な選択肢にしました。
+    </div>
+
+    <h2 id="vs-cloud">ChatGPTなどクラウドAIとの違い</h2>
+    <p>どちらが優れているというより、<strong>向いている仕事が違う</strong>と考えるのが正確です。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th></th><th>プライベートAI</th><th>クラウドAI（ChatGPTなど）</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>データの行き先</th><td>自社の機器の中で完結</td><td>AI事業者のサーバーへ送信</td></tr>
+          <tr><th>費用の形</th><td>機材の初期費用＋電気代。使う量が増えても大きくは変わらない</td><td>月額・従量課金。利用者や量に比例して増える</td></tr>
+          <tr><th>性能</th><td>業務を絞れば実用十分。最先端の性能には届かない場合も</td><td>最先端モデルをすぐ使える</td></tr>
+          <tr><th>始めやすさ</th><td>機材の準備と設定が必要</td><td>申し込めばすぐ使える</td></tr>
+          <tr><th>自社向けの調整</th><td>社内文書との連携や設定を自由に決められる</td><td>サービスの提供範囲内</td></tr>
+          <tr><th>ネット障害時</th><td>社内ネットワークだけで動かせる</td><td>インターネット接続が必須</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>実際には、<strong>一般的な調べ物や文章作成はクラウドAI、顧客情報・図面・契約書・財務データなど社外に出せない情報はプライベートAI</strong>、という使い分けが現実的です。</p>
+
+    <h2 id="merit">プライベートAIの3つのメリット</h2>
+    <div class="cards">
+      <div class="card"><div class="num">01</div><h4>機密情報を扱いやすい</h4><p>顧客名簿、見積・原価、人事、設計データなど、クラウドに入力しにくい情報もAIで処理できます。取引先との守秘義務や社内規程とも両立させやすくなります。</p></div>
+      <div class="card"><div class="num">02</div><h4>費用が読みやすい</h4><p>従量課金がないため、社員全員が毎日使っても請求額が膨らむ心配がありません。利用が増えるほど、1回あたりのコストは下がります。</p></div>
+      <div class="card"><div class="num">03</div><h4>自社専用に育てられる</h4><p>社内マニュアルや過去の資料を読み込ませ、自社の言葉で答えるAIにできます。サービス終了や仕様変更に振り回されにくいのも利点です。</p></div>
+    </div>
+
+    <h2 id="caution">導入前に知っておきたい注意点</h2>
+    <p>良いことばかりではありません。導入で失敗しないために、次の点は最初に押さえておきましょう。</p>
+    <ul>
+      <li><strong>性能には上限がある</strong>：自社の機材で動かせるモデルの大きさには限りがあり、高度な推論や幅広い知識では最先端のクラウドAIに及ばないことがあります。</li>
+      <li><strong>機材の初期費用がかかる</strong>：快適に使うには、GPU（画像処理装置）を積んだPCやサーバーが必要になる場合があります。</li>
+      <li><strong>運用する人が必要</strong>：モデルの更新、不具合対応、利用ルールづくりなど、誰かが面倒を見る必要があります。</li>
+      <li><strong>セキュリティ対策は別途必要</strong>：社外のAI事業者に送らないだけで、情報漏洩のリスクがゼロになるわけではありません。アクセス権限の管理やログの保存など、通常の情報セキュリティ対策は引き続き欠かせません。</li>
+    </ul>
+    <div class="callout warn">
+      「AIが入れば何でも解決する」わけではありません。<strong>どの業務の、どの作業を楽にしたいのか</strong>を先に決めることが、プライベートAI導入でいちばん大切なポイントです。
+    </div>
+
+    <h2 id="how">プライベートAIの仕組み（4つの部品）</h2>
+    <p>プライベートAIは、大きく分けて次の4つの部品の組み合わせでできています。</p>
+    <div class="stack">
+      <div class="layer"><span class="tag">① 画面</span><p>社員が質問を入力するチャット画面<small>例：Dify、Open WebUI、LibreChat など</small></p></div>
+      <div class="layer"><span class="tag">② 社内データ連携</span><p>社内文書を検索して、AIの回答の根拠にする仕組み（RAG）<small>マニュアル・規程・議事録などを「調べてから答える」AIにできる</small></p></div>
+      <div class="layer"><span class="tag">③ 実行ソフト</span><p>モデルを自社の機械で動かすためのソフト<small>例：Ollama（手軽）、vLLM（多人数・高速向け）など</small></p></div>
+      <div class="layer"><span class="tag">④ モデルと機材</span><p>AIの頭脳（オープンなLLM）と、それを動かすPC・サーバー<small>例：Qwen、Gemma、Llama、gpt-oss などのモデル ＋ GPU搭載機</small></p></div>
+    </div>
+    <p>特に<strong>RAG（検索拡張生成）</strong>は、プライベートAIの価値を大きく引き上げる技術です。AIに社内文書を検索させてから回答させることで、「うちの会社の場合はどうか」に答えられるようになり、AIがもっともらしい嘘をつく問題（ハルシネーション）も減らせます。</p>
+
+    <h2 id="cost">必要な機材と費用の目安</h2>
+    <p>費用は「どれくらいの人数が、どの程度の賢さのAIを使うか」で大きく変わります。次はあくまで目安です。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>段階</th><th>想定</th><th>機材の例</th><th>費用の目安</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>お試し</th><td>1人で効果を確かめる</td><td>今あるPC（メモリ16GB以上が目安）や、メモリの多いMac</td><td>0円〜（無料ソフトで開始）</td></tr>
+          <tr><th>部署導入</th><td>数人〜十数人で日常的に使う</td><td>GPU搭載のワークステーション1台</td><td>数十万円〜100万円前後</td></tr>
+          <tr><th>全社導入</th><td>多人数・社内文書を大量に扱う</td><td>GPUサーバー、または閉域のクラウド環境</td><td>数百万円〜（構成により大きく変動）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>※2026年11月時点の一般的な目安です。必要な性能はモデルの大きさや同時利用人数で変わるため、導入前に実際の業務データで試すことをおすすめします。</p>
+
+    <h2 id="usecase">中小企業での活用例</h2>
+    <ul>
+      <li><strong>社内FAQ・マニュアル検索</strong>：「この手続きはどうする？」に、社内規程やマニュアルを根拠に24時間回答</li>
+      <li><strong>文書の要約・議事録作成</strong>：会議の録音や長い報告書を、社外に出さずに要約</li>
+      <li><strong>見積・日報・報告書の下書き</strong>：過去の書類をもとに、自社の書式で下書きを作成</li>
+      <li><strong>売上・POSデータの分析</strong>：店舗の数字を外部に出さずに分析し、仕入れや人員配置の改善に活用</li>
+      <li><strong>顧客対応の品質向上</strong>：問い合わせ履歴を学習させ、担当者ごとの回答のばらつきを減らす</li>
+    </ul>
+    <p>当協会が関わる事例は<a href="https://privatellm.jp/#about-papa">トップページ</a>でも紹介しています。</p>
+
+    <h2 id="start">始め方の5ステップ</h2>
+    <ol class="steps">
+      <li><strong>楽にしたい業務を1つ決める</strong>「社内の問い合わせ対応」「議事録づくり」など、効果が測りやすい業務から選びます。</li>
+      <li><strong>扱うデータのルールを決める</strong>どの情報をAIに入れてよいか、誰が使えるかを先に決めておきます。</li>
+      <li><strong>手元のPCで小さく試す</strong>Ollamaなどの無料ソフトで、オープンなモデルを動かしてみます。実際の業務文書で、答えの質と速さを確かめましょう。</li>
+      <li><strong>効果を数字で確かめる</strong>作業時間がどれだけ減ったか、回答の正確さはどうかを記録し、本格導入の判断材料にします。</li>
+      <li><strong>機材と運用体制を整える</strong>効果が確認できたら、必要な機材を用意し、運用担当者と利用ルールを決めて社内に広げます。</li>
+    </ol>
+    <div class="callout">
+      プライベートAIの導入でつまずく原因の多くは、技術よりも「何に使うか」「誰が面倒を見るか」が決まっていないことです。社内に<strong>仕組みを理解して判断できる人</strong>がいるかどうかで、成果は大きく変わります。
+    </div>
+
+    <h2 id="faq">よくある質問</h2>
+    <details><summary>プライベートAIとローカルAI・ローカルLLMは違うものですか？</summary><p>ほぼ同じものを指します。自社のパソコンやサーバーで動かす点を強調すると「ローカルAI」「ローカルLLM」、社外にデータを出さない点を強調すると「プライベートAI」「社内AI」と呼ばれます。</p></details>
+    <details><summary>プライベートAIはChatGPTと同じくらい賢いですか？</summary><p>最先端のクラウドAIと比べると、難しい推論や幅広い知識では劣る場合があります。一方、社内文書の検索・要約・定型文の作成など、範囲の決まった業務では実用十分な水準のモデルが公開されています。</p></details>
+    <details><summary>プライベートAIなら情報漏洩は起きませんか？</summary><p>データを外部のAI事業者に送らない分、リスクは大きく下げられますが、ゼロにはなりません。アクセス権限の管理、ログの保存、端末やネットワークの保護など、通常の情報セキュリティ対策は引き続き必要です。</p></details>
+    <details><summary>小さな会社でも導入できますか？</summary><p>できます。まずは手元のパソコンで無料のソフトを使って試し、効果を確かめてから専用機材を用意する段階的な進め方がおすすめです。</p></details>
+    <details><summary>プライベートAIを学ぶにはどうすればよいですか？</summary><p>プライベートAI推進協会の「PrivateLLM構築士3級」は、IT知識不問で概念・導入判断・活用事例を学べる入門資格です。公式テキストと模擬試験は無料で公開しています。</p></details>
+
+  </article>
+
+  <section class="cta">
+    <h2>プライベートAIを、体系的に学ぶ。</h2>
+    <p>PrivateLLM構築士3級は、IT知識不問の入門資格。<br>この記事の内容をさらに深く、無料テキストと模擬試験で学べます。</p>
+    <div class="cta-btns">
+      <a class="btn gold" href="https://privatellm.jp/textbook-level3-v1.pdf">📚 無料テキストを読む</a>
+      <a class="btn ghost" href="https://privatellm.jp/exam-level3.html">📝 無料模擬試験に挑戦</a>
+      <a class="btn ghost" href="https://privatellm.jp/#grades">資格の詳細を見る</a>
+    </div>
+  </section>
+
+  <div class="author">
+    <div class="avatar">H</div>
+    <div>
+      <p class="name">監修：高橋秀夫（Hideo Takahashi）</p>
+      <p>プライベートAI推進協会（PAPA）代表。「AIの町医者」として中小企業のAI導入を現場で支援。1980年代からプログラミングに携わり、自動車販売・店舗経営などの実務経験を経て、2024年よりAI導入支援に専念。</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p><a href="https://privatellm.jp/">トップ</a><a href="https://privatellm.jp/roadmap.html">資格ロードマップ</a><a href="https://privatellm.jp/tokusho.html">特定商取引法に基づく表記</a><a href="mailto:info@privatellm.jp">お問い合わせ</a></p>
+  <p style="margin-top:0.8rem;">© 2026 プライベートAI推進協会（PAPA）</p>
+</footer>
+
+</body>
+</html>
