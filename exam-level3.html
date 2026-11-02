@@ -235,7 +235,7 @@ body{background:var(--navy);color:var(--white);font-family:'Noto Sans JP',sans-s
 <!-- START -->
 <div class="screen active" id="screenStart">
   <div class="start-inner">
-    <div class="start-badge">🎯 模擬試験 — 本番形式</div>
+    <div class="start-badge">🎯 模擬試験 — 本番形式・無料</div>
     <h1>PrivateLLM構築士<br><em>3級 模擬試験</em></h1>
     <p>本番と同じ形式・同じ難易度・自動採点。<br>合格基準は<strong style="color:var(--white)">70%以上（40問中28問正解）</strong>です。</p>
     <div class="info-grid">
@@ -738,6 +738,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (_badge){ _badge.textContent='\uD83C\uDFC6 本番試験（認定・有料）'; _badge.style.background='rgba(232,184,75,0.18)'; _badge.style.borderColor='rgba(232,184,75,0.6)'; _badge.style.color='#E8B84B'; }
     var _h1em = document.querySelector('#screenStart h1 em');
     if (_h1em){ _h1em.textContent = _h1em.textContent.replace('模擬試験','本番試験'); }
+    var _sbtn = document.querySelector('#screenStart .btn-start'); if (_sbtn){ _sbtn.textContent = '本番試験を開始する →'; }
     banner.style.cssText='background:linear-gradient(135deg,rgba(232,184,75,0.22),rgba(232,184,75,0.10));border:1px solid rgba(232,184,75,0.6);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;text-align:center;font-size:0.95rem;color:#E8B84B;font-weight:800;';
     banner.innerHTML='\uD83C\uDFC6 本番試験（認定受験）\u2014 これは有料の本番です。合格で認定証が発行されます。<br><span style=\"font-weight:600;font-size:0.82rem;opacity:0.92;\">\u203b 無料の模擬試験ではありません</span>';
     // コンタクト入力欄のラベルを「推奨」→「必須」に

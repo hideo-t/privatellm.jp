@@ -479,6 +479,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (_badge){ _badge.textContent='\uD83C\uDFC6 本番試験（認定・有料）'; _badge.style.background='rgba(232,184,75,0.18)'; _badge.style.borderColor='rgba(232,184,75,0.6)'; _badge.style.color='#E8B84B'; }
     var _h1em = document.querySelector('#screenStart h1 em');
     if (_h1em){ _h1em.textContent = _h1em.textContent.replace('模擬試験','本番試験'); }
+    var _sbtn = document.querySelector('#screenStart .btn-start'); if (_sbtn){ _sbtn.textContent = '本番試験を開始する →'; }
     banner.style.cssText='background:linear-gradient(135deg,rgba(232,184,75,0.22),rgba(232,184,75,0.10));border:1px solid rgba(232,184,75,0.6);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;text-align:center;font-size:0.95rem;color:#E8B84B;font-weight:800;';
     banner.innerHTML='\uD83C\uDFC6 本番試験（認定受験）\u2014 これは有料の本番です。合格で認定証が発行されます。<br><span style=\"font-weight:600;font-size:0.82rem;opacity:0.92;\">\u203b 無料の模擬試験ではありません</span>';
   }
